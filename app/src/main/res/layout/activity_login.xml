@@ -33,7 +33,7 @@
             android:padding="20dp"/>
 
         <EditText
-            android:id="@+id/id_password"
+            android:id="@+id/pw_login"
             android:background="@drawable/edittext"
             android:hint="비밀번호"
             android:textColorHint="#999999"
@@ -43,10 +43,11 @@
             android:padding="20dp"/>
 
         <CheckBox
+            android:id="@+id/auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:text="비밀번호 보기"/>
+            android:text="자동 로그인"/>
 
         <Button
             android:id="@+id/login"
