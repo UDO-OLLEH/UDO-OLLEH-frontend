@@ -6,6 +6,6 @@ import retrofit2.http.POST;
 
 public interface initMyApi {
     //@통신 방식("통신 API명")
-    @POST("/api_init_session")
+    @POST("/udo/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 }

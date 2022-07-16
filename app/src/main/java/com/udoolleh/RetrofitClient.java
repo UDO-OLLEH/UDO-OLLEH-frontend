@@ -10,7 +10,7 @@ public class RetrofitClient {
     private static RetrofitClient instance = null;
     private static initMyApi initMyApi;
     //서버 BASE 주소
-    private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/udo/login/";
+    private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/";
 
     private RetrofitClient() {
         //로그를 보기 위한 Interceptor

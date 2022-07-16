@@ -3,10 +3,10 @@ package com.udoolleh;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
-    @SerializedName("input_id")
+    @SerializedName("email")
     public String inputId;
 
-    @SerializedName("input_pw")
+    @SerializedName("password")
     public String inputPw;
 
     public String getInputId() {

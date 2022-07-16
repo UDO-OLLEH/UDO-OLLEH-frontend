@@ -96,6 +96,8 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
                 Log.d("retrofit", "Data fetch success");
+                Log.d("resultCode", "body 내용" + response.body());
+                Log.d("resultCode", "상태코드" + response.isSuccessful());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -104,14 +106,15 @@ public class Login extends AppCompatActivity {
                     LoginResponse result = response.body();
 
                     //받은 코드 저장
-                    String resultCode = result.getStatusCode();
+                    String resultCode = result.getStatus();
 
                     //받은 토큰 저장
-                    String token = result.getAccToken();
+                    String token = result.getAccessToken();
 
                     String success = "200"; //로그인 성공
                     String errorId = "403"; //아이디 일치x
-                    String errorPw = "403"; //비밀번호 일치x
+                    String errorPw = "500"; //비밀번호 일치x
+
 
 
                     if (resultCode.equals(success)) {
