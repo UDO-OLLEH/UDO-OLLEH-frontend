@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -30,6 +31,7 @@ public class Login extends AppCompatActivity {
     CheckBox autoLogin;
     String autoLoginId;
     String autoLoginPw;
+    TextView signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class Login extends AppCompatActivity {
         pwLogin = findViewById(R.id.pw_login);
         login = findViewById(R.id.login);
         autoLogin = findViewById(R.id.auto_login);
+        signup = findViewById(R.id.signup);
 
         //자동 로그인을 선택한 유저
         if (!getPreferenceString(autoLoginId).equals("") && !getPreferenceString(autoLoginPw).equals("")) {
@@ -50,11 +53,10 @@ public class Login extends AppCompatActivity {
             checkAutoLogin(getPreferenceString(autoLoginId));
         }
 
+        //로그인 버튼
         login.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-
                 String id = idLogin.getText().toString();
                 String pw = pwLogin.getText().toString();
                 hideKeyboard();
@@ -75,6 +77,15 @@ public class Login extends AppCompatActivity {
                     //로그인 통신
                     LoginResponse();
                 }
+            }
+        });
+
+        //회원가입 버튼
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, SignUp.class);
+                startActivity(intent);
             }
         });
     }

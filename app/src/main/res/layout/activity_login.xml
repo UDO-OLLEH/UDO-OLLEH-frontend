@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splashbg"
+    android:background="@drawable/splash_background"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -15,7 +15,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/background"/>
+            android:src="@drawable/splash_logo"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
 
         <EditText
             android:id="@+id/id_login"
-            android:background="@drawable/edittext"
+            android:background="@drawable/login_edittext"
             android:hint="아이디"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -34,7 +34,7 @@
 
         <EditText
             android:id="@+id/pw_login"
-            android:background="@drawable/edittext"
+            android:background="@drawable/login_edittext"
             android:hint="비밀번호"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -51,7 +51,7 @@
 
         <Button
             android:id="@+id/login"
-            android:background="@drawable/button"
+            android:background="@drawable/button_login"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:textColor="@color/black"
@@ -112,7 +112,8 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/login_kakao"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,7 +123,8 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/login_naver"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -132,7 +134,8 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/login_facebook"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,7 +145,8 @@
             <Button
                 android:layout_width="50dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/login_google"/>
 
         </LinearLayout>
 
