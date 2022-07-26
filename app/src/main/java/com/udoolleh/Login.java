@@ -29,8 +29,6 @@ public class Login extends AppCompatActivity {
     EditText pwLogin;
     Button login;
     CheckBox autoLogin;
-    String autoLoginId;
-    String autoLoginPw;
     TextView signup;
 
     @Override
@@ -48,9 +46,9 @@ public class Login extends AppCompatActivity {
         signup = findViewById(R.id.signup);
 
         //자동 로그인을 선택한 유저
-        if (!getPreferenceString(autoLoginId).equals("") && !getPreferenceString(autoLoginPw).equals("")) {
+        if (!getPreferenceString("autoLoginId").equals("") && !getPreferenceString("autoLoginPw").equals("")) {
             autoLogin.setChecked(true);
-            checkAutoLogin(getPreferenceString(autoLoginId));
+            checkAutoLogin(getPreferenceString("autoLoginId"));
         }
 
         //로그인 버튼
@@ -123,8 +121,8 @@ public class Login extends AppCompatActivity {
                     String token = result.getAccessToken();
 
                     String success = "200"; //로그인 성공
-                    String errorId = "403"; //아이디 일치x
-                    String errorPw = "500"; //비밀번호 일치x
+                    String errorTk = "403"; //토큰 유효x
+                    String errorId = "500"; //아이디, 비밀번호 일치x
 
 
 
@@ -137,11 +135,11 @@ public class Login extends AppCompatActivity {
 
                         //자동 로그인 여부
                         if (autoLogin.isChecked()) {
-                            setPreference(autoLoginId, userID);
-                            setPreference(autoLoginPw, userPassword);
+                            setPreference("autoLoginId", userID);
+                            setPreference("autoLoginPw", userPassword);
                         } else {
-                            setPreference(autoLoginId, "");
-                            setPreference(autoLoginPw, "");
+                            setPreference("autoLoginId", "");
+                            setPreference("autoLoginPw", "");
                         }
 
                         Toast.makeText(Login.this, userID + "님 환영합니다.", Toast.LENGTH_LONG).show();
@@ -154,18 +152,17 @@ public class Login extends AppCompatActivity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
-                                .setMessage("아이디가 존재하지 않습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("로그인 정보가 일치하지 않습니다.\n")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
 
-                    } else if (resultCode.equals(errorPw)) {
+                    } else if (resultCode.equals(errorTk)) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
-                                .setMessage("비밀번호가 일치하지 않습니다.\n 고객" +
-                                        "센터에 문의바랍니다.")
+                                .setMessage("로그인 토큰이 유효하지 않습니다.\n 고객" + "센터에 문의바랍니다.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -197,7 +194,7 @@ public class Login extends AppCompatActivity {
 
     //데이터를 내부 저장소에 저장하기
     public void setPreference(String key, String value){
-        SharedPreferences pref = getSharedPreferences("USER_ID", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
         editor.apply();
@@ -205,7 +202,7 @@ public class Login extends AppCompatActivity {
 
     //내부 저장소에 저장된 데이터 가져오기
     public String getPreferenceString(String key) {
-        SharedPreferences pref = getSharedPreferences("USER_PW", MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         return pref.getString(key, "");
     }
 
@@ -239,7 +236,7 @@ public class Login extends AppCompatActivity {
     //자동 로그인 유저
     public void checkAutoLogin(String id){
 
-        //Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
