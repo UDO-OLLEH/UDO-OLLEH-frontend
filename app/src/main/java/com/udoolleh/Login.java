@@ -23,13 +23,12 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     private RetrofitClient retrofitClient;
-    private initMyApi initMyApi;
+    private LoginInterface loginInterface;
     BackPressCloseHandler backPressCloseHandler;
-    EditText idLogin;
-    EditText pwLogin;
+    EditText idLogin, pwLogin;
     Button login;
     CheckBox autoLogin;
-    TextView signup;
+    TextView signup_link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class Login extends AppCompatActivity {
         pwLogin = findViewById(R.id.pw_login);
         login = findViewById(R.id.login);
         autoLogin = findViewById(R.id.auto_login);
-        signup = findViewById(R.id.signup);
+        signup_link = findViewById(R.id.signup_link);
 
         //자동 로그인을 선택한 유저
         if (!getPreferenceString("autoLoginId").equals("") && !getPreferenceString("autoLoginPw").equals("")) {
@@ -79,7 +78,7 @@ public class Login extends AppCompatActivity {
         });
 
         //회원가입 버튼
-        signup.setOnClickListener(new View.OnClickListener() {
+        signup_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, SignUp.class);
@@ -97,10 +96,10 @@ public class Login extends AppCompatActivity {
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance();
-        initMyApi = RetrofitClient.getRetrofitInterface();
+        loginInterface = RetrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        initMyApi.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
+        loginInterface.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
