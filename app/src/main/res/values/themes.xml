@@ -18,4 +18,10 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <style name="TabTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#F5A623</item> <!--배경-->
+        <item name="android:textColorPrimary">@color/white</item> <!--탭바 선택된 텍스트-->
+        <item name="android:textColorSecondary">@color/black</item> <!--탭바 택스트-->
+        <item name="colorAccent">@color/white</item> <!--하단 바-->
+    </style>
 </resources>
