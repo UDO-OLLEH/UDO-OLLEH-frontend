@@ -8,13 +8,6 @@ import android.view.ViewGroup;
 
 public class FoodFragment extends Fragment {
 
-    public static FoodFragment newInstance() {
-        FoodFragment fragment = new FoodFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

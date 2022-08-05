@@ -8,13 +8,6 @@ import android.view.ViewGroup;
 
 public class MapFragment extends Fragment {
 
-    public static MapFragment newInstance() {
-        MapFragment fragment = new MapFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

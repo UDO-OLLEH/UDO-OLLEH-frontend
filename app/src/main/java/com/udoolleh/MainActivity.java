@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        FragmentView(MainFragment);
+
+
         LinearLayout map_fragment = findViewById(R.id.map_fragment);
         map_fragment.setOnClickListener(new View.OnClickListener() {
             @Override
