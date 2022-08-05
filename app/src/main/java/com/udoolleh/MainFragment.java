@@ -19,7 +19,7 @@ import java.io.IOException;
 public class MainFragment extends Fragment {
     TextView weather, weatherSub;
     Button recycle;
-    String weatherLink = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%9A%B0%EB%8F%84+%EB%82%A0%EC%94%A8";
+    String weatherLink = "https://weather.naver.com/today/14110330";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,11 +63,11 @@ public class MainFragment extends Fragment {
 
             try {
                 Document document = Jsoup.connect(weatherLink).get();
-                Elements elements = document.select("div[class=_today]");
+                Elements elements = document.select("strong[class=current ]");
                 for (Element element : elements) {
                     weather_result = weather_result + element.text();
                 }
-                return weather_result.substring(8, 12) + text;
+                return weather_result.substring(5, 9) + text;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -99,11 +99,11 @@ public class MainFragment extends Fragment {
 
             try {
                 Document document = Jsoup.connect(weatherLink).get();
-                Elements elements = document.select("div[class=_today]");
+                Elements elements = document.select("ul[class=weather_table list]");
                 for (Element element : elements) {
                     weatherSub_result = weatherSub_result + element.text();
                 }
-                return text1 + weatherSub_result.substring(32, 36) + text2;
+                return text1 + weatherSub_result + text2;
 
             } catch (IOException e) {
                 e.printStackTrace();

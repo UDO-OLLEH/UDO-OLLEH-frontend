@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
+    ImageView  map_img, food_img, main_img, tour_img, board_img;
     private final int MapFragment = 1;
     private final int FoodFragment = 2;
     private final int MainFragment = 3;
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle("나랑같이 우도올레?");
-        toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
+        toolBarLayout.setCollapsedTitleTextColor(Color.WHITE);
+        // 투명 글씨
+        // toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.WHITE);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -58,7 +62,18 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        map_img = findViewById(R.id.map_img);
+        food_img = findViewById(R.id.food_img);
+        main_img = findViewById(R.id.main_img);
+        tour_img = findViewById(R.id.tour_img);
+        board_img = findViewById(R.id.board_img);
+
         FragmentView(MainFragment);
+        map_img.setImageResource((R.drawable.category_temp_icon));
+        food_img.setImageResource((R.drawable.category_temp_icon));
+        main_img.setImageResource(R.drawable.category_temp_icon_selected);
+        tour_img.setImageResource((R.drawable.category_temp_icon));
+        board_img.setImageResource((R.drawable.category_temp_icon));
 
 
         LinearLayout map_fragment = findViewById(R.id.map_fragment);
@@ -66,6 +81,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(MapFragment);
+                map_img.setImageResource((R.drawable.category_temp_icon_selected));
+                food_img.setImageResource((R.drawable.category_temp_icon));
+                main_img.setImageResource(R.drawable.category_temp_icon);
+                tour_img.setImageResource((R.drawable.category_temp_icon));
+                board_img.setImageResource((R.drawable.category_temp_icon));
             }
         });
 
@@ -74,6 +94,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(FoodFragment);
+                map_img.setImageResource((R.drawable.category_temp_icon));
+                food_img.setImageResource((R.drawable.category_temp_icon_selected));
+                main_img.setImageResource(R.drawable.category_temp_icon);
+                tour_img.setImageResource((R.drawable.category_temp_icon));
+                board_img.setImageResource((R.drawable.category_temp_icon));
             }
         });
 
@@ -82,6 +107,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(MainFragment);
+                map_img.setImageResource((R.drawable.category_temp_icon));
+                food_img.setImageResource((R.drawable.category_temp_icon));
+                main_img.setImageResource(R.drawable.category_temp_icon_selected);
+                tour_img.setImageResource((R.drawable.category_temp_icon));
+                board_img.setImageResource((R.drawable.category_temp_icon));
             }
         });
 
@@ -90,6 +120,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(TourFragment);
+                map_img.setImageResource((R.drawable.category_temp_icon));
+                food_img.setImageResource((R.drawable.category_temp_icon));
+                main_img.setImageResource(R.drawable.category_temp_icon);
+                tour_img.setImageResource((R.drawable.category_temp_icon_selected));
+                board_img.setImageResource((R.drawable.category_temp_icon));
             }
         });
 
@@ -98,6 +133,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(BoardFragment);
+                map_img.setImageResource((R.drawable.category_temp_icon));
+                food_img.setImageResource((R.drawable.category_temp_icon));
+                main_img.setImageResource(R.drawable.category_temp_icon);
+                tour_img.setImageResource((R.drawable.category_temp_icon));
+                board_img.setImageResource((R.drawable.category_temp_icon_selected));
             }
         });
     }
