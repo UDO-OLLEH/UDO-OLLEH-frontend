@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <!--로그인 레이아웃-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
             android:id="@+id/auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/black"
             android:text="자동 로그인"/>
 
@@ -57,9 +59,11 @@
             android:textColor="@color/black"
             android:text="로그인"/>
 
+        <!--아이디 비밀번호 찾기, 회원가입-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -92,60 +96,59 @@
         android:layout_height="wrap_content"
         android:text="\n\n\n\n\n"/>
 
+    <!--SNS 간편 로그인 레이아웃-->
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text="SNS 간편 로그인"
             android:textColor="@color/black"
             android:layout_gravity="center"/>
 
+        <!--아이콘-->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:orientation="horizontal">
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:background="@drawable/login_kakao"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:text="    "/>
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:background="@drawable/login_naver"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:text="    "/>
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:background="@drawable/login_facebook"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:text="    "/>
 
             <Button
-                android:layout_width="50dp"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:background="@drawable/login_google"/>
 
         </LinearLayout>

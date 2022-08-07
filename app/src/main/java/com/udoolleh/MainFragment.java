@@ -94,16 +94,14 @@ public class MainFragment extends Fragment {
         @Override
         protected String doInBackground(String... strings) {
             String weatherSub_result = "";
-            String text1 = "채감온도 ";
-            String text2 = " °C";
 
             try {
                 Document document = Jsoup.connect(weatherLink).get();
-                Elements elements = document.select("ul[class=weather_table list]");
+                Elements elements = document.select("span[class=weather]");
                 for (Element element : elements) {
                     weatherSub_result = weatherSub_result + element.text();
                 }
-                return text1 + weatherSub_result + text2;
+                return weatherSub_result;
 
             } catch (IOException e) {
                 e.printStackTrace();
