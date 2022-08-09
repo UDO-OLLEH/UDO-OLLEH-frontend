@@ -9,6 +9,7 @@
 
     <!--날씨 정보 레이아웃-->
     <LinearLayout
+        android:id="@+id/weather_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
