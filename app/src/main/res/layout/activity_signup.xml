@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_signup_background"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:gravity="center">
 
     <!--회원가입 레이아웃-->
