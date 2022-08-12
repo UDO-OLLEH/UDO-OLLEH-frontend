@@ -4,6 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="udoBlue">#FF82BBFF</color>
     <color name="udoGreen">#FF62EE4C</color>
-    <color name="layout_rounded_1">#FFFFFFFF</color>
-    <color name="layout_rounded_2">#FFEFEFEF</color>
+    <color name="layout_rounded_1">#FF666666</color>
+    <color name="layout_rounded_2">#FF404040</color>
 </resources>
