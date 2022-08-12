@@ -51,9 +51,9 @@ public class MainFragment extends Fragment {
         tz = TimeZone.getTimeZone("Asia/Seoul");
         df.setTimeZone(tz);
         if (Integer.parseInt(df.format(date)) >= 6 && Integer.parseInt(df.format(date)) <= 18 ) {
-            weather_layout.setBackgroundResource(R.drawable.weather);
+            weather_layout.setBackgroundResource(R.drawable.main_weather_day);
         } else {
-            weather_layout.setBackgroundResource(R.drawable.weather_dark);
+            weather_layout.setBackgroundResource(R.drawable.main_weather_night);
         }
 
         recycle = view.findViewById(R.id.recycle);
@@ -69,9 +69,9 @@ public class MainFragment extends Fragment {
                 tz = TimeZone.getTimeZone("Asia/Seoul");
                 df.setTimeZone(tz);
                 if (Integer.parseInt(df.format(date)) >= 6 && Integer.parseInt(df.format(date)) <= 18 ) {
-                    weather_layout.setBackgroundResource(R.drawable.weather);
+                    weather_layout.setBackgroundResource(R.drawable.main_weather_day);
                 } else {
-                    weather_layout.setBackgroundResource(R.drawable.weather_dark);
+                    weather_layout.setBackgroundResource(R.drawable.main_weather_night);
                 }
             }
         });

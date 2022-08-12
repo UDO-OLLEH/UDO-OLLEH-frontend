@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:orientation="vertical"
-            android:background="@drawable/category_layout_gray">
+            android:background="@drawable/layout_rounded_gray">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                         android:layout_width="150dp"
                         android:layout_height="250dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_box">
+                        android:background="@drawable/layout_rounded_box">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:background="@drawable/round_box_gradient">
+                            android:background="@drawable/layout_rounded_box_gradient">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                         android:layout_width="150dp"
                         android:layout_height="250dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_box">
+                        android:background="@drawable/layout_rounded_box">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:background="@drawable/round_box_gradient">
+                            android:background="@drawable/layout_rounded_box_gradient">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                         android:layout_width="150dp"
                         android:layout_height="250dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_box">
+                        android:background="@drawable/layout_rounded_box">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:background="@drawable/round_box_gradient">
+                            android:background="@drawable/layout_rounded_box_gradient">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -165,7 +165,7 @@
                         android:layout_width="150dp"
                         android:layout_height="250dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_box">
+                        android:background="@drawable/layout_rounded_box">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -180,7 +180,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:background="@drawable/round_box_gradient">
+                            android:background="@drawable/layout_rounded_box_gradient">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -205,7 +205,7 @@
                         android:layout_width="150dp"
                         android:layout_height="250dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/round_box">
+                        android:background="@drawable/layout_rounded_box">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:background="@drawable/round_box_gradient">
+                            android:background="@drawable/layout_rounded_box_gradient">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -254,7 +254,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/category_layout">
+        android:background="@drawable/layout_rounded_white">
 
         <TextView
             android:layout_width="wrap_content"
@@ -278,7 +278,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round_box">
+                android:background="@drawable/layout_rounded_box">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -293,7 +293,7 @@
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/round_box_gradient">
+                    android:background="@drawable/layout_rounded_box_gradient">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -318,7 +318,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round_box">
+                android:background="@drawable/layout_rounded_box">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -333,7 +333,7 @@
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/round_box_gradient">
+                    android:background="@drawable/layout_rounded_box_gradient">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -358,7 +358,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round_box">
+                android:background="@drawable/layout_rounded_box">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -373,7 +373,7 @@
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/round_box_gradient">
+                    android:background="@drawable/layout_rounded_box_gradient">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -398,7 +398,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round_box">
+                android:background="@drawable/layout_rounded_box">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -413,7 +413,7 @@
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/round_box_gradient">
+                    android:background="@drawable/layout_rounded_box_gradient">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -438,7 +438,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/round_box">
+                android:background="@drawable/layout_rounded_box">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -453,7 +453,7 @@
                     android:paddingBottom="20dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:background="@drawable/round_box_gradient">
+                    android:background="@drawable/layout_rounded_box_gradient">
 
                     <TextView
                         android:layout_width="wrap_content"

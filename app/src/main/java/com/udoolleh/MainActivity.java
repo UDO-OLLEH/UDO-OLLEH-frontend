@@ -35,9 +35,8 @@ public class MainActivity extends AppCompatActivity{
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
-        toolBarLayout.setTitle("나랑같이 우도올레?");
-        toolBarLayout.setCollapsedTitleTextColor(Color.WHITE);
-        //toolBarLayout.setExpandedTitleColor(Color.WHITE);
+        toolBarLayout.setTitle("");
+        toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
         NavigationView navigationView = findViewById(R.id.navigation_view);

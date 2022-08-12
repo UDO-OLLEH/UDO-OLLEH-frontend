@@ -4,7 +4,7 @@
     android:layout_height="176dp"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:background="@drawable/gradient"
+    android:background="@drawable/layout_rounded_gradient"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"

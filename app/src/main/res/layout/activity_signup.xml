@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_signup_background"
+    android:background="@drawable/layout_background_gray"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:gravity="center">
@@ -17,7 +17,7 @@
             android:id="@+id/signup_close"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:background="@drawable/login_close_button"/>
+            android:background="@drawable/layout_button_close"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
 
         <EditText
             android:id="@+id/id_signup"
-            android:background="@drawable/login_edittext"
+            android:background="@drawable/layout_edittext"
             android:hint="아이디"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -49,7 +49,7 @@
 
         <EditText
             android:id="@+id/pw_signup"
-            android:background="@drawable/login_edittext"
+            android:background="@drawable/layout_edittext"
             android:hint="비밀번호"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -59,7 +59,7 @@
 
         <EditText
             android:id="@+id/pw_signup_check"
-            android:background="@drawable/login_edittext"
+            android:background="@drawable/layout_edittext"
             android:hint="비밀번호 확인"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -69,7 +69,7 @@
 
         <EditText
             android:id="@+id/nickname"
-            android:background="@drawable/login_edittext"
+            android:background="@drawable/layout_edittext"
             android:hint="닉네임"
             android:textColorHint="#999999"
             android:textColor="@color/black"
@@ -84,7 +84,7 @@
 
         <Button
             android:id="@+id/signup"
-            android:background="@drawable/button_signup"
+            android:background="@drawable/layout_button_gradient_press_motion"
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:textColor="@color/white"
@@ -121,7 +121,7 @@
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/login_kakao"/>
+                android:background="@drawable/social_kakao"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/login_naver"/>
+                android:background="@drawable/social_naver"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/login_facebook"/>
+                android:background="@drawable/social_facebook"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
             <Button
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/login_google"/>
+                android:background="@drawable/social_google"/>
 
         </LinearLayout>
 
