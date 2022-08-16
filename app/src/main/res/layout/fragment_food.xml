@@ -7,5 +7,25 @@
     android:orientation="vertical"
     tools:context=".FoodFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="10dp">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/layout_indicators"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"/>
+
+    </FrameLayout>
 
 </LinearLayout>

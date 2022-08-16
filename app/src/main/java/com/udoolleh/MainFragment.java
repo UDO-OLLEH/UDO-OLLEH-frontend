@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ import java.util.TimeZone;
 public class MainFragment extends Fragment {
     TextView weather, weatherSub;
     Button recycle;
-    LinearLayout weather_layout;
+    ImageView weather_layout;
     String weatherLink = "https://weather.naver.com/today/14110330";
 
     @Override
@@ -44,16 +45,17 @@ public class MainFragment extends Fragment {
         new WeatherAsyncTask(weather).execute();
         new WeatherSubAsyncTask(weatherSub).execute();
 
-        //한국표준시 기준 06~18시 밝은 이미지, 그 외 어두운 이미지
+
+        //한국표준시 기준 07~17시 Day , 05~07시 Sunset, 17~19시 Sunset, 19~05시 Night 기준
         TimeZone tz;
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("HH");
         tz = TimeZone.getTimeZone("Asia/Seoul");
         df.setTimeZone(tz);
         if (Integer.parseInt(df.format(date)) >= 6 && Integer.parseInt(df.format(date)) <= 18 ) {
-            weather_layout.setBackgroundResource(R.drawable.main_weather_day);
+            weather_layout.setImageResource(R.drawable.main_weather_day);
         } else {
-            weather_layout.setBackgroundResource(R.drawable.main_weather_night);
+            weather_layout.setImageResource(R.drawable.main_weather_night);
         }
 
         recycle = view.findViewById(R.id.recycle);
@@ -68,10 +70,14 @@ public class MainFragment extends Fragment {
                 DateFormat df = new SimpleDateFormat("HH");
                 tz = TimeZone.getTimeZone("Asia/Seoul");
                 df.setTimeZone(tz);
-                if (Integer.parseInt(df.format(date)) >= 6 && Integer.parseInt(df.format(date)) <= 18 ) {
-                    weather_layout.setBackgroundResource(R.drawable.main_weather_day);
-                } else {
-                    weather_layout.setBackgroundResource(R.drawable.main_weather_night);
+                if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
+                    weather_layout.setImageResource(R.drawable.main_weather_day);
+                } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6){
+                    weather_layout.setImageResource(R.drawable.main_weather_sunset);
+                } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18 )
+                    weather_layout.setImageResource(R.drawable.main_weather_sunset);
+                else {
+                    weather_layout.setImageResource(R.drawable.main_weather_night);
                 }
             }
         });

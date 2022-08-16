@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity{
         board_img = findViewById(R.id.board_img);
 
         FragmentView(MainFragment);
-        map_img.setImageResource((R.drawable.category_temp_icon));
-        food_img.setImageResource((R.drawable.category_temp_icon));
-        main_img.setImageResource(R.drawable.category_temp_icon_selected);
-        tour_img.setImageResource((R.drawable.category_temp_icon));
-        board_img.setImageResource((R.drawable.category_temp_icon));
+        map_img.setImageResource((R.drawable.category_map));
+        food_img.setImageResource((R.drawable.category_food));
+        main_img.setImageResource(R.drawable.category_main_selected);
+        tour_img.setImageResource((R.drawable.category_tour));
+        board_img.setImageResource((R.drawable.category_board));
 
 
         LinearLayout map_fragment = findViewById(R.id.map_fragment);
@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(MapFragment);
-                map_img.setImageResource((R.drawable.category_temp_icon_selected));
-                food_img.setImageResource((R.drawable.category_temp_icon));
-                main_img.setImageResource(R.drawable.category_temp_icon);
-                tour_img.setImageResource((R.drawable.category_temp_icon));
-                board_img.setImageResource((R.drawable.category_temp_icon));
+                map_img.setImageResource((R.drawable.category_map_selected));
+                food_img.setImageResource((R.drawable.category_food));
+                main_img.setImageResource(R.drawable.category_main);
+                tour_img.setImageResource((R.drawable.category_tour));
+                board_img.setImageResource((R.drawable.category_board));
             }
         });
 
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(FoodFragment);
-                map_img.setImageResource((R.drawable.category_temp_icon));
-                food_img.setImageResource((R.drawable.category_temp_icon_selected));
-                main_img.setImageResource(R.drawable.category_temp_icon);
-                tour_img.setImageResource((R.drawable.category_temp_icon));
-                board_img.setImageResource((R.drawable.category_temp_icon));
+                map_img.setImageResource((R.drawable.category_map));
+                food_img.setImageResource((R.drawable.category_food_selected));
+                main_img.setImageResource(R.drawable.category_main);
+                tour_img.setImageResource((R.drawable.category_tour));
+                board_img.setImageResource((R.drawable.category_board));
             }
         });
 
@@ -105,11 +105,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(MainFragment);
-                map_img.setImageResource((R.drawable.category_temp_icon));
-                food_img.setImageResource((R.drawable.category_temp_icon));
-                main_img.setImageResource(R.drawable.category_temp_icon_selected);
-                tour_img.setImageResource((R.drawable.category_temp_icon));
-                board_img.setImageResource((R.drawable.category_temp_icon));
+                map_img.setImageResource((R.drawable.category_map));
+                food_img.setImageResource((R.drawable.category_food));
+                main_img.setImageResource(R.drawable.category_main_selected);
+                tour_img.setImageResource((R.drawable.category_tour));
+                board_img.setImageResource((R.drawable.category_board));
             }
         });
 
@@ -118,11 +118,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(TourFragment);
-                map_img.setImageResource((R.drawable.category_temp_icon));
-                food_img.setImageResource((R.drawable.category_temp_icon));
-                main_img.setImageResource(R.drawable.category_temp_icon);
-                tour_img.setImageResource((R.drawable.category_temp_icon_selected));
-                board_img.setImageResource((R.drawable.category_temp_icon));
+                map_img.setImageResource((R.drawable.category_map));
+                food_img.setImageResource((R.drawable.category_food));
+                main_img.setImageResource(R.drawable.category_main);
+                tour_img.setImageResource((R.drawable.category_tour_selected));
+                board_img.setImageResource((R.drawable.category_board));
             }
         });
 
@@ -131,11 +131,11 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 FragmentView(BoardFragment);
-                map_img.setImageResource((R.drawable.category_temp_icon));
-                food_img.setImageResource((R.drawable.category_temp_icon));
-                main_img.setImageResource(R.drawable.category_temp_icon);
-                tour_img.setImageResource((R.drawable.category_temp_icon));
-                board_img.setImageResource((R.drawable.category_temp_icon_selected));
+                map_img.setImageResource((R.drawable.category_map));
+                food_img.setImageResource((R.drawable.category_food));
+                main_img.setImageResource(R.drawable.category_main);
+                tour_img.setImageResource((R.drawable.category_tour));
+                board_img.setImageResource((R.drawable.category_board_selected));
             }
         });
     }
