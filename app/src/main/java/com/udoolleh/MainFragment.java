@@ -23,6 +23,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class MainFragment extends Fragment {
     TextView weather, weatherSub;
     Button recycle;
@@ -42,9 +47,8 @@ public class MainFragment extends Fragment {
         weatherSub = view.findViewById(R.id.weatherSub);
         weather_layout = view.findViewById(R.id.weather_layout);
 
-        new WeatherAsyncTask(weather).execute();
-        new WeatherSubAsyncTask(weatherSub).execute();
-
+        WeatherBackgroundTask(weatherLink);
+        WeatherSubBackgroundTask(weatherLink);
 
         //한국표준시 기준 07~17시 Day , 05~07시 Sunset, 17~19시 Sunset, 19~05시 Night 기준
         TimeZone tz;
@@ -52,9 +56,13 @@ public class MainFragment extends Fragment {
         DateFormat df = new SimpleDateFormat("HH");
         tz = TimeZone.getTimeZone("Asia/Seoul");
         df.setTimeZone(tz);
-        if (Integer.parseInt(df.format(date)) >= 6 && Integer.parseInt(df.format(date)) <= 18 ) {
+        if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
             weather_layout.setImageResource(R.drawable.main_weather_day);
-        } else {
+        } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6){
+            weather_layout.setImageResource(R.drawable.main_weather_sunset);
+        } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18 )
+            weather_layout.setImageResource(R.drawable.main_weather_sunset);
+        else {
             weather_layout.setImageResource(R.drawable.main_weather_night);
         }
 
@@ -62,8 +70,10 @@ public class MainFragment extends Fragment {
         recycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new WeatherAsyncTask(weather).execute();
-                new WeatherSubAsyncTask(weatherSub).execute();
+                WeatherBackgroundTask(weatherLink);
+                WeatherSubBackgroundTask(weatherLink);
+                //new WeatherAsyncTask(weather).execute();
+                //new WeatherSubAsyncTask(weatherSub).execute();
 
                 TimeZone tz;
                 Date date = new Date();
@@ -86,50 +96,43 @@ public class MainFragment extends Fragment {
     }
 
     //우도 현재 날씨 크롤링
-    class WeatherAsyncTask extends AsyncTask<String, Void, String> {
-        TextView textView;
+    Disposable weatherBackgroundTask;
+    void WeatherBackgroundTask(String URLs) {
+        //onPreExecute
 
-        public WeatherAsyncTask(TextView textView) {
-            this.textView = textView;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
+        weatherBackgroundTask = Observable.fromCallable(() -> {
+            //doInBackground
+            String result;
             String weather_result = "";
             String text = " °C 우도";
 
             try {
-                Document document = Jsoup.connect(weatherLink).get();
+                Document document = Jsoup.connect(URLs).get();
                 Elements elements = document.select("strong[class=current ]");
                 for (Element element : elements) {
                     weather_result = weather_result + element.text();
                 }
-                return weather_result.substring(5, 9) + text;
+                result = weather_result.substring(5, 9) + text;
+                return result;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            textView.setText(s);
-        }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((result) -> {
+            //onPostExecute
+            weather.setText(result);
+            weatherBackgroundTask.dispose();
+        });
     }
 
-    //우도 체감 날씨 크롤링
-    class WeatherSubAsyncTask extends AsyncTask<String, Void, String> {
-        TextView textView;
+    //우도 대기 상태 크롤링
+    Disposable weatherSubBackgroundTask;
+    void WeatherSubBackgroundTask(String URLs) {
+        //onPreExecute
 
-        public WeatherSubAsyncTask(TextView textView) {
-            this.textView = textView;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
+        weatherSubBackgroundTask = Observable.fromCallable(() -> {
+            //doInBackground
             String weatherSub_result = "";
 
             try {
@@ -144,13 +147,10 @@ public class MainFragment extends Fragment {
                 e.printStackTrace();
             }
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            textView.setText(s);
-        }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((weatherSub_result) -> {
+            //onPostExecute
+            weatherSub.setText(weatherSub_result);
+            weatherSubBackgroundTask.dispose();
+        });
     }
 }
