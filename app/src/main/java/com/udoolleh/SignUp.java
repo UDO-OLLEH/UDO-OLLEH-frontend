@@ -1,6 +1,5 @@
 package com.udoolleh;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +19,7 @@ import retrofit2.Response;
 
 public class SignUp  extends AppCompatActivity {
     private RetrofitClient retrofitClient;
-    private LoginInterface loginInterface;
+    private RetrofitInterface retrofitInterface;
     Button signup_close;
     EditText id_signup, pw_signup, pw_signup_check, nickname;
     Button signup;
@@ -89,16 +88,17 @@ public class SignUp  extends AppCompatActivity {
     public void SignUpResponse() {
         String userID = id_signup.getText().toString().trim();
         String userPassword = pw_signup.getText().toString().trim();
+        String userNickName = nickname.getText().toString().trim();
 
         //signUpRequest에 사용자가 입력한 id와 pw를 저장
-        SignUpRequest signUpRequest = new SignUpRequest(userID, userPassword);
+        SignUpRequest signUpRequest = new SignUpRequest(userID, userPassword, userNickName);
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance();
-        loginInterface = RetrofitClient.getRetrofitInterface();
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        loginInterface.getSignUpResponse(signUpRequest).enqueue(new Callback<SignUpResponse>() {
+        retrofitInterface.getSignUpResponse(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
 
@@ -153,7 +153,6 @@ public class SignUp  extends AppCompatActivity {
                                 .create()
                                 .show();
                     } else {
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                         builder.setTitle("알림")
                                 .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
@@ -162,6 +161,13 @@ public class SignUp  extends AppCompatActivity {
                                 .show();
 
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
+                    builder.setTitle("알림")
+                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                            .setPositiveButton("확인", null)
+                            .create()
+                            .show();
                 }
             }
 

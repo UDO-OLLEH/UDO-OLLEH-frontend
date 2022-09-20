@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     private RetrofitClient retrofitClient;
-    private LoginInterface loginInterface;
+    private RetrofitInterface retrofitInterface;
     BackPressCloseHandler backPressCloseHandler;
     EditText idLogin, pwLogin;
     Button login;
@@ -96,10 +96,10 @@ public class Login extends AppCompatActivity {
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance();
-        loginInterface = RetrofitClient.getRetrofitInterface();
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        loginInterface.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
+        retrofitInterface.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
@@ -122,8 +122,6 @@ public class Login extends AppCompatActivity {
                     String success = "200"; //로그인 성공
                     String errorTk = "403"; //토큰 유효x
                     String errorId = "500"; //아이디, 비밀번호 일치x
-
-
 
                     if (resultCode.equals(success)) {
                         String userID = idLogin.getText().toString();
@@ -175,6 +173,13 @@ public class Login extends AppCompatActivity {
                                 .show();
 
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+                    builder.setTitle("알림")
+                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                            .setPositiveButton("확인", null)
+                            .create()
+                            .show();
                 }
             }
 

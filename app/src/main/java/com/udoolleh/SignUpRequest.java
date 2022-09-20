@@ -9,12 +9,19 @@ public class SignUpRequest {
     @SerializedName("password")
     public String inputPw;
 
+    @SerializedName("nickname")
+    public String nickName;
+
     public String getInputId() {
         return inputId;
     }
 
     public String getInputPw() {
         return inputPw;
+    }
+
+    public String getNickName() {
+        return nickName;
     }
 
     public void setInputId(String inputId) {
@@ -25,8 +32,13 @@ public class SignUpRequest {
         this.inputPw = inputPw;
     }
 
-    public SignUpRequest(String inputId, String inputPw) {
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public SignUpRequest(String inputId, String inputPw, String nickName) {
         this.inputId = inputId;
         this.inputPw = inputPw;
+        this.nickName = nickName;
     }
 }

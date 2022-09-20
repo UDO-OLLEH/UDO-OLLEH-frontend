@@ -1,15 +1,15 @@
 package com.udoolleh;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+
 import androidx.fragment.app.Fragment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -53,7 +53,7 @@ public class MainFragment extends Fragment {
         //한국표준시 기준 07~17시 Day , 05~07시 Sunset, 17~19시 Sunset, 19~05시 Night 기준
         TimeZone tz;
         Date date = new Date();
-        DateFormat df = new SimpleDateFormat("HH");
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("HH");
         tz = TimeZone.getTimeZone("Asia/Seoul");
         df.setTimeZone(tz);
         if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
@@ -72,12 +72,10 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 WeatherBackgroundTask(weatherLink);
                 WeatherSubBackgroundTask(weatherLink);
-                //new WeatherAsyncTask(weather).execute();
-                //new WeatherSubAsyncTask(weatherSub).execute();
 
                 TimeZone tz;
                 Date date = new Date();
-                DateFormat df = new SimpleDateFormat("HH");
+                @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("HH");
                 tz = TimeZone.getTimeZone("Asia/Seoul");
                 df.setTimeZone(tz);
                 if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
@@ -108,7 +106,7 @@ public class MainFragment extends Fragment {
 
             try {
                 Document document = Jsoup.connect(URLs).get();
-                Elements elements = document.select("strong[class=current ]");
+                Elements elements = document.select("strong[class=current]");
                 for (Element element : elements) {
                     weather_result = weather_result + element.text();
                 }
