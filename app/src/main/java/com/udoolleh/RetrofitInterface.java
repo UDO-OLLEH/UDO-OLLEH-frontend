@@ -1,5 +1,6 @@
 package com.udoolleh;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,9 +18,10 @@ public interface RetrofitInterface {
     Call<SignUpResponse> getSignUpResponse(@Body SignUpRequest signUpRequest);
 
     @GET("/restaurant")
-    Call<FoodResponse> getFoodResponse(@Query("status") String status, @Query("list") List<String> foodList);
+    Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
 
     /*
+    ArrayList<FoodResponseList> list
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(
             @Query("name") String name,

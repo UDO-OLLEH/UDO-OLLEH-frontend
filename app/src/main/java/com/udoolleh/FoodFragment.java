@@ -1,7 +1,6 @@
 package com.udoolleh;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,22 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,8 +29,7 @@ public class FoodFragment extends Fragment {
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    String status, name, placeType, category, address, imagesUrl, totalGrade;
-    List<String> foodList;
+    Button foodBtn;
 
     private String[] images = new String[]{
             "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
@@ -48,6 +37,9 @@ public class FoodFragment extends Fragment {
             "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg"
     };
+
+    public FoodFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +66,15 @@ public class FoodFragment extends Fragment {
         });
         setupIndicators(images.length);
 
-        FoodResponse();
+        foodBtn = view.findViewById(R.id.foodBtn);
+        foodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FoodResponse();
+            }
+        });
+
+
         return view;
     }
 
@@ -113,17 +113,10 @@ public class FoodFragment extends Fragment {
         retrofitClient = RetrofitClient.getInstance();
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //foodRequest
-        FoodRequest foodRequest = new FoodRequest();
-
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getFoodResponse(status, foodList).enqueue(new Callback<FoodResponse>() {
+        retrofitInterface.getFoodResponse(0).enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
-
-                Log.d("food", "Data fetch success at Food");
-                Log.d("food", "body 내용" + response.body());
-                Log.d("food", "상태코드" + response.isSuccessful());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -132,19 +125,38 @@ public class FoodFragment extends Fragment {
                     FoodResponse result = response.body();
 
                     //받은 코드 저장
-                    String resultCode = result.getStatus();
+                    String resultCode = result.getStatus().toString();
 
-                    //받은 맛집 리스트 저장
-                    List list1 = result.getList();
-
-                    Log.d("food", "맛집 리스트" + name + placeType + category + address + imagesUrl + totalGrade);
-
-                    String success = "0"; //맛집 조회 성공
+                    //맛집 조회 성공
+                    String success = "0";
 
                     if (resultCode.equals(success)) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        Integer status = result.getStatus();
+                        String message = result.getMessage();
+                        List<FoodResponse.FoodList> foodList = result.getList();
 
+                        Log.d("food", "맛집 리스트\n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "status: " + status + "\n" +
+                                "message: " + message + "\n"
+                        );
 
-                        //맛집 목록 구현 코드
+                        for (FoodResponse.FoodList food : foodList) {
+                            Log.d("food", "맛집 리스트\n" +
+                                    "name: " + food.getName() + "\n" +
+                                    "placeType: " + food.getPlaceType() + "\n" +
+                                    "category: " + food.getCategory() + "\n" +
+                                    "address: " + food.getCategory() + "\n" +
+                                    "imagesUrl: " + food.getImagesUrl() + "\n" +
+                                    "totalGrade: " + food.getTotalGrade() + "\n" +
+                                    "xcoordinate: " + food.getXcoordinate() + "\n" +
+                                    "ycoordinate: " + food.getYcoordinate() + "\n"
+                            );
+                        }
+
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -153,7 +165,6 @@ public class FoodFragment extends Fragment {
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
-
                     }
                 }
             }
@@ -170,25 +181,4 @@ public class FoodFragment extends Fragment {
             }
         });
     }
-
-    /*
-    Disposable foodBackgroundTask;
-    void FoodBackgroundTask() {
-        //onPreExecute
-
-        foodBackgroundTask = Observable.fromCallable(() -> {
-            //doInBackground
-            try {
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((result) -> {
-            //onPostExecute
-        });
-    }
-
-     */
 }
