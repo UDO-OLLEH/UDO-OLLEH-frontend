@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,8 @@ public class FoodFragment extends Fragment {
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    GridView foodGridView;
+    //GridView foodGridView;
+    RecyclerView foodGridView;
 
     private String[] images = new String[]{
             "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
@@ -38,9 +43,6 @@ public class FoodFragment extends Fragment {
             "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg"
     };
-
-    public FoodFragment() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,10 @@ public class FoodFragment extends Fragment {
                                 "status: " + status + "\n" +
                                 "message: " + message + "\n"
                         );
+
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                        foodGridView.setLayoutManager(gridLayoutManager);
+
                         FoodListAdapter foodListAdapter = new FoodListAdapter();
                         for (FoodResponse.FoodList food : foodList) {
                             Log.d("food", "맛집 리스트\n" +

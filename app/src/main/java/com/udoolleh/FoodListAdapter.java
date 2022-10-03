@@ -9,9 +9,37 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
-public class FoodListAdapter extends BaseAdapter {
+public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    ArrayList<FoodListItem> items = new ArrayList<FoodListItem>();
+
+    public void addItem(FoodListItem item) {
+        items.add(item);
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_food_gridview_item, parent, false);
+        return new FoodListViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ((FoodListViewHolder)holder).onBind(items.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    /*
+    //GridView
     ArrayList<FoodListItem> items = new ArrayList<FoodListItem>();
     Context context;
 
@@ -67,4 +95,5 @@ public class FoodListAdapter extends BaseAdapter {
 
         return view;
     }
+     */
 }

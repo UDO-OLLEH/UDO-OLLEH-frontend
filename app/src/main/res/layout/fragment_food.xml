@@ -28,15 +28,10 @@
 
     </FrameLayout>
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodGridView"
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        android:isScrollContainer="false"
-        android:stretchMode="columnWidth"
-        android:numColumns="2"
-        android:horizontalSpacing="20dp"
-        android:verticalSpacing="20dp"
-        android:layout_margin="10dp"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

@@ -121,7 +121,7 @@ public class MainFragment extends Fragment {
             //onPostExecute
             weather.setText(result);
             weatherBackgroundTask.dispose();
-        });
+        }, throwable -> System.out.println("Error"));
     }
 
     //우도 대기 상태 크롤링
@@ -149,6 +149,6 @@ public class MainFragment extends Fragment {
             //onPostExecute
             weatherSub.setText(weatherSub_result);
             weatherSubBackgroundTask.dispose();
-        });
+        }, throwable -> System.out.println("Error"));
     }
 }
