@@ -28,10 +28,15 @@
 
     </FrameLayout>
 
-    <Button
-        android:id="@+id/foodBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="button"/>
+    <GridView
+        android:id="@+id/foodGridView"
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:isScrollContainer="false"
+        android:stretchMode="columnWidth"
+        android:numColumns="2"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

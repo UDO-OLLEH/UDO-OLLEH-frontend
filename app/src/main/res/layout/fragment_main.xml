@@ -11,7 +11,8 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:elevation="10dp">
 
         <ImageView
             android:id="@+id/weather_layout"
@@ -65,7 +66,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -74,8 +74,7 @@
             android:text="추천 관광지"
             android:textStyle="bold"
             android:textSize="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginLeft="20dp"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -84,14 +83,17 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
                 android:orientation="horizontal">
 
                 <!--관광지 박스 레이아웃 5개-->
                 <FrameLayout
                     android:layout_width="150dp"
                     android:layout_height="250dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/layout_rounded_box">
 
                     <ImageView
@@ -132,6 +134,9 @@
                     android:layout_width="150dp"
                     android:layout_height="250dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/layout_rounded_box">
 
                     <ImageView
@@ -172,6 +177,9 @@
                     android:layout_width="150dp"
                     android:layout_height="250dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/layout_rounded_box">
 
                     <ImageView
@@ -212,6 +220,9 @@
                     android:layout_width="150dp"
                     android:layout_height="250dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/layout_rounded_box">
 
                     <ImageView
@@ -252,6 +263,9 @@
                     android:layout_width="150dp"
                     android:layout_height="250dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:elevation="10dp"
                     android:background="@drawable/layout_rounded_box">
 
                     <ImageView

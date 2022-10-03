@@ -19,17 +19,4 @@ public interface RetrofitInterface {
 
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
-
-    /*
-    ArrayList<FoodResponseList> list
-    @GET("/restaurant")
-    Call<FoodResponse> getFoodResponse(
-            @Query("name") String name,
-            @Query("placeType") String placeType,
-            @Query("category") String category,
-            @Query("address") String address,
-            @Query("imagesUrl") String imagesUrl,
-            @Query("totalGrade") String totalGrade
-    );
-     */
 }

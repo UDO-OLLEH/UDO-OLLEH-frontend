@@ -26,7 +26,7 @@ public class FoodResponse {
         private String name;
 
         @SerializedName("placeType")
-        private Object placeType;
+        private String placeType;
 
         @SerializedName("category")
         private String category;
@@ -50,7 +50,7 @@ public class FoodResponse {
             return name;
         }
 
-        public Object getPlaceType() {
+        public String getPlaceType() {
             return placeType;
         }
 

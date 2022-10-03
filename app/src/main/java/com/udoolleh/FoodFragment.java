@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,7 +30,7 @@ public class FoodFragment extends Fragment {
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    Button foodBtn;
+    GridView foodGridView;
 
     private String[] images = new String[]{
             "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
@@ -53,6 +54,7 @@ public class FoodFragment extends Fragment {
 
         viewpager_slider = view.findViewById(R.id.viewpager_slider);
         layout_indicator = view.findViewById(R.id.layout_indicators);
+        foodGridView = view.findViewById(R.id.foodGridView);
 
         //ViewPager
         viewpager_slider.setOffscreenPageLimit(1);
@@ -66,14 +68,8 @@ public class FoodFragment extends Fragment {
         });
         setupIndicators(images.length);
 
-        foodBtn = view.findViewById(R.id.foodBtn);
-        foodBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FoodResponse();
-            }
-        });
-
+        //맛집 리스트
+        FoodResponse();
 
         return view;
     }
@@ -113,7 +109,7 @@ public class FoodFragment extends Fragment {
         retrofitClient = RetrofitClient.getInstance();
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
+        //FoodResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getFoodSesponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getFoodResponse(0).enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
@@ -143,20 +139,23 @@ public class FoodFragment extends Fragment {
                                 "status: " + status + "\n" +
                                 "message: " + message + "\n"
                         );
-
+                        FoodListAdapter foodListAdapter = new FoodListAdapter();
                         for (FoodResponse.FoodList food : foodList) {
                             Log.d("food", "맛집 리스트\n" +
                                     "name: " + food.getName() + "\n" +
                                     "placeType: " + food.getPlaceType() + "\n" +
                                     "category: " + food.getCategory() + "\n" +
-                                    "address: " + food.getCategory() + "\n" +
+                                    "address: " + food.getAddress() + "\n" +
                                     "imagesUrl: " + food.getImagesUrl() + "\n" +
                                     "totalGrade: " + food.getTotalGrade() + "\n" +
                                     "xcoordinate: " + food.getXcoordinate() + "\n" +
                                     "ycoordinate: " + food.getYcoordinate() + "\n"
                             );
-                        }
 
+                            foodListAdapter.addItem(new FoodListItem(food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
+
+                        }
+                        foodGridView.setAdapter(foodListAdapter);
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
