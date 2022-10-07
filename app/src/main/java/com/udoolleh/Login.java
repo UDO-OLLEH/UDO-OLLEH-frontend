@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -117,7 +119,11 @@ public class Login extends AppCompatActivity {
                     String resultCode = result.getStatus();
 
                     //받은 토큰 저장
-                    String token = result.getAccessToken();
+                    LoginResponse.TokenList tokenList = result.getList();
+                    String accToken = tokenList.getAccessToken();;
+                    String refToken = tokenList.getRefreshToken();;
+
+                    Log.d("loginToken", accToken + refToken);
 
                     String success = "200"; //로그인 성공
                     String errorTk = "403"; //토큰 유효x
@@ -128,7 +134,7 @@ public class Login extends AppCompatActivity {
                         String userPassword = pwLogin.getText().toString();
 
                         //다른 통신을 하기 위해 token 저장
-                        setPreference(token,token);
+                        setPreference(accToken,refToken);
 
                         //자동 로그인 여부
                         if (autoLogin.isChecked()) {

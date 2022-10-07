@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class FoodListViewHolder extends RecyclerView.ViewHolder {
@@ -18,12 +19,11 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder {
     TextView foodXcoordinate;
     TextView foodYcoordinate;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public FoodListViewHolder(@NonNull View itemView) {
         super(itemView);
         foodImagesUrl = itemView.findViewById(R.id.foodImagesUrl);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            foodImagesUrl.setClipToOutline(true);
-        }
+        foodImagesUrl.setClipToOutline(true);
         foodName = itemView.findViewById(R.id.foodName);
         //foodPlaceType = itemView.findViewById(R.id.foodPlaceType);
         //foodCategory = itemView.findViewById(R.id.foodCategory);

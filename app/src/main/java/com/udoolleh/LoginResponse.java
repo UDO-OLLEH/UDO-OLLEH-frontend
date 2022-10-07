@@ -2,6 +2,9 @@ package com.udoolleh;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginResponse {
     @SerializedName("id")
     public String id;
@@ -15,11 +18,31 @@ public class LoginResponse {
     @SerializedName("message")
     public String message;
 
-    @SerializedName("accessToken")
-    public String accessToken;
+    @SerializedName("list")
+    private TokenList list;
 
-    @SerializedName("refreshToken")
-    public String refreshToken;
+    public class TokenList{
+        @SerializedName("accessToken")
+        public String accessToken;
+
+        @SerializedName("refreshToken")
+        public String refreshToken;
+
+        public String getAccessToken() {
+            return accessToken;
+        }
+        public void setAccessToken(String accessToken) {
+            this.accessToken = accessToken;
+        }
+
+        public String getRefreshToken() {
+            return refreshToken;
+        }
+        public void setRefreshToken(String refreshToken) {
+            this.refreshToken = refreshToken;
+        }
+
+    }
 
     public String getId() {
         return id;
@@ -49,17 +72,7 @@ public class LoginResponse {
         this.message = message;
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+    public TokenList getList() {
+        return list;
     }
 }
