@@ -34,7 +34,6 @@ public class FoodFragment extends Fragment {
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    //GridView foodGridView;
     RecyclerView foodGridView;
 
     private String[] images = new String[]{
@@ -108,7 +107,7 @@ public class FoodFragment extends Fragment {
     //맛집 리스트 조회
     public void FoodResponse() {
         //retrofit 생성
-        retrofitClient = RetrofitClient.getInstance();
+        retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //FoodResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getFoodSesponse 함수를 실행한 후 응답을 받음

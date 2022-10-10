@@ -94,7 +94,7 @@ public class SignUp  extends AppCompatActivity {
         SignUpRequest signUpRequest = new SignUpRequest(userID, userPassword, userNickName);
 
         //retrofit 생성
-        retrofitClient = RetrofitClient.getInstance();
+        retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음

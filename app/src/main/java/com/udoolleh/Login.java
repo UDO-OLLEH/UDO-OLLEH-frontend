@@ -13,12 +13,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,7 +93,7 @@ public class Login extends AppCompatActivity {
         LoginRequest loginRequest = new LoginRequest(userID, userPassword);
 
         //retrofit 생성
-        retrofitClient = RetrofitClient.getInstance();
+        retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
@@ -124,7 +120,6 @@ public class Login extends AppCompatActivity {
                     String refToken = tokenList.getRefreshToken();
 
                     Log.d("loginToken", accToken + refToken);
-
                     String success = "200"; //로그인 성공
                     String errorTk = "403"; //토큰 유효x
                     String errorId = "500"; //아이디, 비밀번호 일치x

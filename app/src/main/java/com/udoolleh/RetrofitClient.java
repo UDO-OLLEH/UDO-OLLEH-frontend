@@ -1,6 +1,6 @@
 package com.udoolleh;
 
-import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -18,44 +18,71 @@ public class RetrofitClient {
     private static RetrofitInterface RetrofitInterface;
     //서버 BASE 주소
     private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/";
+    private String accToken;
 
-    private RetrofitClient() {
+    //Token is Used
+    public RetrofitClient(String accToken) {
+        this.accToken = accToken;
+        Log.d("Token", accToken);
+
         //로그를 보기 위한 Interceptor
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
+        logger.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        //헤더를 보기 위한 Interceptor
+        Interceptor interceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request newRequest = chain.request().newBuilder().addHeader("key", accToken).build();
+                return chain.proceed(newRequest);
+            }
+        };
+
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logger)
                 .addInterceptor(interceptor)
                 .build();
 
         //retrofit 설정
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client) //로그 기능 추가
+                .client(client)
                 .build();
-
-        /*
-        //Token
-        SharedPreferences sf = null;
-        String accToken = sf.getString("accToken", "");
-        Interceptor tokenInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request newRequest;
-                if(accToken != null && !accToken.equals("")) {
-                    newRequest = chain.request().newBuilder().addHeader("Authorization", accToken).build();
-
-                } else newRequest = chain.request();
-                return chain.proceed(newRequest);
-            }
-        };
-         */
 
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
+    //Token is Unused
+    private RetrofitClient() {
+        //로그를 보기 위한 Interceptor
+        HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
+        logger.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(logger)
+                .build();
+
+        //retrofit 설정
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+
+        RetrofitInterface = retrofit.create(RetrofitInterface.class);
+    }
+/*
     public static RetrofitClient getInstance() {
         if (instance == null) {
             instance = new RetrofitClient();
+        }
+        return instance;
+    }
+ */
+
+    public static RetrofitClient getInstance(String accToken) {
+        if (accToken == null) {
+            instance = new RetrofitClient();
+        } else {
+            instance = new RetrofitClient(accToken);
         }
         return instance;
     }

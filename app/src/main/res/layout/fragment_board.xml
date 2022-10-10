@@ -6,9 +6,10 @@
     android:background="#FFFFFF"
     tools:context=".BoardFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/boardGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="boardFragment" />
+        android:scrollbars="vertical"/>
 
 </LinearLayout>
