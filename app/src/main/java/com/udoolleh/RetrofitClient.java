@@ -1,6 +1,13 @@
 package com.udoolleh;
 
+import android.content.SharedPreferences;
+
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,6 +32,23 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client) //로그 기능 추가
                 .build();
+
+        /*
+        //Token
+        SharedPreferences sf = null;
+        String accToken = sf.getString("accToken", "");
+        Interceptor tokenInterceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request newRequest;
+                if(accToken != null && !accToken.equals("")) {
+                    newRequest = chain.request().newBuilder().addHeader("Authorization", accToken).build();
+
+                } else newRequest = chain.request();
+                return chain.proceed(newRequest);
+            }
+        };
+         */
 
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }

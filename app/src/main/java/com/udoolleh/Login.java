@@ -120,8 +120,8 @@ public class Login extends AppCompatActivity {
 
                     //받은 토큰 저장
                     LoginResponse.TokenList tokenList = result.getList();
-                    String accToken = tokenList.getAccessToken();;
-                    String refToken = tokenList.getRefreshToken();;
+                    String accToken = tokenList.getAccessToken();
+                    String refToken = tokenList.getRefreshToken();
 
                     Log.d("loginToken", accToken + refToken);
 
@@ -134,7 +134,8 @@ public class Login extends AppCompatActivity {
                         String userPassword = pwLogin.getText().toString();
 
                         //다른 통신을 하기 위해 token 저장
-                        setPreference(accToken,refToken);
+                        setPreference("accToken", accToken);
+                        setPreference("refToken", refToken);
 
                         //자동 로그인 여부
                         if (autoLogin.isChecked()) {

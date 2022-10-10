@@ -1,6 +1,9 @@
 package com.udoolleh;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder {
         foodTotalGrade = itemView.findViewById(R.id.foodTotalGrade);
         //foodXcoordinate = itemView.findViewById(R.id.foodXcoordinate);
         //foodYcoordinate = itemView.findViewById(R.id.foodYcoordinate);
+
     }
 
     public void onBind(FoodListItem foodListItem) {
