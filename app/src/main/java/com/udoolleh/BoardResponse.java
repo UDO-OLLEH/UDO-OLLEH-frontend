@@ -18,7 +18,7 @@ public class BoardResponse {
     private String message;
 
     @SerializedName("list")
-    private List list;
+    private BoardList list;
 
     public String getId() {
         return id;
@@ -36,11 +36,11 @@ public class BoardResponse {
         return message;
     }
 
-    public List getList() {
+    public BoardList getList() {
         return list;
     }
 
-    public class List {
+    public class BoardList {
         @SerializedName("content")
         private java.util.List<Content> content = new ArrayList<>();
 

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class BoardFragment extends Fragment {
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     RecyclerView boardGridView;
+    TextView nonBoardText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board, container, false);
         context = container.getContext();
+        boardGridView = view.findViewById(R.id.boardGridView);
+        nonBoardText = view.findViewById(R.id.noneBoardText);
 
         //Retrofit
         BoardResponse();
@@ -55,7 +59,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(1, 10).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse().enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
 
@@ -76,30 +80,37 @@ public class BoardFragment extends Fragment {
                         String dateTime = result.getDateTime();
                         Integer status = result.getStatus();
                         String message = result.getMessage();
-                        List<BoardResponse.List.Content> boardList = result.getList().getContent();
+                        List<BoardResponse.BoardList.Content> boardList = result.getList().getContent();
 
                         Log.d("board", "게시판 리스트\n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "status: " + status + "\n" +
-                                "message: " + message + "\n"
+                                "message: " + message + "\n" +
+                                "content" + boardList
                         );
 
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
-                        boardGridView.setLayoutManager(gridLayoutManager);
+                        if (boardList.toString() == "[]") {
+                            boardGridView.setVisibility(View.INVISIBLE);
+                            nonBoardText.setVisibility(View.VISIBLE);
+                        } else {
+                            boardGridView.setVisibility(View.VISIBLE);
+                            nonBoardText.setVisibility(View.INVISIBLE);
 
-                        BoardListAdapter boardListAdapter = new BoardListAdapter();
-                        for (BoardResponse.List.Content board : boardList) {
-                            Log.d("food", "맛집 리스트\n" +
-                                    "title: " + board.getTitle() + "\n" +
-                                    "context: " + board.getContext() + "\n" +
-                                    "createAt: " + board.getCreateAt() + "\n"
-                            );
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                            boardGridView.setLayoutManager(gridLayoutManager);
 
-                            boardListAdapter.addItem(new BoardListItem(board.getTitle(), board.getContext(), board.getCreateAt()));
-
+                            BoardListAdapter boardListAdapter = new BoardListAdapter();
+                            for (BoardResponse.BoardList.Content board : boardList) {
+                                Log.d("food", "맛집 리스트\n" +
+                                        "title: " + board.getTitle() + "\n" +
+                                        "context: " + board.getContext() + "\n" +
+                                        "createAt: " + board.getCreateAt() + "\n"
+                                );
+                                boardListAdapter.addItem(new BoardListItem(board.getTitle(), board.getContext(), board.getCreateAt()));
+                            }
+                            boardGridView.setAdapter(boardListAdapter);
                         }
-                        boardGridView.setAdapter(boardListAdapter);
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);

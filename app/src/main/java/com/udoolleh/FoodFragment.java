@@ -156,9 +156,7 @@ public class FoodFragment extends Fragment {
                                     "xcoordinate: " + food.getXcoordinate() + "\n" +
                                     "ycoordinate: " + food.getYcoordinate() + "\n"
                             );
-
                             foodListAdapter.addItem(new FoodListItem(food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
-
                         }
                         foodGridView.setAdapter(foodListAdapter);
 

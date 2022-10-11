@@ -33,7 +33,7 @@ public class RetrofitClient {
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder().addHeader("key", accToken).build();
+                Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", accToken).build();
                 return chain.proceed(newRequest);
             }
         };
@@ -48,6 +48,8 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
+
+        Log.d("Header", accToken);
 
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }

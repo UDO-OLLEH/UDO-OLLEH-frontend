@@ -24,5 +24,10 @@ public interface RetrofitInterface {
     Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
 
     @GET("/board/list")
+    Call<BoardResponse> getBoardResponse();
+
+    /* Size / Page 설정시
+    @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
+    */
 }
