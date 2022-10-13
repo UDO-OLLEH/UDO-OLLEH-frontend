@@ -102,9 +102,9 @@ public class SignUp  extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
 
-                Log.d("retrofit", "Data fetch success");
-                Log.d("resultCode", "body 내용" + response.body());
-                Log.d("resultCode", "상태코드" + response.isSuccessful());
+                Log.d("udoolleh", "Data fetch success");
+                Log.d("udoolleh", "body 내용" + response.body());
+                Log.d("udoolleh", "상태코드" + response.isSuccessful());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {

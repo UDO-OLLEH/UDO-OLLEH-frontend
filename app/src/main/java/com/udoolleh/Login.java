@@ -101,9 +101,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Log.d("retrofit", "Data fetch success");
-                Log.d("resultCode", "body 내용" + response.body());
-                Log.d("resultCode", "상태코드" + response.isSuccessful());
+                Log.d("udoolleh", "Data fetch success");
+                Log.d("udoolleh", "body 내용" + response.body());
+                Log.d("udoolleh", "상태코드" + response.isSuccessful());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -119,7 +119,7 @@ public class Login extends AppCompatActivity {
                     String accToken = tokenList.getAccessToken();
                     String refToken = tokenList.getRefreshToken();
 
-                    Log.d("loginToken", accToken + refToken);
+                    Log.d("udoolleh", accToken + refToken);
                     String success = "200"; //로그인 성공
                     String errorTk = "403"; //토큰 유효x
                     String errorId = "500"; //아이디, 비밀번호 일치x
@@ -166,7 +166,6 @@ public class Login extends AppCompatActivity {
                                 .create()
                                 .show();
                     } else {
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
                                 .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")

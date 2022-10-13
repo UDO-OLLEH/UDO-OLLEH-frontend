@@ -134,7 +134,7 @@ public class FoodFragment extends Fragment {
                         String message = result.getMessage();
                         List<FoodResponse.FoodList> foodList = result.getList();
 
-                        Log.d("food", "맛집 리스트\n" +
+                        Log.d("udoolleh", "맛집 리스트\n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "status: " + status + "\n" +
@@ -146,7 +146,7 @@ public class FoodFragment extends Fragment {
 
                         FoodListAdapter foodListAdapter = new FoodListAdapter();
                         for (FoodResponse.FoodList food : foodList) {
-                            Log.d("food", "맛집 리스트\n" +
+                            Log.d("udoolleh", "맛집 리스트\n" +
                                     "name: " + food.getName() + "\n" +
                                     "placeType: " + food.getPlaceType() + "\n" +
                                     "category: " + food.getCategory() + "\n" +

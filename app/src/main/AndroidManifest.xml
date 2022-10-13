@@ -23,6 +23,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".FoodListItemDetail"/>
         <activity android:name=".BoardListItemDetail"/>
+        <activity android:name=".BoardWrite"/>
         <activity android:name=".Login"
             android:theme="@style/SplashTheme">
         </activity>

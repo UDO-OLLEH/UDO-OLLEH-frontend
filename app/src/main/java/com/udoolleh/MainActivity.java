@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -139,6 +141,15 @@ public class MainActivity extends AppCompatActivity{
                 main_img.setImageResource(R.drawable.category_main);
                 tour_img.setImageResource((R.drawable.category_tour));
                 board_img.setImageResource((R.drawable.category_board_selected));
+            }
+        });
+
+        //게시판 작성
+        addBoardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BoardWrite.class);
+                startActivity(intent);
             }
         });
     }

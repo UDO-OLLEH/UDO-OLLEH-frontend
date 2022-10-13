@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EFEFEF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center|left"
+        android:orientation="vertical"
+        android:background="@drawable/layout_background_gradient">
+
+        <Button
+            android:id="@+id/board_write_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/layout_button_back"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="제목"/>
+
+                <EditText
+                    android:id="@+id/boardWrite_Title"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:padding="20dp"
+                    android:background="@drawable/layout_edittext"
+                    android:hint="글의 제목을 입력해주세요."
+                    android:textSize="15dp"
+                    android:textColorHint="#999999"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="해시태그"/>
+
+                <EditText
+                    android:id="@+id/boardWrite_Hashtag"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:padding="20dp"
+                    android:background="@drawable/layout_edittext"
+                    android:hint="글의 분류를 해시태그를 통해 나타내주세요."
+                    android:textSize="15dp"
+                    android:textColorHint="#999999"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="게시글 내용"/>
+
+                <EditText
+                    android:id="@+id/boardWrite_Context"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:gravity="top"
+                    android:background="@drawable/layout_edittext"
+                    android:hint="우도에 관해 공유하고 싶은 정보 또는 질문하고 싶은 질문에 대해 적어주세요."
+                    android:textSize="15dp"
+                    android:minLines="20"
+                    android:textColorHint="#999999"
+                    android:textColor="@color/black"/>
+
+                <Button
+                    android:id="@+id/boardWrite_Image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="image"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/boardWrite_Posting"
+            android:background="@drawable/layout_button_gradient_press_motion"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:text="게시하기"/>
+
+    </LinearLayout>
+
+</LinearLayout>
