@@ -83,4 +83,14 @@
 
     <include layout="@layout/activity_main_content"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBoardBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/floating_add"
+        android:layout_margin="16dp"
+        android:backgroundTint="#62EE4C"
+        android:visibility="gone"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

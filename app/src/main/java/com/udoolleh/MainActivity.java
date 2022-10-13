@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
     ImageView  map_img, food_img, main_img, tour_img, board_img;
+    FloatingActionButton addBoardBtn;
     private final int MapFragment = 1;
     private final int FoodFragment = 2;
     private final int MainFragment = 3;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        addBoardBtn = findViewById(R.id.addBoardBtn);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
@@ -179,30 +182,35 @@ public class MainActivity extends AppCompatActivity{
 
         switch (fragment) {
             case 1:
+                addBoardBtn.setVisibility(View.GONE);
                 MapFragment mapFragment = new MapFragment();
                 transaction.replace(R.id.fragment_container, mapFragment);
                 transaction.commit();
                 break;
 
             case 2:
+                addBoardBtn.setVisibility(View.GONE);
                 FoodFragment foodFragment = new FoodFragment();
                 transaction.replace(R.id.fragment_container, foodFragment);
                 transaction.commit();
                 break;
 
             case 3:
+                addBoardBtn.setVisibility(View.GONE);
                 MainFragment mainFragment = new MainFragment();
                 transaction.replace(R.id.fragment_container, mainFragment);
                 transaction.commit();
                 break;
 
             case 4:
+                addBoardBtn.setVisibility(View.GONE);
                 TourFragment tourFragment = new TourFragment();
                 transaction.replace(R.id.fragment_container, tourFragment);
                 transaction.commit();
                 break;
 
             case 5:
+                addBoardBtn.setVisibility(View.VISIBLE);
                 BoardFragment boardFragment = new BoardFragment();
                 transaction.replace(R.id.fragment_container, boardFragment);
                 transaction.commit();
