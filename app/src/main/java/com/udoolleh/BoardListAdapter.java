@@ -39,7 +39,6 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 int pos = holder.getAdapterPosition();
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
-                    Log.d("viewholder","눌림" + pos);
                     Intent boardListItemDetail = new Intent(context, BoardListItemDetail.class);
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());
                     boardListItemDetail.putExtra("context", items.get(pos).getContext());

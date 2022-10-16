@@ -37,14 +37,8 @@ public interface RetrofitInterface {
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
     */
 
-    @Multipart
-    @POST("/board")
-    Call<BoardWriteResponse> getBoardWriteResponse(@Query("x-auth-token") String token, @PartMap HashMap<String, RequestBody> postDto);
-
-    /*
     //이미지 파일 등록시 변경
     @Multipart
     @POST("/board")
-    Call<BoardWriteResponse> getBoardWriteResponse(@Query("x-auth-token") String token, @Part ArrayList<MultipartBody.Part> file, @PartMap HashMap<String, RequestBody> postDto);
-     */
+    Call<BoardWriteResponse> getBoardWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
 }

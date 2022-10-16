@@ -114,6 +114,10 @@ public class FoodFragment extends Fragment {
         retrofitInterface.getFoodResponse(0).enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
+                Log.d("udoLog", "맛집 조회 Data fetch success");
+                Log.d("udoLog", "맛집 조회 body 내용" + response.body());
+                Log.d("udoLog", "맛집 조회 성공여부" + response.isSuccessful());
+                Log.d("udoLog", "맛집 조회 상태코드" + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -122,12 +126,12 @@ public class FoodFragment extends Fragment {
                     FoodResponse result = response.body();
 
                     //받은 코드 저장
-                    String resultCode = result.getStatus().toString();
+                    int resultCode = response.code();
 
                     //맛집 조회 성공
-                    String success = "0";
+                    int success = 200;
 
-                    if (resultCode.equals(success)) {
+                    if (resultCode == success) {
                         String id = result.getId();
                         String dateTime = result.getDateTime();
                         Integer status = result.getStatus();

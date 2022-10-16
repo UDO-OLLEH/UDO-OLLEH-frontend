@@ -101,9 +101,9 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 
-                Log.d("udoolleh", "Data fetch success");
-                Log.d("udoolleh", "body 내용" + response.body());
-                Log.d("udoolleh", "상태코드" + response.isSuccessful());
+                Log.d("udoLog", "Data fetch success");
+                Log.d("udoLog", "body 내용" + response.body());
+                Log.d("udoLog", "상태코드" + response.isSuccessful());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -112,19 +112,19 @@ public class Login extends AppCompatActivity {
                     LoginResponse result = response.body();
 
                     //받은 코드 저장
-                    String resultCode = result.getStatus();
+                    int resultCode = response.code();
 
                     //받은 토큰 저장
                     LoginResponse.TokenList tokenList = result.getList();
                     String accToken = tokenList.getAccessToken();
                     String refToken = tokenList.getRefreshToken();
 
-                    Log.d("udoolleh", accToken + refToken);
-                    String success = "200"; //로그인 성공
-                    String errorTk = "403"; //토큰 유효x
-                    String errorId = "500"; //아이디, 비밀번호 일치x
+                    Log.d("udoLog", accToken + refToken);
+                    int success = 200; //로그인 성공
+                    int errorTk = 403; //토큰 유효x
+                    int errorId = 500; //아이디, 비밀번호 일치x
 
-                    if (resultCode.equals(success)) {
+                    if (resultCode == success) {
                         String userID = idLogin.getText().toString();
                         String userPassword = pwLogin.getText().toString();
 
@@ -147,7 +147,7 @@ public class Login extends AppCompatActivity {
                         startActivity(intent);
                         Login.this.finish();
 
-                    } else if (resultCode.equals(errorId)) {
+                    } else if (resultCode == errorId) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
@@ -158,7 +158,7 @@ public class Login extends AppCompatActivity {
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
 
-                    } else if (resultCode.equals(errorTk)) {
+                    } else if (resultCode == errorTk) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
                                 .setMessage("로그인 토큰이 유효하지 않습니다.\n 고객" + "센터에 문의바랍니다.")

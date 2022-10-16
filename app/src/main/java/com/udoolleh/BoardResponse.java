@@ -119,6 +119,9 @@ public class BoardResponse {
         }
 
         public class Content {
+            @SerializedName("id")
+            private String id;
+
             @SerializedName("title")
             private String title;
 
@@ -127,6 +130,16 @@ public class BoardResponse {
 
             @SerializedName("createAt")
             private String createAt;
+
+            @SerializedName("countVisit")
+            private String countVisit;
+
+            @SerializedName("countLikes")
+            private String countLikes;
+
+            public String getId() {
+                return id;
+            }
 
             public String getTitle() {
                 return title;
@@ -138,6 +151,14 @@ public class BoardResponse {
 
             public String getCreateAt() {
                 return createAt;
+            }
+
+            public String getCountVisit() {
+                return countVisit;
+            }
+
+            public String getCountLikes() {
+                return countLikes;
             }
         }
 

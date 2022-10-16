@@ -63,6 +63,10 @@ public class BoardFragment extends Fragment {
         retrofitInterface.getBoardResponse().enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
+                Log.d("udoLog", "게시판 조회 Data fetch success");
+                Log.d("udoLog", "게시판 조화 body 내용" + response.body());
+                Log.d("udoLog", "게시판 조회 성공여부" + response.isSuccessful());
+                Log.d("udoLog", "게시판 조회 상태코드" + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -71,19 +75,19 @@ public class BoardFragment extends Fragment {
                     BoardResponse result = response.body();
 
                     //받은 코드 저장
-                    String resultCode = result.getStatus().toString();
+                    int resultCode = response.code();
 
                     //맛집 조회 성공
-                    String success = "0";
+                    int success = 200;
 
-                    if (resultCode.equals(success)) {
+                    if (resultCode == success) {
                         String id = result.getId();
                         String dateTime = result.getDateTime();
                         Integer status = result.getStatus();
                         String message = result.getMessage();
                         List<BoardResponse.BoardList.Content> boardList = result.getList().getContent();
 
-                        Log.d("udoolleh", "게시판 리스트\n" +
+                        Log.d("udoLog", "게시판 조회 성공\n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "status: " + status + "\n" +
@@ -103,12 +107,15 @@ public class BoardFragment extends Fragment {
 
                             BoardListAdapter boardListAdapter = new BoardListAdapter();
                             for (BoardResponse.BoardList.Content board : boardList) {
-                                Log.d("udoolleh", "맛집 리스트\n" +
+                                Log.d("udoLog", "게시판 리스트\n" +
+                                        "id: " + board.getId() + "\n" +
                                         "title: " + board.getTitle() + "\n" +
                                         "context: " + board.getContext() + "\n" +
-                                        "createAt: " + board.getCreateAt() + "\n"
+                                        "createAt: " + board.getCreateAt() + "\n" +
+                                        "countVisit: " + board.getCountVisit() + "\n" +
+                                        "countLikes: " + board.getCountLikes() + "\n"
                                 );
-                                boardListAdapter.addItem(new BoardListItem(board.getTitle(), board.getContext(), board.getCreateAt()));
+                                boardListAdapter.addItem(new BoardListItem(board.getId(), board.getTitle(), board.getContext(), board.getCreateAt(), board.getCountVisit(), board.getCountLikes()));
                             }
                             boardGridView.setAdapter(boardListAdapter);
                         }

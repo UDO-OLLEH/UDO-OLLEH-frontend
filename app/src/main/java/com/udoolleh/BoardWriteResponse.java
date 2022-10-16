@@ -9,9 +9,6 @@ public class BoardWriteResponse {
     @SerializedName("dateTime")
     private String dateTime;
 
-    @SerializedName("status")
-    private String status;
-
     @SerializedName("message")
     private String message;
 
@@ -24,10 +21,6 @@ public class BoardWriteResponse {
 
     public String getDateTime() {
         return dateTime;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public String getMessage() {
