@@ -2,17 +2,18 @@ package com.udoolleh;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
@@ -25,19 +26,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
 
-import kotlin.jvm.internal.Intrinsics;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -138,11 +134,44 @@ public class BoardWrite extends AppCompatActivity {
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
                     Toast.makeText(this, "실패", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
+    }
+
+    //Bitmap Resize
+    public Bitmap resizeBitmapImage(Bitmap source, int maxResolution) {
+        int width = source.getWidth();
+        int height = source.getHeight();
+        int newWidth = width;
+        int newHeight = height;
+        float rate = 0.0f;
+
+        if(width > height) {
+            if(maxResolution < width) {
+                rate = maxResolution / (float) width;
+                newHeight = (int) (height * rate);
+                newWidth = maxResolution;
+            }
+        } else {
+            if(maxResolution < height) {
+                rate = maxResolution / (float) height;
+                newWidth = (int) (width * rate);
+                newHeight = maxResolution;
+            }
+        }
+        return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
+    }
+
+    //Bitmap to Uri
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     //Uri to Multipart
@@ -183,7 +212,25 @@ public class BoardWrite extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
 
-        //file
+        //Uri to bitmap
+        Bitmap bitmap = null;
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
+            } else {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Bitmap Resize
+        bitmap = resizeBitmapImage(bitmap, 1080);
+
+        //Bitmap to Uri
+        URI = getImageUri(context, bitmap);
+
+        //Uri to Multipart
         MultipartBody.Part filePart;
         if (board_write_image.getDrawable() != null) {
             filePart = uriToMultipart(URI, name, context.getContentResolver());
@@ -226,6 +273,7 @@ public class BoardWrite extends AppCompatActivity {
 
                     if (resultCode == success) {
                         Toast.makeText(BoardWrite.this, "게시물을 등록하였습니다.", Toast.LENGTH_LONG).show();
+                        finish();
                     } else if (resultCode == errPm) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
                         builder.setTitle("알림")

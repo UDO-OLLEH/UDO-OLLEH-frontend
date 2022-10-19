@@ -148,7 +148,6 @@ public class Login extends AppCompatActivity {
                         Login.this.finish();
 
                     } else if (resultCode == errorId) {
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
                                 .setMessage("로그인 정보가 일치하지 않습니다.\n")
@@ -240,7 +239,6 @@ public class Login extends AppCompatActivity {
 
     //자동 로그인 유저
     public void checkAutoLogin(String id){
-
         Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
