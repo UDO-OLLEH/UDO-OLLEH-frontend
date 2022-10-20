@@ -10,7 +10,9 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,8 +53,9 @@ public class BoardWrite extends AppCompatActivity {
     EditText boardWrite_Title, boardWrite_Hashtag, boardWrite_Context;
     ImageView board_write_image;
     Context context;
-    String name = "image";
+    ContentResolver contentResolver;
     Uri URI;
+    String cacheImageFileName = "udoolleh_cache_file_image";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,12 +114,14 @@ public class BoardWrite extends AppCompatActivity {
                 } else {
                     //게시판 등록 통신
                     BoardWriteResponse();
+                    deleteBitmapImage(view);
                 }
             }
         });
     }
 
     //갤러리에서 이미지 골라 표시
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,9 +134,11 @@ public class BoardWrite extends AppCompatActivity {
                     try {
                         InputStream instream = resolver.openInputStream(uriResource);
                         Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
+                        imgBitmap = rotateImage(uriResource, imgBitmap);
                         board_write_image.setImageBitmap(imgBitmap);
-                        instream.close();
                         URI = uriResource;
+                        contentResolver = resolver;
+                        instream.close();
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                     }
@@ -140,6 +148,24 @@ public class BoardWrite extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    //Bitmap Rotate
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private Bitmap rotateImage(Uri uri, Bitmap bitmap) throws IOException {
+        InputStream in = getContentResolver().openInputStream(uri);
+        ExifInterface exif = new ExifInterface(in);
+        in.close();
+        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        Matrix matrix = new Matrix();
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            matrix.postRotate(90);
+        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            matrix.postRotate(180);
+        } else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            matrix.postRotate(270);
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     //Bitmap Resize
@@ -166,11 +192,25 @@ public class BoardWrite extends AppCompatActivity {
         return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
     }
 
+    //Bitmap Cache Delete
+    public void deleteBitmapImage(View view) {    // 이미지 삭제
+        try {
+            File file = getCacheDir();  // 내부저장소 캐시 경로를 받아오기
+            File[] flist = file.listFiles();
+            for (int i = 0; i < flist.length; i++) {    // 배열의 크기만큼 반복
+                if (flist[i].getName().equals(cacheImageFileName)) {   // 삭제하고자 하는 이름과 같은 파일명이 있으면 실행
+                    flist[i].delete();  // 파일 삭제
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
     //Bitmap to Uri
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, cacheImageFileName, null);
         return Uri.parse(path);
     }
 
@@ -233,7 +273,8 @@ public class BoardWrite extends AppCompatActivity {
         //Uri to Multipart
         MultipartBody.Part filePart;
         if (board_write_image.getDrawable() != null) {
-            filePart = uriToMultipart(URI, name, context.getContentResolver());
+            filePart = uriToMultipart(URI, "file", contentResolver);
+            Log.d("udoLog", "멀티파트 Data fetch success");
         } else {
             filePart = null;
         }
