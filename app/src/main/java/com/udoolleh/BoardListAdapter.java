@@ -33,6 +33,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((BoardListViewHolder)holder).onBind(items.get(position));
 
+        //게시판 리스트 아이템 클릭시 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -19,25 +19,34 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
-    //@통신 방식("통신 API명")
+    /*
+    @통신 방식("통신 API명")
+    API 명세서 참고 후 작성
+    */
+
+    //로그인 통신
     @POST("/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
+    //회원가입 통신
     @POST("/user")
     Call<SignUpResponse> getSignUpResponse(@Body SignUpRequest signUpRequest);
 
+    //맛집 리스트 조회 통신
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
 
+    //게시판 조회 통신
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse();
 
-    /* Size / Page 설정시 변경
+    //게시판 조회 Page / Size 설정시 사용
+    /*
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
     */
 
-    //이미지 파일 등록시 변경
+    //게시판 작성 통신
     @Multipart
     @POST("/board")
     Call<BoardWriteResponse> getBoardWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);

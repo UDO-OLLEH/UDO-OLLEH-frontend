@@ -63,6 +63,7 @@ public class BoardWrite extends AppCompatActivity {
         setContentView(R.layout.fragment_board_write);
 
         context = BoardWrite.this;
+
         //뒤로가기 버튼
         board_write_close = findViewById(R.id.board_write_close);
         board_write_close.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +115,7 @@ public class BoardWrite extends AppCompatActivity {
                 } else {
                     //게시판 등록 통신
                     BoardWriteResponse();
+                    //임시 저장한 이미지 삭제
                     deleteBitmapImage(view);
                 }
             }
@@ -318,7 +320,7 @@ public class BoardWrite extends AppCompatActivity {
                     } else if (resultCode == errPm) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
                         builder.setTitle("알림")
-                                .setMessage("errPm예기치 못한 오류가 발생하였습니다.\n 잠시후 다시 시도해주세요.")
+                                .setMessage("예기치 못한 오류가 발생하였습니다.\n 잠시후 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -336,21 +338,31 @@ public class BoardWrite extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
                         builder.setTitle("알림")
-                                .setMessage("errElse예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                     }
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
+                    builder.setTitle("알림")
+                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                            .setPositiveButton("확인", null)
+                            .create()
+                            .show();
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 }
             }
 
+            //통신 실패
             @Override
             public void onFailure(Call<BoardWriteResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
                 builder.setTitle("알림")
-                        .setMessage("errFail예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
                         .create()
                         .show();

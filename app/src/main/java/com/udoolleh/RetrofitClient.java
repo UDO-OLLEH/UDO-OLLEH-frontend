@@ -20,7 +20,7 @@ public class RetrofitClient {
     private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/";
     private String accToken;
 
-    //Token is Used
+    //Token is visible
     public RetrofitClient(String accToken) {
         this.accToken = accToken;
         Log.d("Token", accToken);
@@ -54,7 +54,7 @@ public class RetrofitClient {
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
-    //Token is Unused
+    //Token is none
     private RetrofitClient() {
         //로그를 보기 위한 Interceptor
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
@@ -71,14 +71,6 @@ public class RetrofitClient {
 
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
-/*
-    public static RetrofitClient getInstance() {
-        if (instance == null) {
-            instance = new RetrofitClient();
-        }
-        return instance;
-    }
- */
 
     public static RetrofitClient getInstance(String accToken) {
         if (accToken == null) {

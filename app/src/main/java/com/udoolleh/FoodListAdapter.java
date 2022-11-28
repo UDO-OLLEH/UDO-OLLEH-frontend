@@ -32,6 +32,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((FoodListViewHolder)holder).onBind(items.get(position));
 
+        //리스트 아이템 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

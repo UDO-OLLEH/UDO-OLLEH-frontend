@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
+        //네비게이션 메뉴
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

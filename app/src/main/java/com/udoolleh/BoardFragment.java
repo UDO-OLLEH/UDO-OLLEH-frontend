@@ -77,7 +77,7 @@ public class BoardFragment extends Fragment {
                     //받은 코드 저장
                     int resultCode = response.code();
 
-                    //맛집 조회 성공
+                    //게시판 조회 성공
                     int success = 200;
 
                     if (resultCode == success) {
@@ -87,6 +87,7 @@ public class BoardFragment extends Fragment {
                         String message = result.getMessage();
                         List<BoardResponse.BoardList.Content> boardList = result.getList().getContent();
 
+                        //게시판 조회 로그
                         Log.d("udoLog", "게시판 조회 성공\n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
@@ -102,11 +103,14 @@ public class BoardFragment extends Fragment {
                             boardGridView.setVisibility(View.VISIBLE);
                             nonBoardText.setVisibility(View.INVISIBLE);
 
+                            //Recycler View 레이아웃 설정
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                             boardGridView.setLayoutManager(gridLayoutManager);
 
                             BoardListAdapter boardListAdapter = new BoardListAdapter();
                             for (BoardResponse.BoardList.Content board : boardList) {
+
+                                //게시판 내용 조회 로그
                                 Log.d("udoLog", "게시판 리스트\n" +
                                         "id: " + board.getId() + "\n" +
                                         "title: " + board.getTitle() + "\n" +
@@ -121,6 +125,8 @@ public class BoardFragment extends Fragment {
                         }
 
                     } else {
+
+                        //상태코드 != 200일 때
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
                                 .setMessage("맛집 조회 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")

@@ -36,6 +36,7 @@ public class FoodFragment extends Fragment {
     private RetrofitInterface retrofitInterface;
     RecyclerView foodGridView;
 
+    //상단에 보여질 이미지 URL
     private String[] images = new String[]{
             "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
             "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
@@ -138,6 +139,7 @@ public class FoodFragment extends Fragment {
                         String message = result.getMessage();
                         List<FoodResponse.FoodList> foodList = result.getList();
 
+                        //맛집 리스트 조회 로그
                         Log.d("udoolleh", "맛집 리스트\n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
@@ -150,6 +152,8 @@ public class FoodFragment extends Fragment {
 
                         FoodListAdapter foodListAdapter = new FoodListAdapter();
                         for (FoodResponse.FoodList food : foodList) {
+
+                            //맛집 리스트 상세 조회 로그
                             Log.d("udoolleh", "맛집 리스트\n" +
                                     "name: " + food.getName() + "\n" +
                                     "placeType: " + food.getPlaceType() + "\n" +
