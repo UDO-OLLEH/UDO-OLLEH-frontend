@@ -64,7 +64,6 @@ public class BoardFragment extends Fragment {
 
         //Retrofit
         BoardResponse();
-
         /*
         boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
