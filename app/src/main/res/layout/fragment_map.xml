@@ -19,18 +19,20 @@
             android:layout_width="186dp"
             android:layout_height="40dp"
             android:layout_marginRight="14dp"
-            android:background="@drawable/layout_rounded_background_gradient"
+            android:background="@drawable/map_button_selected_motion"
             android:elevation="30dp"
             android:text="버스 시간표"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/btnBoat"
             android:layout_width="186dp"
             android:layout_height="40dp"
-            android:background="@drawable/layout_rounded_box"
+            android:background="@drawable/map_button_selected_motion"
             android:text="배 시간표"
-            android:textColor="#8B8787" />
+            android:textColor="#8B8787"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
@@ -45,46 +47,58 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="40dp"
+            android:visibility="visible">
 
 
             <ImageView
                 android:id="@+id/ivRedbus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/map_resbus" />
+                android:src="@drawable/map_redbus"
+                app:tint="#80000000"
+                android:tintMode="src_atop"/>
 
             <TextView
                 android:id="@+id/tvRoute"
-                android:layout_width="175dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
+
                 android:text="우도 빨간버스 노선도"
-                android:textColor="#000000" />
+                android:textSize="20dp"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvTime"
-                android:layout_width="88dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
+
                 android:text="배차간격:30분"
+                android:textSize="13dp"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvPrice"
-                android:layout_width="107dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="261dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="14dp"
+
                 android:text="성인기준:6,000원"
+                android:textSize="13dp"
                 android:textColor="#FFFFFF" />
 
 
@@ -93,46 +107,179 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardCornerRadius="30dp">
+            app:cardCornerRadius="30dp"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/ivWhitebus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/map_resbus" />
+                android:src="@drawable/map_whitebus"
+                app:tint="#80000000"
+                android:tintMode="src_atop"/>
 
             <TextView
                 android:id="@+id/tvRoute"
-                android:layout_width="175dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
+
                 android:text="우도 하얀버스 노선도"
-                android:textColor="#000000" />
+                android:textSize="20dp"
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvTime"
-                android:layout_width="88dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
+
                 android:text="배차간격:30분"
+                android:textSize="13dp"
                 android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvPrice"
-                android:layout_width="107dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
                 android:layout_marginLeft="261dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="14dp"
+
                 android:text="성인기준:6,000원"
+                android:textSize="13dp"
                 android:textColor="#FFFFFF" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="40dp"
+            android:visibility="invisible">
+
+
+            <ImageView
+                android:id="@+id/ivJongdal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/map_jongdal"
+                app:tint="#80000000"
+                android:tintMode="src_atop"/>
+
+            <TextView
+                android:id="@+id/tvRoute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="194dp"
+                android:layout_marginBottom="106dp"
+
+                android:text="우도 - 종달 배편"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginRight="281dp"
+                android:layout_marginBottom="14dp"
+
+                android:text="배차간격:60분"
+                android:textSize="13dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="217dp"
+                android:layout_marginTop="119dp"
+                android:layout_marginRight="27dp"
+                android:layout_marginBottom="12dp"
+
+                android:text="성인(왕복)기준:10,000원"
+                android:textSize="13dp"
+                android:textColor="#FFFFFF" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="30dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/ivSeongsan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/map_seongsan"
+                app:tint="#80000000"
+                android:tintMode="src_atop"/>
+
+            <TextView
+                android:id="@+id/tvRoute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="194dp"
+                android:layout_marginBottom="106dp"
+
+                android:text="우도 - 성산 배편"
+                android:textSize="20dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginRight="281dp"
+                android:layout_marginBottom="14dp"
+
+                android:text="배차간격:30분"
+                android:textSize="13dp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="217dp"
+                android:layout_marginTop="119dp"
+                android:layout_marginRight="27dp"
+                android:layout_marginBottom="12dp"
+
+                android:text="성인(왕복)기준:10,500원"
+                android:textSize="13dp"
+                android:textColor="#FFFFFF" />
+
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
