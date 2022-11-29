@@ -19,13 +19,6 @@ import android.widget.Toast;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.udoolleh.board.BoardFragment;
-import com.udoolleh.board.BoardWrite;
-import com.udoolleh.food.FoodFragment;
-import com.udoolleh.main.MainFragment;
-import com.udoolleh.map.MapFragment;
-import com.udoolleh.tour.TourFragment;
-
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity{
@@ -202,35 +195,35 @@ public class MainActivity extends AppCompatActivity{
         switch (fragment) {
             case 1:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.map.MapFragment mapFragment = new MapFragment();
+                MapFragment mapFragment = new MapFragment();
                 transaction.replace(R.id.fragment_container, mapFragment);
                 transaction.commit();
                 break;
 
             case 2:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.food.FoodFragment foodFragment = new FoodFragment();
+                FoodFragment foodFragment = new FoodFragment();
                 transaction.replace(R.id.fragment_container, foodFragment);
                 transaction.commit();
                 break;
 
             case 3:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.main.MainFragment mainFragment = new MainFragment();
+                MainFragment mainFragment = new MainFragment();
                 transaction.replace(R.id.fragment_container, mainFragment);
                 transaction.commit();
                 break;
 
             case 4:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.tour.TourFragment tourFragment = new TourFragment();
+                TourFragment tourFragment = new TourFragment();
                 transaction.replace(R.id.fragment_container, tourFragment);
                 transaction.commit();
                 break;
 
             case 5:
                 addBoardBtn.setVisibility(View.VISIBLE);
-                com.udoolleh.board.BoardFragment boardFragment = new BoardFragment();
+                BoardFragment boardFragment = new BoardFragment();
                 transaction.replace(R.id.fragment_container, boardFragment);
                 transaction.commit();
                 break;

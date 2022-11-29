@@ -15,28 +15,28 @@
         android:theme="@style/Theme.Udoolleh"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".map.Seongsan"
+            android:name=".Seongsan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".map.Jongdal"
+            android:name=".Jongdal"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".map.Whitebus"
+            android:name=".Whitebus"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".map.Redbus"
+            android:name=".Redbus"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -53,14 +53,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".food.FoodListItemDetail" />
-        <activity android:name=".board.BoardListItemDetail" />
-        <activity android:name=".board.BoardWrite" />
+        <activity android:name=".FoodListItemDetail" />
+        <activity android:name=".BoardListItemDetail" />
+        <activity android:name=".BoardWrite" />
         <activity
-            android:name=".login.Login"
+            android:name=".Login"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".signup.SignUp"
+            android:name=".SignUp"
             android:theme="@style/SplashTheme" />
     </application>
 
