@@ -7,7 +7,7 @@
     android:background="@color/layout_rounded_2"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".MapFragment">
+    tools:context=".map.MapFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

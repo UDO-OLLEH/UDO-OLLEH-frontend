@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/layout_rounded_2"
     android:orientation="vertical"
-    tools:context=".TourFragment">
+    tools:context=".tour.TourFragment">
 
     <!--추천 관광지 레이아웃-->
     <LinearLayout
