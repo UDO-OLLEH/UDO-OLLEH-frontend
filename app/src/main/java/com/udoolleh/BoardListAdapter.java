@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
     ArrayList<BoardListItem> items = new ArrayList<BoardListItem>();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
