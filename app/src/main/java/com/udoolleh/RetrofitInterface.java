@@ -1,21 +1,21 @@
 package com.udoolleh;
 
-import com.udoolleh.board.BoardResponse;
-import com.udoolleh.board.BoardWriteResponse;
-import com.udoolleh.food.FoodResponse;
-import com.udoolleh.login.LoginRequest;
-import com.udoolleh.login.LoginResponse;
-import com.udoolleh.signup.SignUpRequest;
-import com.udoolleh.signup.SignUpResponse;
+import android.content.SharedPreferences;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
