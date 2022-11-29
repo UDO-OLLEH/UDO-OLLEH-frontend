@@ -17,10 +17,6 @@ import java.util.ArrayList;
 public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<BoardListItem> items = new ArrayList<BoardListItem>();
 
-    public void addItem(BoardListItem item) {
-        items.add(item);
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     @Override
@@ -53,6 +49,10 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void addItem(BoardListItem item) {
+        items.add(item);
     }
 }
 
