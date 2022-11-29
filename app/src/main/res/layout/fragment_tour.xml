@@ -49,8 +49,12 @@
                         android:background="@drawable/layout_rounded_box">
 
                         <ImageView
+                            android:src="@drawable/tour1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/layout_rounded_box"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -92,8 +96,12 @@
                         android:background="@drawable/layout_rounded_box">
 
                         <ImageView
+                            android:src="@drawable/tour2"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/layout_rounded_box"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -135,8 +143,12 @@
                         android:background="@drawable/layout_rounded_box">
 
                         <ImageView
+                            android:src="@drawable/tour3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/layout_rounded_box"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -178,8 +190,12 @@
                         android:background="@drawable/layout_rounded_box">
 
                         <ImageView
+                            android:src="@drawable/tour1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/layout_rounded_box"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -221,8 +237,12 @@
                         android:background="@drawable/layout_rounded_box">
 
                         <ImageView
+                            android:src="@drawable/tour2"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@drawable/layout_rounded_box"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -296,8 +316,12 @@
                 android:background="@drawable/layout_rounded_box">
 
                 <ImageView
+                    android:src="@drawable/tour_1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_rounded_box"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -339,8 +363,12 @@
                 android:background="@drawable/layout_rounded_box">
 
                 <ImageView
+                    android:src="@drawable/tour_2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_rounded_box"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -382,8 +410,12 @@
                 android:background="@drawable/layout_rounded_box">
 
                 <ImageView
+                    android:src="@drawable/tour_3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_rounded_box"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -425,8 +457,12 @@
                 android:background="@drawable/layout_rounded_box">
 
                 <ImageView
+                    android:src="@drawable/tour_1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_rounded_box"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -468,8 +504,12 @@
                 android:background="@drawable/layout_rounded_box">
 
                 <ImageView
+                    android:src="@drawable/tour_2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_rounded_box"
+                    android:scaleType="centerCrop"
+                    android:clipToOutline="true"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
