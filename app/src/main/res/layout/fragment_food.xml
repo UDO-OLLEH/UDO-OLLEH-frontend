@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#EFEFEF"
     android:orientation="vertical"
-    tools:context=".food.FoodFragment">
+    tools:context=".FoodFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
