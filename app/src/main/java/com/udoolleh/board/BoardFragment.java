@@ -53,6 +53,7 @@ public class BoardFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         boardGridView.setLayoutManager(gridLayoutManager);
         boardListAdapter = new BoardListAdapter();
+
         //Retrofit
         BoardResponse();
 
