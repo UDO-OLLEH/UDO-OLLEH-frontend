@@ -36,15 +36,15 @@ public interface RetrofitInterface {
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
 
+    /*
     //게시판 조회 통신
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse();
+     */
 
     //게시판 조회 Page / Size 설정시 사용
-    /*
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
-    */
 
     //게시판 작성 통신
     @Multipart
