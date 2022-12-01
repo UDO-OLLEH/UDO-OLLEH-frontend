@@ -92,7 +92,6 @@ public class BoardFragment extends Fragment {
 
     //게시판 리스트 조회
     public void BoardResponse() {
-
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
