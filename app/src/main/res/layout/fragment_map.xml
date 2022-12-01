@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/layout_rounded_2"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".MapFragment">
 
     <LinearLayout
@@ -18,9 +17,11 @@
             android:id="@+id/btnBus"
             android:layout_width="186dp"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:layout_marginRight="14dp"
+            android:layout_margin="10dp"
             android:background="@drawable/map_button_selected_motion"
-            android:elevation="30dp"
+            android:elevation="10dp"
             android:text="버스 시간표"
             android:textColor="@color/map_text_selector"
             tools:ignore="TouchTargetSizeCheck" />
@@ -29,26 +30,31 @@
             android:id="@+id/btnBoat"
             android:layout_width="186dp"
             android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
             android:background="@drawable/map_button_selected_motion"
             android:text="배 시간표"
+            android:elevation="10dp"
             android:textColor="@color/map_text_selector"
             tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/layout_rounded_1">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvRedbus"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="40dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:visibility="visible">
 
 
@@ -58,6 +64,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/map_redbus"
                 app:tint="#80000000"
+                android:scaleType="centerCrop"
                 android:tintMode="src_atop"/>
 
             <TextView
@@ -67,7 +74,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
 
                 android:text="우도 빨간버스 노선도"
@@ -81,7 +87,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="배차간격:30분"
@@ -95,7 +100,6 @@
 
                 android:layout_marginLeft="261dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="성인기준:6,000원"
@@ -108,8 +112,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvWhitebus"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="30dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:visibility="visible">
 
             <ImageView
@@ -117,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/map_whitebus"
+                android:scaleType="centerCrop"
                 app:tint="#80000000"
                 android:tintMode="src_atop"/>
 
@@ -127,7 +134,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
 
                 android:text="우도 하얀버스 노선도"
@@ -141,7 +147,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="배차간격:30분"
@@ -155,7 +160,6 @@
 
                 android:layout_marginLeft="261dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="성인기준:6,000원"
@@ -168,9 +172,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvJongboat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="40dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:visibility="gone">
 
 
@@ -179,6 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/map_jongdal"
+                android:scaleType="centerCrop"
                 app:tint="#80000000"
                 android:tintMode="src_atop"/>
 
@@ -189,7 +195,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
 
                 android:text="우도 - 종달 배편"
@@ -203,7 +208,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="배차간격:60분"
@@ -217,7 +221,6 @@
 
                 android:layout_marginLeft="217dp"
                 android:layout_marginTop="119dp"
-                android:layout_marginRight="27dp"
                 android:layout_marginBottom="12dp"
 
                 android:text="성인(왕복)기준:10,000원"
@@ -230,8 +233,10 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvSeongboat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardCornerRadius="30dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="10dp"
+            app:cardUseCompatPadding="true"
             android:visibility="gone">
 
             <ImageView
@@ -239,6 +244,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/map_seongsan"
+                android:scaleType="centerCrop"
                 app:tint="#80000000"
                 android:tintMode="src_atop"/>
 
@@ -249,7 +255,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="194dp"
                 android:layout_marginBottom="106dp"
 
                 android:text="우도 - 성산 배편"
@@ -263,7 +268,6 @@
 
                 android:layout_marginLeft="19dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginRight="281dp"
                 android:layout_marginBottom="14dp"
 
                 android:text="배차간격:30분"
@@ -277,7 +281,6 @@
 
                 android:layout_marginLeft="217dp"
                 android:layout_marginTop="119dp"
-                android:layout_marginRight="27dp"
                 android:layout_marginBottom="12dp"
 
                 android:text="성인(왕복)기준:10,500원"
