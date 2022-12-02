@@ -127,7 +127,6 @@ public class BoardWrite extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
