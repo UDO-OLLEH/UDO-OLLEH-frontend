@@ -28,7 +28,6 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
-
         btnBus = view.findViewById(R.id.btnBus);
         btnBoat = view.findViewById(R.id.btnBoat);
         ivRedbus = view.findViewById(R.id.ivRedbus);
