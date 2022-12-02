@@ -46,6 +46,7 @@
         android:orientation="vertical"
         android:background="@color/layout_rounded_2">
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvRedbus"
             android:layout_width="match_parent"
