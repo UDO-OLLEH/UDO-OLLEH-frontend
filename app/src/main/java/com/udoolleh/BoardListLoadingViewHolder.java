@@ -13,7 +13,7 @@ public class BoardListLoadingViewHolder extends RecyclerView.ViewHolder{
         progressBar = itemView.findViewById(R.id.loadmore);
     }
 
-    public void onBind() {
+    public void onBind(BoardListItem boardListItem) {
 
     }
 }

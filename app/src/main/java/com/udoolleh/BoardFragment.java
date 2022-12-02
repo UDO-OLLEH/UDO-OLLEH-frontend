@@ -64,7 +64,7 @@ public class BoardFragment extends Fragment {
 
         //Retrofit
         BoardResponse();
-        /*
+
         boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -86,7 +86,7 @@ public class BoardFragment extends Fragment {
                 }
             }
         });
-         */
+
         return view;
     }
 
@@ -101,7 +101,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 1000).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 Data fetch success");
@@ -189,8 +189,11 @@ public class BoardFragment extends Fragment {
         });
     }
 
-    /*
+
     public void BoardLoadMoreResponse() {
+        boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);
+        int scrollPosition = boardListAdapter.getItemCount();
+        boardListAdapter.notifyItemRemoved(scrollPosition);
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -200,7 +203,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 50).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 Data fetch success");
@@ -290,5 +293,4 @@ public class BoardFragment extends Fragment {
             }
         },1000);
     }
-    */
 }

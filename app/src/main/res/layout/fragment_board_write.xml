@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#EFEFEF">
+    android:background="@color/layout_rounded_2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,12 +50,13 @@
                     android:id="@+id/boardWrite_Title"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:padding="20dp"
-                    android:background="@drawable/layout_edittext"
+                    android:background="@drawable/layout_rounded_box"
+                    android:elevation="10dp"
                     android:hint="글의 제목을 입력해주세요."
-                    android:textSize="15dp"
-                    android:textColorHint="#999999"
-                    android:textColor="@color/black"/>
+                    android:textSize="15dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,12 +71,13 @@
                     android:id="@+id/boardWrite_Hashtag"
                     android:layout_width="350dp"
                     android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:padding="20dp"
-                    android:background="@drawable/layout_edittext"
+                    android:background="@drawable/layout_rounded_box"
+                    android:elevation="10dp"
                     android:hint="글의 분류를 해시태그를 통해 나타내주세요."
-                    android:textSize="15dp"
-                    android:textColorHint="#999999"
-                    android:textColor="@color/black"/>
+                    android:textSize="15dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,14 +92,16 @@
                     android:id="@+id/boardWrite_Context"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
                     android:padding="20dp"
                     android:gravity="top"
-                    android:background="@drawable/layout_edittext_stretch"
+                    android:background="@drawable/layout_rounded_box"
+                    android:elevation="10dp"
                     android:hint="우도에 관해 공유하고 싶은 정보 또는 질문하고 싶은 질문에 대해 적어주세요."
                     android:textSize="15dp"
-                    android:minLines="20"
-                    android:textColorHint="#999999"
-                    android:textColor="@color/black"/>
+                    android:minLines="20"/>
 
                 <ImageView
                     android:id="@+id/board_write_image"
