@@ -40,13 +40,12 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/layout_rounded_1">
+        android:background="@color/layout_rounded_2">
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvRedbus"
@@ -290,6 +289,5 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
 
 </LinearLayout>
