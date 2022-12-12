@@ -23,13 +23,29 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_board_gridview_item, parent, false);
-        return new BoardListViewHolder(view);
+        if(viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_board_gridview_item, parent, false);
+            return new BoardListViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.loadmore_layout, parent,false);
+            return new BoardListLoadingViewHolder(view);
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((BoardListViewHolder)holder).onBind(items.get(position));
+        switch (getItemViewType(position)) {
+            case VIEW_TYPE_ITEM:
+                ((BoardListViewHolder)holder).onBind(items.get(position));
+                break;
+            case VIEW_TYPE_LOADING:
+                BoardListLoadingViewHolder boardListLoadingViewHolder = (BoardListLoadingViewHolder) holder;
+                boardListLoadingViewHolder.progressBar.setIndeterminate(true);
+                showLoadingView(boardListLoadingViewHolder);
+                break;
+        }
+
 
         //게시판 리스트 아이템 클릭시 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +65,25 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return items.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
+    @Override
     public int getItemCount() {
         return items.size();
     }
 
     public void addItem(BoardListItem item) {
         items.add(item);
+    }
+
+    public void removeItem(int index){
+        items.remove(index);
+    }
+
+    private void showLoadingView(BoardListLoadingViewHolder holder){
+        holder.progressBar.setVisibility(View.VISIBLE);
     }
 }
 

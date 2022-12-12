@@ -210,7 +210,6 @@ public class Login extends AppCompatActivity {
         return pref.getString(key, "");
     }
 
-
     //키보드 숨기기
     private void hideKeyboard()
     {

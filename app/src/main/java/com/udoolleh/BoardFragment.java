@@ -17,6 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -45,6 +48,8 @@ public class BoardFragment extends Fragment {
     int itemPage = 0;
     private boolean isLoading = false;
     private boolean isLastLoading = false;
+    Spinner spinner;
+    String[] spinner_items = {"최근순", "추천순", "인기순"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,13 +63,31 @@ public class BoardFragment extends Fragment {
         boardGridView = view.findViewById(R.id.boardGridView);
         nonBoardText = view.findViewById(R.id.noneBoardText);
 
+        //RecyclerView
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         boardGridView.setLayoutManager(gridLayoutManager);
         boardListAdapter = new BoardListAdapter();
 
+        //Spinner
+        spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinner_items);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         //Retrofit
         BoardResponse();
-        /*
+
         boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -86,7 +109,7 @@ public class BoardFragment extends Fragment {
                 }
             }
         });
-         */
+
         return view;
     }
 
@@ -101,7 +124,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 1000).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 Data fetch success");
@@ -189,8 +212,11 @@ public class BoardFragment extends Fragment {
         });
     }
 
-    /*
+
     public void BoardLoadMoreResponse() {
+        boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);
+        int scrollPosition = boardListAdapter.getItemCount();
+        boardListAdapter.notifyItemRemoved(scrollPosition);
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -200,7 +226,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 50).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 Data fetch success");
@@ -290,5 +316,4 @@ public class BoardFragment extends Fragment {
             }
         },1000);
     }
-    */
 }
