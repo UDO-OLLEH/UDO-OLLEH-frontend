@@ -17,6 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -45,6 +48,8 @@ public class BoardFragment extends Fragment {
     int itemPage = 0;
     private boolean isLoading = false;
     private boolean isLastLoading = false;
+    Spinner spinner;
+    String[] spinner_items = {"최근순", "추천순", "인기순"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,9 +63,27 @@ public class BoardFragment extends Fragment {
         boardGridView = view.findViewById(R.id.boardGridView);
         nonBoardText = view.findViewById(R.id.noneBoardText);
 
+        //RecyclerView
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         boardGridView.setLayoutManager(gridLayoutManager);
         boardListAdapter = new BoardListAdapter();
+
+        //Spinner
+        spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinner_items);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //Retrofit
         BoardResponse();

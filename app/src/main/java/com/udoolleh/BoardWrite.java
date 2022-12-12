@@ -254,27 +254,28 @@ public class BoardWrite extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
 
-        //Uri to bitmap
-        Bitmap bitmap = null;
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
-            } else {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Bitmap Resize
-        bitmap = resizeBitmapImage(bitmap, 1080);
-
-        //Bitmap to Uri
-        URI = getImageUri(context, bitmap);
-
-        //Uri to Multipart
         MultipartBody.Part filePart;
         if (board_write_image.getDrawable() != null) {
+            Bitmap bitmap = null;
+
+            //Uri to bitmap
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
+                } else {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //Bitmap Resize
+            bitmap = resizeBitmapImage(bitmap, 1080);
+
+            //Bitmap to Uri
+            URI = getImageUri(context, bitmap);
+
+            //Uri to Multipart
             filePart = uriToMultipart(URI, "file", contentResolver);
             Log.d("udoLog", "멀티파트 Data fetch success");
         } else {
