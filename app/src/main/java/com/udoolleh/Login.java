@@ -1,5 +1,6 @@
 package com.udoolleh;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -20,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
+    public static Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     BackPressCloseHandler backPressCloseHandler;
