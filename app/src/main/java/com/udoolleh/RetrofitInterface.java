@@ -24,6 +24,10 @@ public interface RetrofitInterface {
     API 명세서 참고 후 작성
     */
 
+    //유저 엑세스 토큰 갱신 통신
+    @POST("/refreshToken")
+    Call<RefreshResponse> getRefreshResponse(@Body RefreshRequest refreshRequest);
+
     //로그인 통신
     @POST("/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);

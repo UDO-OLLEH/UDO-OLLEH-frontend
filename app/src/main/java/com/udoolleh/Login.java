@@ -1,5 +1,6 @@
 package com.udoolleh;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -20,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
+    public static Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     BackPressCloseHandler backPressCloseHandler;
@@ -45,7 +47,10 @@ public class Login extends AppCompatActivity {
         //자동 로그인을 선택한 유저
         if (!getPreferenceString("autoLoginId").equals("") && !getPreferenceString("autoLoginPw").equals("")) {
             autoLogin.setChecked(true);
-            checkAutoLogin(getPreferenceString("autoLoginId"));
+            String userID = getPreferenceString("autoLoginId");
+            String userPassword = getPreferenceString("autoLoginPw");
+            LoginResponse(userID, userPassword);
+            //checkAutoLogin(getPreferenceString("autoLoginId"));
         }
 
         //로그인 버튼
@@ -70,7 +75,9 @@ public class Login extends AppCompatActivity {
 
                 } else {
                     //로그인 통신
-                    LoginResponse();
+                    String userID = idLogin.getText().toString().trim();
+                    String userPassword = pwLogin.getText().toString().trim();
+                    LoginResponse(userID, userPassword);
                 }
             }
         });
@@ -85,12 +92,12 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void LoginResponse() {
-        String userID = idLogin.getText().toString().trim();
-        String userPassword = pwLogin.getText().toString().trim();
+    public void LoginResponse(String userID, String userPassword) {
+        String id = userID;
+        String pw = userPassword;
 
         //loginRequest에 사용자가 입력한 id와 pw를 저장
-        LoginRequest loginRequest = new LoginRequest(userID, userPassword);
+        LoginRequest loginRequest = new LoginRequest(id, pw);
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
@@ -125,8 +132,6 @@ public class Login extends AppCompatActivity {
                     int errorId = 500; //아이디, 비밀번호 일치x
 
                     if (resultCode == success) {
-                        String userID = idLogin.getText().toString();
-                        String userPassword = pwLogin.getText().toString();
 
                         //다른 통신을 하기 위해 token 저장
                         setPreference("accToken", accToken);
@@ -134,16 +139,16 @@ public class Login extends AppCompatActivity {
 
                         //자동 로그인 여부
                         if (autoLogin.isChecked()) {
-                            setPreference("autoLoginId", userID);
-                            setPreference("autoLoginPw", userPassword);
+                            setPreference("autoLoginId", id);
+                            setPreference("autoLoginPw", pw);
                         } else {
                             setPreference("autoLoginId", "");
                             setPreference("autoLoginPw", "");
                         }
 
-                        Toast.makeText(Login.this, userID + "님 환영합니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Login.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
-                        intent.putExtra("userId", userID);
+                        intent.putExtra("userId", id);
                         startActivity(intent);
                         Login.this.finish();
 

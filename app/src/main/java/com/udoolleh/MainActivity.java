@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity{
+    public static Context context;
     Toolbar toolbar;
     ImageView  map_img, food_img, main_img, tour_img, board_img;
     FloatingActionButton addBoardBtn;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
         addBoardBtn = findViewById(R.id.addBoardBtn);
         toolbar = (Toolbar)findViewById(R.id.toolbar);
