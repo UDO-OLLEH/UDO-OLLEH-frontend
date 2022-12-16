@@ -23,19 +23,19 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    Context context;
+    Context context = MainActivity.context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     private static RetrofitClient instance = null;
     private static RetrofitInterface RetrofitInterface;
     //서버 BASE 주소
     private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/";
-    private String accToken;
+    private String interceptorAccToken;
 
     //Token is visible
     public RetrofitClient(String accToken) {
-        this.accToken = accToken;
-        Log.d("Token", accToken);
+        //this.interceptorAccToken = accToken;
+        Log.d("Token(accToken)", accToken);
 
         //로그를 보기 위한 Interceptor
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
@@ -45,17 +45,22 @@ public class RetrofitClient {
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", accToken).build();
+                interceptorAccToken = getPreferenceString("accToken");
+                Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", interceptorAccToken).build();
                 Response response = chain.proceed(newRequest);
+
+                Log.d("Token(intAccToken)", interceptorAccToken+"");
                 Log.d("Token-responseCode", String.valueOf(response.code()));
+
                 if(response.code() == 401) {
-                    context = MainActivity.context;
                     RefreshResponse();
-                    Request refRequest = chain.request().newBuilder().addHeader("x-auth-token", accToken).build();
+                    interceptorAccToken = getPreferenceString("accToken");
+                    Request refRequest = chain.request().newBuilder().addHeader("x-auth-token", interceptorAccToken).build();
+                    response = chain.proceed(refRequest);
+
                     Log.d("Token-responseCode401", String.valueOf(response.code()));
-                    return chain.proceed(refRequest);
-                } else
-                    return response;
+                }
+                return response;
             }
         };
 
@@ -116,11 +121,12 @@ public class RetrofitClient {
         RefreshRequest refreshRequest = new RefreshRequest(refToken);
 
         //retrofit 생성
-        retrofitClient = RetrofitClient.getInstance(refToken);
+        retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //refreshRequest에 저장된 데이터와 함께 init에서 정의한 getRefreshResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getRefreshResponse(refreshRequest).enqueue(new Callback<RefreshResponse>() {
+
             @Override
             public void onResponse(Call<RefreshResponse> call, retrofit2.Response<RefreshResponse> response) {
 
