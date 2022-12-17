@@ -16,6 +16,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitInterface {
@@ -54,4 +55,8 @@ public interface RetrofitInterface {
     @Multipart
     @POST("/board")
     Call<BoardWriteResponse> getBoardWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
+
+    //게시판 댓글 조회 통신
+    @GET("/board/{id}/comment")
+    Call<BoardListItemDetailResponse> getBoardListItemDetailResponse(@Path("id") String id);
 }

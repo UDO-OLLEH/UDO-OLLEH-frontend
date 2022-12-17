@@ -30,7 +30,6 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.loadmore_layout, parent,false);
             return new BoardListLoadingViewHolder(view);
         }
-
     }
 
     @Override
@@ -55,6 +54,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
                     Intent boardListItemDetail = new Intent(context, BoardListItemDetail.class);
+                    boardListItemDetail.putExtra("id", items.get(pos).getId());
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());
                     boardListItemDetail.putExtra("context", items.get(pos).getContext());
                     boardListItemDetail.putExtra("createAt", items.get(pos).getCreateAt());

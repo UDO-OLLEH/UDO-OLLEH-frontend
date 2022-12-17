@@ -102,7 +102,7 @@ public class BoardFragment extends Fragment {
                 Log.d("lastitem", lastItem + "");
 
                 if(!isLoading & !isLastLoading){
-                    if(layoutManager != null && lastItem == boardListAdapter.getItemCount() - 1){
+                    if(layoutManager != null && lastItem == boardListAdapter.getItemCount() - 1) {
                         isLoading = true;
                         BoardBackgroundTask();
                     }
@@ -123,17 +123,17 @@ public class BoardFragment extends Fragment {
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
+        //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 Data fetch success");
-                Log.d("udoLog", "게시판 조화 body 내용" + response.body());
+                Log.d("udoLog", "게시판 조회 body 내용" + response.body());
                 Log.d("udoLog", "게시판 조회 성공여부" + response.isSuccessful());
                 Log.d("udoLog", "게시판 조회 상태코드" + response.code());
 
                 //통신 성공
-                if (response.isSuccessful() && response.body() != null) {
+                if(response.isSuccessful() && response.body() != null) {
 
                     //response.body()를 result에 저장
                     BoardResponse result = response.body();
@@ -144,7 +144,7 @@ public class BoardFragment extends Fragment {
                     //게시판 조회 성공
                     int success = 200;
 
-                    if (resultCode == success) {
+                    if(resultCode == success) {
                         String id = result.getId();
                         String dateTime = result.getDateTime();
                         Integer status = result.getStatus();
@@ -160,7 +160,7 @@ public class BoardFragment extends Fragment {
                                 "content" + boardList
                         );
 
-                        if (boardList.toString() == "[]") {
+                        if(boardList.toString() == "[]") {
                             boardGridView.setVisibility(View.INVISIBLE);
                             nonBoardText.setVisibility(View.VISIBLE);
                         } else {
@@ -168,9 +168,7 @@ public class BoardFragment extends Fragment {
                             nonBoardText.setVisibility(View.INVISIBLE);
 
                             //Recycler View 레이아웃 설정
-
-
-                            for (BoardResponse.BoardList.Content board : boardList) {
+                            for(BoardResponse.BoardList.Content board : boardList) {
 
                                 //게시판 내용 조회 로그
                                 Log.d("udoLog", "게시판 리스트\n" +
@@ -187,7 +185,6 @@ public class BoardFragment extends Fragment {
                         }
 
                     } else {
-
                         //상태코드 != 200일 때
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
@@ -217,6 +214,7 @@ public class BoardFragment extends Fragment {
         boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);
         int scrollPosition = boardListAdapter.getItemCount();
         boardListAdapter.notifyItemRemoved(scrollPosition);
+
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -263,6 +261,7 @@ public class BoardFragment extends Fragment {
                                 "content" + boardList
                         );
 
+                        //Recycler View 레이아웃 설정
                         for (BoardResponse.BoardList.Content board : boardList) {
 
                             //게시판 내용 조회 로그
@@ -280,7 +279,6 @@ public class BoardFragment extends Fragment {
                         isLoading = false;
 
                     } else {
-
                         //상태코드 != 200일 때
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
