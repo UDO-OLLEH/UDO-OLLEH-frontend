@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.amar.library.ui.StickyScrollView;
+
 public class Seongsan extends AppCompatActivity {
 
-    NestedScrollView scrollView;
+    StickyScrollView scrollView;
     Button btnRoute, btnTime, btnPrice;
 
     @Override

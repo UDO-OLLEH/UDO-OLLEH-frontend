@@ -32,7 +32,7 @@ android {
     dependencies {
 
         //stickyscrollview
-        //implementation 'com.github.amarjain07:StickyScrollView:<latest-version>'
+        implementation 'com.github.amarjain07:StickyScrollView:1.0.3'
 
         //multiDex
         //implementation 'com.android.support:multidex:1.0.3'
