@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@android:color/holo_blue_light"
+            app:contentScrim="@color/udoGreen"
             app:expandedTitleMarginBottom="50dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextColor="@color/black"
@@ -60,7 +60,8 @@
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/layout_half_rounded_box">
 
                 <Button
                     android:id="@+id/btnRoute"
