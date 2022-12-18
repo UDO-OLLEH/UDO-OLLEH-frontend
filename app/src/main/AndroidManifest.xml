@@ -14,33 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Udoolleh"
         android:usesCleartextTraffic="true">
+
         <activity
-            android:name=".Seongsan"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".Seongsan">
         </activity>
         <activity
-            android:name=".Jongdal"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".Jongdal">
         </activity>
         <activity
-            android:name=".Whitebus"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".Whitebus">
         </activity>
         <activity
-            android:name=".Redbus"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".Redbus">
         </activity>
         <activity
             android:name=".Splash"

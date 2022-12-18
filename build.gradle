@@ -11,12 +11,14 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
 allprojects {
     repositories {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
+        repositories {
+            maven { url "https://jitpack.io"}
+        }
     }
 }
 
