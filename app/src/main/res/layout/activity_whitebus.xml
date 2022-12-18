@@ -48,6 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/layout_half_rounded_box"
+        app:stickyHeader="@id/btnLayout"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -56,6 +57,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
