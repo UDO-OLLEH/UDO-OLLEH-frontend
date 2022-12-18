@@ -10,7 +10,7 @@
         android:layout_height="1dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="#EFEFEF"/>
+        android:background="@color/layout_rounded_2"/>
 
     <LinearLayout
         android:layout_width="match_parent"
