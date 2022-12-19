@@ -39,13 +39,7 @@ public interface RetrofitInterface {
 
     //맛집 리스트 조회 통신
     @GET("/restaurant")
-    Call<FoodResponse> getFoodResponse(@Query("status") Integer status);
-
-    /*
-    //게시판 조회 통신
-    @GET("/board/list")
-    Call<BoardResponse> getBoardResponse();
-     */
+    Call<FoodResponse> getFoodResponse(@Query("page") Integer page);
 
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
