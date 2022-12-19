@@ -2,18 +2,29 @@ package com.udoolleh;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -22,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BoardListItemDetail extends AppCompatActivity {
+    Toolbar toolbar;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     RecyclerView boardCommentListView;
@@ -36,7 +48,47 @@ public class BoardListItemDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_board_detail);
 
+        //뒤로가기 버튼
+        Button board_close = findViewById(R.id.board_close);
+        board_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        //툴바 설정
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        toolBarLayout.setTitle("");
+        toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
+        toolBarLayout.setExpandedTitleColor(Color.alpha(0));
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
+
+                    case R.id.nav_setting:
+                        Toast.makeText(getApplicationContext(), "setting", Toast.LENGTH_SHORT).show();
+
+                    case R.id.nav_example:
+                        Toast.makeText(getApplicationContext(), "example", Toast.LENGTH_SHORT).show();
+                }
+
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.END);
+                return true;
+            }
+        });
+
+        //Intent로 게시글 텍스트 가져오기
         TextView titleDetail = findViewById(R.id.titleDetail);
+        TextView titleDetail2 = findViewById(R.id.titleDetail2);
         TextView contextDetail = findViewById(R.id.contextDetail);
         TextView createAtDetail = findViewById(R.id.createAtDetail);
 
@@ -48,13 +100,13 @@ public class BoardListItemDetail extends AppCompatActivity {
         String createAt = intent.getExtras().getString("createAt");
 
         titleDetail.setText(title);
+        titleDetail2.setText(title);
         contextDetail.setText(context);
         createAtDetail.setText(createAt);
 
+        //RecyclerView
         boardCommentListView = findViewById(R.id.boardCommentListView);
         nonBoardCommentText = findViewById(R.id.noneBoardCommentText);
-
-        //RecyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         boardCommentListView.setLayoutManager(linearLayoutManager);
         boardListItemDetailAdapter = new BoardListItemDetailAdapter();
@@ -156,5 +208,39 @@ public class BoardListItemDetail extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_appbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        switch (item.getItemId()) {
+            case R.id.drawer:
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();
+                }
+                else if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
