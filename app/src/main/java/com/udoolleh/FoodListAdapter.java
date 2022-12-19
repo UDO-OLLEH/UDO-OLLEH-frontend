@@ -14,23 +14,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
     ArrayList<FoodListItem> items = new ArrayList<FoodListItem>();
-
-    public void addItem(FoodListItem item) {
-        items.add(item);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_food_gridview_item, parent, false);
-        return new FoodListViewHolder(view);
+        if(viewType == VIEW_TYPE_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_food_gridview_item, parent, false);
+            return new FoodListViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.loadmore_layout, parent, false);
+            return new FoodListLoadingViewHolder(view);
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((FoodListViewHolder)holder).onBind(items.get(position));
+        switch (getItemViewType(position)) {
+            case VIEW_TYPE_ITEM:
+                ((FoodListViewHolder)holder).onBind(items.get(position));
+                break;
+            case VIEW_TYPE_LOADING:
+                FoodListLoadingViewHolder foodListLoadingViewHolder = (FoodListLoadingViewHolder) holder;
+                foodListLoadingViewHolder.progressBar.setIndeterminate(true);
+                showLoadingView(foodListLoadingViewHolder);
+                break;
+        }
+
 
         //리스트 아이템 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +65,24 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return items.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+
+    @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void addItem(FoodListItem item) {
+        items.add(item);
+    }
+
+    public void removeItem(int index){
+        items.remove(index);
+    }
+
+    private void showLoadingView(FoodListLoadingViewHolder holder){
+        holder.progressBar.setVisibility(View.VISIBLE);
     }
 }

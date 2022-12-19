@@ -44,7 +44,7 @@ public class BoardFragment extends Fragment {
     private RetrofitInterface retrofitInterface;
     RecyclerView boardGridView;
     BoardListAdapter boardListAdapter;
-    TextView nonBoardText;
+    TextView noneBoardText;
     int itemPage = 0;
     private boolean isLoading = false;
     private boolean isLastLoading = false;
@@ -60,10 +60,10 @@ public class BoardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_board, container, false);
         context = container.getContext();
-        boardGridView = view.findViewById(R.id.boardGridView);
-        nonBoardText = view.findViewById(R.id.noneBoardText);
 
         //RecyclerView
+        boardGridView = view.findViewById(R.id.boardGridView);
+        noneBoardText = view.findViewById(R.id.noneBoardText);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         boardGridView.setLayoutManager(gridLayoutManager);
         boardListAdapter = new BoardListAdapter();
@@ -162,10 +162,10 @@ public class BoardFragment extends Fragment {
 
                         if(boardList.toString() == "[]") {
                             boardGridView.setVisibility(View.INVISIBLE);
-                            nonBoardText.setVisibility(View.VISIBLE);
+                            noneBoardText.setVisibility(View.VISIBLE);
                         } else {
                             boardGridView.setVisibility(View.VISIBLE);
-                            nonBoardText.setVisibility(View.INVISIBLE);
+                            noneBoardText.setVisibility(View.INVISIBLE);
 
                             //Recycler View 레이아웃 설정
                             for(BoardResponse.BoardList.Content board : boardList) {
@@ -234,7 +234,6 @@ public class BoardFragment extends Fragment {
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
-
 
                     //response.body()를 result에 저장
                     BoardResponse result = response.body();
