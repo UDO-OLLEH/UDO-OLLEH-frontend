@@ -45,7 +45,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
         }
 
-
         //리스트 아이템 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

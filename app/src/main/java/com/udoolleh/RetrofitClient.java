@@ -34,8 +34,6 @@ public class RetrofitClient {
 
     //Token is visible
     public RetrofitClient(String accToken) {
-        //this.interceptorAccToken = accToken;
-        Log.d("Token(accToken)", accToken);
 
         //로그를 보기 위한 Interceptor
         HttpLoggingInterceptor logger = new HttpLoggingInterceptor();
@@ -49,17 +47,13 @@ public class RetrofitClient {
                 Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", interceptorAccToken).build();
                 Response response = chain.proceed(newRequest);
 
-                Log.d("Token(intAccToken)", interceptorAccToken+"");
-                Log.d("Token-responseCode", String.valueOf(response.code()));
-
                 if(response.code() == 401) {
                     RefreshResponse();
                     interceptorAccToken = getPreferenceString("accToken");
                     Request refRequest = chain.request().newBuilder().addHeader("x-auth-token", interceptorAccToken).build();
                     response = chain.proceed(refRequest);
-
-                    Log.d("Token-responseCode401", String.valueOf(response.code()));
                 }
+
                 return response;
             }
         };
@@ -74,8 +68,6 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
-
-        Log.d("Header", accToken);
 
         RetrofitInterface = retrofit.create(RetrofitInterface.class);
     }
@@ -111,7 +103,7 @@ public class RetrofitClient {
         return RetrofitInterface;
     }
 
-
+    //토큰 갱신
     public void RefreshResponse() {
 
         //토큰 가져오기
@@ -126,13 +118,11 @@ public class RetrofitClient {
 
         //refreshRequest에 저장된 데이터와 함께 init에서 정의한 getRefreshResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getRefreshResponse(refreshRequest).enqueue(new Callback<RefreshResponse>() {
-
             @Override
             public void onResponse(Call<RefreshResponse> call, retrofit2.Response<RefreshResponse> response) {
-
-                Log.d("udoLog", "Data fetch success");
-                Log.d("udoLog", "body 내용" + response.body());
-                Log.d("udoLog", "상태코드" + response.isSuccessful());
+                Log.d("udoLog", "토큰 갱신 body 내용 = " + response.body());
+                Log.d("udoLog", "토큰 갱신 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "토큰 갱신 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -148,7 +138,6 @@ public class RetrofitClient {
                     String accToken = tokenList.getAccessToken();
                     String refToken = tokenList.getRefreshToken();
 
-                    Log.d("udoLog", accToken + refToken);
                     int success = 200; //로그인 성공
                     int errorTk = 403; //토큰 유효x
                     int errorId = 500; //아이디, 비밀번호 일치x
@@ -159,22 +148,22 @@ public class RetrofitClient {
                         setPreference("refToken", refToken);
 
                     } else if (resultCode == errorId) {
-                        Log.d("token", "errorStatus: 500");
+                        Log.d("udoLog", "errorStatus: 500");
 
                     } else if (resultCode == errorTk) {
-                        Log.d("token", "errorStatus: 403");
+                        Log.d("udoLog", "errorStatus: 403");
                     } else {
-                        Log.d("token", "errorStatus: else");
+                        Log.d("udoLog", "errorStatus: else");
                     }
                 } else {
-                    Log.d("token", "errorStatus: ConnectionError");
+                    Log.d("udoLog", "errorStatus: ConnectionError");
                 }
             }
 
             //통신 실패
             @Override
             public void onFailure(Call<RefreshResponse> call, Throwable t) {
-                Log.d("token", "errorStatus: ConnectionFailure");
+                Log.d("udoLog", "errorStatus: ConnectionFailure");
             }
         });
     }

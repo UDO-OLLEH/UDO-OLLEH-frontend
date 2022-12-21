@@ -32,6 +32,8 @@ public class BoardListItemDetailAdapter extends RecyclerView.Adapter<RecyclerVie
                 int pos = holder.getAdapterPosition();
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
+                    //게시판 댓글 목록 클릭시 이벤트 작성
+
                     /*Intent boardListItemDetail = new Intent(context, BoardListItemDetail.class);
                     boardListItemDetail.putExtra("id", items.get(pos).getId());
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());

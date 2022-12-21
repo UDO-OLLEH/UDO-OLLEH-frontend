@@ -108,7 +108,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/layout_rounded_2"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fillViewport="true"
+            android:layout_marginBottom="70dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -150,7 +152,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:background="@color/layout_rounded_1">
 
@@ -174,7 +176,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:orientation="vertical">
 
@@ -201,6 +203,37 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:gravity="center|bottom">
+
+                <EditText
+                    android:id="@+id/boardCommentWriteEditText"
+                    android:background="@drawable/layout_rounded_box"
+                    android:layout_width="320dp"
+                    android:layout_height="60dp"
+                    android:elevation="10dp"
+                    android:hint="댓글을 입력하세요."/>
+
+                <Button
+                    android:id="@+id/boardCommentWriteButton"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:elevation="10dp"
+                    android:background="@drawable/picture_icon"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

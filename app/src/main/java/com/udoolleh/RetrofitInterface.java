@@ -53,4 +53,8 @@ public interface RetrofitInterface {
     //게시판 댓글 조회 통신
     @GET("/board/{id}/comment")
     Call<BoardListItemDetailResponse> getBoardListItemDetailResponse(@Path("id") String id);
+
+    //게시판 댓글 등록 통신
+    @POST("/board/comment")
+    Call<BoardCommentWriteResponse> getBoardCommentWriteResponse(@Body BoardCommentWriteRequest boardCommentWriteRequest);
 }
