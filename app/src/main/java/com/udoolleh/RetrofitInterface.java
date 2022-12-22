@@ -45,6 +45,10 @@ public interface RetrofitInterface {
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(@Query("page") Integer page);
 
+    //맛집 메뉴 목록 조회 통신
+    @GET("restaurant/{id}/menu")
+    Call<FoodListItemDetailResponse> getFoodListItemDetailResponse(@Path("id") String id);
+
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);

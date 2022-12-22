@@ -194,6 +194,7 @@ public class FoodFragment extends Fragment {
 
                                 //맛집 리스트 상세 조회 로그
                                 Log.d("udoLog", "맛집 조회 리스트 = \n" +
+                                        "id: " + food.getId() + "\n" +
                                         "name: " + food.getName() + "\n" +
                                         "placeType: " + food.getPlaceType() + "\n" +
                                         "category: " + food.getCategory() + "\n" +
@@ -203,7 +204,7 @@ public class FoodFragment extends Fragment {
                                         "xcoordinate: " + food.getXcoordinate() + "\n" +
                                         "ycoordinate: " + food.getYcoordinate() + "\n"
                                 );
-                                foodListAdapter.addItem(new FoodListItem(food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
+                                foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
                             }
                             foodGridView.setAdapter(foodListAdapter);
                         }
@@ -281,6 +282,7 @@ public class FoodFragment extends Fragment {
 
                             //맛집 리스트 상세 조회 로그
                             Log.d("udoolleh", "맛집 조회 추가 로딩 리스트 = \n" +
+                                    "id: " + food.getId() + "\n" +
                                     "name: " + food.getName() + "\n" +
                                     "placeType: " + food.getPlaceType() + "\n" +
                                     "category: " + food.getCategory() + "\n" +
@@ -290,7 +292,7 @@ public class FoodFragment extends Fragment {
                                     "xcoordinate: " + food.getXcoordinate() + "\n" +
                                     "ycoordinate: " + food.getYcoordinate() + "\n"
                             );
-                            foodListAdapter.addItem(new FoodListItem(food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
+                            foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
                         }
                         foodListAdapter.notifyDataSetChanged();
                         isLoading = false;

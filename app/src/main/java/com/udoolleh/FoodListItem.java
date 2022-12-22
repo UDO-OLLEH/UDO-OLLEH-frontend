@@ -1,6 +1,7 @@
 package com.udoolleh;
 
 public class FoodListItem {
+    String id;
     String name;
     String placeType;
     String category;
@@ -10,7 +11,8 @@ public class FoodListItem {
     String xcoordinate;
     String ycoordinate;
 
-    public FoodListItem(String name, String placeType, String category, String address, String imagesUrl, String totalGrade, String xcoordinate, String ycoordinate) {
+    public FoodListItem(String id, String name, String placeType, String category, String address, String imagesUrl, String totalGrade, String xcoordinate, String ycoordinate) {
+        this.id = id;
         this.name = name;
         this.placeType = placeType;
         this.category = category;
@@ -19,6 +21,14 @@ public class FoodListItem {
         this.totalGrade = totalGrade;
         this.xcoordinate = xcoordinate;
         this.ycoordinate = ycoordinate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

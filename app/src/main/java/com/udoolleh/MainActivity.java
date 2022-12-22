@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
     ImageView  map_img, food_img, main_img, tour_img, board_img;
     TextView navigation_nickname;
-    Button logout;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     FloatingActionButton addBoardBtn;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity{
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
 
-        logout = findViewById(R.id.logout);
+        Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity{
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 LogoutResponse();
                                 Toast.makeText(MainActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity{
                         startActivity(intent);
 
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder.setTitle("알림")
                                 .setMessage("로그아웃을 할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity{
             //통신 실패
             @Override
             public void onFailure(Call<LogoutResponse> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)

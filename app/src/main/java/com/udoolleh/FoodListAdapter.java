@@ -53,6 +53,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
                     Intent foodListItemDetail = new Intent(context, FoodListItemDetail.class);
+                    foodListItemDetail.putExtra("id", items.get(pos).getId());
                     foodListItemDetail.putExtra("imagesUrl", items.get(pos).getImagesUrl());
                     foodListItemDetail.putExtra("name", items.get(pos).getName());
                     foodListItemDetail.putExtra("address", items.get(pos).getAddress());

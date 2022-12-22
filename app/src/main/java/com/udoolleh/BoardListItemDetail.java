@@ -1,5 +1,7 @@
 package com.udoolleh;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -58,6 +60,26 @@ public class BoardListItemDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        Button logout = findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                builder.setTitle("우도올레")
+                        .setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new LogoutResponse();
+                                Toast.makeText(BoardListItemDetail.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("취소", null)
+                        .create()
+                        .show();
             }
         });
 
