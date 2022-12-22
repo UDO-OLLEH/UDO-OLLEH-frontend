@@ -107,10 +107,9 @@ public class Login extends AppCompatActivity {
         retrofitInterface.getLoginResponse(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
-                Log.d("udoLog", "Data fetch success");
-                Log.d("udoLog", "body 내용" + response.body());
-                Log.d("udoLog", "상태코드" + response.isSuccessful());
+                Log.d("udoLog", "로그인 body 내용 = " + response.body());
+                Log.d("udoLog", "로그인 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "로그인 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -126,7 +125,7 @@ public class Login extends AppCompatActivity {
                     String accToken = tokenList.getAccessToken();
                     String refToken = tokenList.getRefreshToken();
 
-                    Log.d("udoLog", accToken + refToken);
+                    Log.d("udoLog", "로그인 정보 = accToken {" + accToken + "}\nrefToken {" + refToken + "}");
                     int success = 200; //로그인 성공
                     int errorTk = 403; //토큰 유효x
                     int errorId = 500; //아이디, 비밀번호 일치x
@@ -172,19 +171,11 @@ public class Login extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setTitle("알림")
-                                .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("로그인을 할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
-
                     }
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-                    builder.setTitle("알림")
-                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
-                            .setPositiveButton("확인", null)
-                            .create()
-                            .show();
                 }
             }
 

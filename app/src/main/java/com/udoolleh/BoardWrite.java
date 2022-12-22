@@ -144,9 +144,6 @@ public class BoardWrite extends AppCompatActivity {
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    Toast.makeText(this, "실패", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
@@ -287,7 +284,7 @@ public class BoardWrite extends AppCompatActivity {
         String hashtag = boardWrite_Hashtag.getText().toString().trim();
         String context = boardWrite_Context.getText().toString().trim();
         RequestBody requestDto = RequestBody.create(MediaType.parse("application/json"), "{\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
-        Log.d("udoLog", "게시판 작성 requestDto {\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
+        Log.d("udoLog", "게시판 작성 requestDto = {\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
@@ -297,10 +294,9 @@ public class BoardWrite extends AppCompatActivity {
         retrofitInterface.getBoardWriteResponse(filePart, requestDto).enqueue(new Callback<BoardWriteResponse>() {
             @Override
             public void onResponse(Call<BoardWriteResponse> call, Response<BoardWriteResponse> response) {
-                Log.d("udoLog", "게시판 작성 Data fetch success");
-                Log.d("udoLog", "게시판 작성 body 내용" + response.body());
-                Log.d("udoLog", "게시판 작성 성공여부" + response.isSuccessful());
-                Log.d("udoLog", "게시판 작성 상태코드" + response.code());
+                Log.d("udoLog", "게시판 작성 body 내용 = " + response.body());
+                Log.d("udoLog", "게시판 작성 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "게시판 작성 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -311,50 +307,22 @@ public class BoardWrite extends AppCompatActivity {
                     //받은 코드 저장
                     int resultCode = response.code();
 
-                    int success = 200; //게시 성공
-                    int errPm = 400; //파라미터 유효x
-                    int errTk = 403; //토큰 에러, 사용자 에러
+                    //게시물 작성 성공
+                    int success = 200;
 
                     if (resultCode == success) {
                         Toast.makeText(BoardWrite.this, "게시물을 등록하였습니다.", Toast.LENGTH_LONG).show();
                         finish();
-                    } else if (resultCode == errPm) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
-                        builder.setTitle("알림")
-                                .setMessage("예기치 못한 오류가 발생하였습니다.\n 잠시후 다시 시도해주세요.")
-                                .setPositiveButton("확인", null)
-                                .create()
-                                .show();
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    } else if (resultCode == errTk) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
-                        builder.setTitle("알림")
-                                .setMessage("로그인 정보가 유효하지 않습니다.\n 로그인 상태를 확인해주세요.")
-                                .setPositiveButton("확인", null)
-                                .create()
-                                .show();
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
                         builder.setTitle("알림")
-                                .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("게시물을 등록할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                     }
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
-                    builder.setTitle("알림")
-                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
-                            .setPositiveButton("확인", null)
-                            .create()
-                            .show();
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
                 }
             }
 

@@ -87,6 +87,7 @@ public class FoodFragment extends Fragment {
         //Retrofit
         FoodResponse();
 
+        //맛집 조회 추가 로딩
         foodGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -151,10 +152,9 @@ public class FoodFragment extends Fragment {
         retrofitInterface.getFoodResponse(itemPage).enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
-                Log.d("udoLog", "맛집 조회 Data fetch success");
-                Log.d("udoLog", "맛집 조회 body 내용" + response.body());
-                Log.d("udoLog", "맛집 조회 성공여부" + response.isSuccessful());
-                Log.d("udoLog", "맛집 조회 상태코드" + response.code());
+                Log.d("udoLog", "맛집 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "맛집 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "맛집 조회 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -175,7 +175,7 @@ public class FoodFragment extends Fragment {
                         List<FoodResponse.FoodList.Content> foodList = result.getList().getContent();
 
                         //맛집 리스트 조회 로그
-                        Log.d("udoolleh", "맛집 리스트\n" +
+                        Log.d("udoLog", "맛집 조회 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "message: " + message + "\n" +
@@ -193,7 +193,7 @@ public class FoodFragment extends Fragment {
                             for (FoodResponse.FoodList.Content food : foodList) {
 
                                 //맛집 리스트 상세 조회 로그
-                                Log.d("udoolleh", "맛집 리스트\n" +
+                                Log.d("udoLog", "맛집 조회 리스트 = \n" +
                                         "name: " + food.getName() + "\n" +
                                         "placeType: " + food.getPlaceType() + "\n" +
                                         "category: " + food.getCategory() + "\n" +
@@ -211,7 +211,7 @@ public class FoodFragment extends Fragment {
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
-                                .setMessage("맛집 조회 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("맛집을 조회할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -224,7 +224,7 @@ public class FoodFragment extends Fragment {
             public void onFailure(Call<FoodResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("알림")
-                        .setMessage("통신실패 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
@@ -232,6 +232,7 @@ public class FoodFragment extends Fragment {
         });
     }
 
+    //맛집 조회 추가 로딩
     public void FoodLoadMoreResponse() {
         foodListAdapter.removeItem(foodListAdapter.getItemCount() - 1);
         int scrollPosition = foodListAdapter.getItemCount();
@@ -245,10 +246,9 @@ public class FoodFragment extends Fragment {
         retrofitInterface.getFoodResponse(itemPage).enqueue(new Callback<FoodResponse>() {
             @Override
             public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
-                Log.d("udoLog", "맛집 조회 Data fetch success");
-                Log.d("udoLog", "맛집 조회 body 내용" + response.body());
-                Log.d("udoLog", "맛집 조회 성공여부" + response.isSuccessful());
-                Log.d("udoLog", "맛집 조회 상태코드" + response.code());
+                Log.d("udoLog", "맛집 조회 추가 로딩 body 내용 = " + response.body());
+                Log.d("udoLog", "맛집 조회 추가 로딩 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "맛집 조회 추가 로딩 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -269,7 +269,7 @@ public class FoodFragment extends Fragment {
                         List<FoodResponse.FoodList.Content> foodList = result.getList().getContent();
 
                         //맛집 리스트 조회 로그
-                        Log.d("udoolleh", "맛집 리스트\n" +
+                        Log.d("udoLog", "맛집 조회 추가 로딩 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "message: " + message + "\n" +
@@ -280,7 +280,7 @@ public class FoodFragment extends Fragment {
                         for (FoodResponse.FoodList.Content food : foodList) {
 
                             //맛집 리스트 상세 조회 로그
-                            Log.d("udoolleh", "맛집 리스트\n" +
+                            Log.d("udoolleh", "맛집 조회 추가 로딩 리스트 = \n" +
                                     "name: " + food.getName() + "\n" +
                                     "placeType: " + food.getPlaceType() + "\n" +
                                     "category: " + food.getCategory() + "\n" +
@@ -298,7 +298,7 @@ public class FoodFragment extends Fragment {
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
-                                .setMessage("맛집 조회 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("맛집을 조회할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -311,7 +311,7 @@ public class FoodFragment extends Fragment {
             public void onFailure(Call<FoodResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("알림")
-                        .setMessage("통신실패 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
                         .create()
                         .show();

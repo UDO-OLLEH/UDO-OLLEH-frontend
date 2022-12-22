@@ -61,13 +61,6 @@ public class BoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_board, container, false);
         context = container.getContext();
 
-        //RecyclerView
-        boardGridView = view.findViewById(R.id.boardGridView);
-        noneBoardText = view.findViewById(R.id.noneBoardText);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
-        boardGridView.setLayoutManager(gridLayoutManager);
-        boardListAdapter = new BoardListAdapter();
-
         //Spinner
         spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinner_items);
@@ -85,9 +78,17 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        //Retrofit
+        //RecyclerView
+        boardGridView = view.findViewById(R.id.boardGridView);
+        noneBoardText = view.findViewById(R.id.noneBoardText);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+        boardGridView.setLayoutManager(gridLayoutManager);
+        boardListAdapter = new BoardListAdapter();
+
+        //Retrofit 게시판 최초 조회
         BoardResponse();
 
+        //게시판 스크롤 시 추가 로딩
         boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -127,10 +128,9 @@ public class BoardFragment extends Fragment {
         retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
-                Log.d("udoLog", "게시판 조회 Data fetch success");
-                Log.d("udoLog", "게시판 조회 body 내용" + response.body());
-                Log.d("udoLog", "게시판 조회 성공여부" + response.isSuccessful());
-                Log.d("udoLog", "게시판 조회 상태코드" + response.code());
+                Log.d("udoLog", "게시판 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "게시판 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "게시판 조회 상태코드 = " + response.code());
 
                 //통신 성공
                 if(response.isSuccessful() && response.body() != null) {
@@ -152,7 +152,7 @@ public class BoardFragment extends Fragment {
                         List<BoardResponse.BoardList.Content> boardList = result.getList().getContent();
 
                         //게시판 조회 로그
-                        Log.d("udoLog", "게시판 조회 성공\n" +
+                        Log.d("udoLog", "게시판 조회 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "status: " + status + "\n" +
@@ -171,7 +171,7 @@ public class BoardFragment extends Fragment {
                             for(BoardResponse.BoardList.Content board : boardList) {
 
                                 //게시판 내용 조회 로그
-                                Log.d("udoLog", "게시판 리스트\n" +
+                                Log.d("udoLog", "게시판 조회 리스트 = \n" +
                                         "id: " + board.getId() + "\n" +
                                         "title: " + board.getTitle() + "\n" +
                                         "context: " + board.getContext() + "\n" +
@@ -188,7 +188,7 @@ public class BoardFragment extends Fragment {
                         //상태코드 != 200일 때
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
-                                .setMessage("맛집 조회 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("맛집 조회를 할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -201,7 +201,7 @@ public class BoardFragment extends Fragment {
             public void onFailure(Call<BoardResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("알림")
-                        .setMessage("통신실패 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
@@ -211,6 +211,7 @@ public class BoardFragment extends Fragment {
 
 
     public void BoardLoadMoreResponse() {
+        //로딩 중 항목 삭제
         boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);
         int scrollPosition = boardListAdapter.getItemCount();
         boardListAdapter.notifyItemRemoved(scrollPosition);
@@ -227,10 +228,9 @@ public class BoardFragment extends Fragment {
         retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
-                Log.d("udoLog", "게시판 조회 Data fetch success");
-                Log.d("udoLog", "게시판 조화 body 내용" + response.body());
-                Log.d("udoLog", "게시판 조회 성공여부" + response.isSuccessful());
-                Log.d("udoLog", "게시판 조회 상태코드" + response.code());
+                Log.d("udoLog", "게시판 조회 추가 로딩 body 내용 = " + response.body());
+                Log.d("udoLog", "게시판 조회 추가 로딩 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "게시판 조회 추가 로딩 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -252,7 +252,7 @@ public class BoardFragment extends Fragment {
                         List<BoardResponse.BoardList.Content> boardList = result.getList().getContent();
 
                         //게시판 조회 로그
-                        Log.d("udoLog", "게시판 조회 성공\n" +
+                        Log.d("udoLog", "게시판 조회 추가 로딩 성공 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
                                 "status: " + status + "\n" +
@@ -264,7 +264,7 @@ public class BoardFragment extends Fragment {
                         for (BoardResponse.BoardList.Content board : boardList) {
 
                             //게시판 내용 조회 로그
-                            Log.d("udoLog", "게시판 리스트\n" +
+                            Log.d("udoLog", "게시판 조회 추가 로딩 리스트 = \n" +
                                     "id: " + board.getId() + "\n" +
                                     "title: " + board.getTitle() + "\n" +
                                     "context: " + board.getContext() + "\n" +
@@ -281,7 +281,7 @@ public class BoardFragment extends Fragment {
                         //상태코드 != 200일 때
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("알림")
-                                .setMessage("맛집 조회 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                                .setMessage("맛집 조회를 할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
@@ -294,7 +294,7 @@ public class BoardFragment extends Fragment {
             public void onFailure(Call<BoardResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("알림")
-                        .setMessage("통신실패 예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
@@ -302,6 +302,7 @@ public class BoardFragment extends Fragment {
         });
     }
 
+    //게시판 추가 로딩 비동기 처리
     private void BoardBackgroundTask() {
         boardListAdapter.addItem(null);
         boardListAdapter.notifyItemInserted(boardListAdapter.getItemCount()-1);

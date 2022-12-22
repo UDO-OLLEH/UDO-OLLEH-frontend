@@ -54,7 +54,7 @@ public class SignUp  extends AppCompatActivity {
                 hideKeyboard();
 
                 //회원가입 정보 미입력 시
-                if (id.trim().length() == 0 || id == null || pw.trim().length() == 0 || pw == null || pw_ck.trim().length() == 0 || pw_ck == null || nick.trim().length() == 0 || nick == null) {
+                if(id.trim().length() == 0 || id == null || pw.trim().length() == 0 || pw == null || pw_ck.trim().length() == 0 || pw_ck == null || nick.trim().length() == 0 || nick == null) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                     builder.setTitle("알림")
@@ -65,7 +65,7 @@ public class SignUp  extends AppCompatActivity {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
-                } else if (pw.equals(pw_ck) == false) {
+                } else if(pw.equals(pw_ck) == false) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                     builder.setTitle("알림")
@@ -85,6 +85,7 @@ public class SignUp  extends AppCompatActivity {
         });
     }
 
+    //회원가입 통신
     public void SignUpResponse() {
         String userID = id_signup.getText().toString().trim();
         String userPassword = pw_signup.getText().toString().trim();
@@ -101,10 +102,9 @@ public class SignUp  extends AppCompatActivity {
         retrofitInterface.getSignUpResponse(signUpRequest).enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-
-                Log.d("udoolleh", "Data fetch success");
-                Log.d("udoolleh", "body 내용" + response.body());
-                Log.d("udoolleh", "상태코드" + response.isSuccessful());
+                Log.d("udoLog", "회원가입 body 내용 = " + response.body());
+                Log.d("udoLog", "회원가입 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "회원가입 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
@@ -115,27 +115,15 @@ public class SignUp  extends AppCompatActivity {
                     //받은 코드 저장
                     String resultCode = result.getStatus();
 
-                    //받은 토큰 저장
-                    //String token = result.getAccessToken();
-
                     String success = "200"; //로그인 성공
                     String errorTk = "403"; //토큰 유효x
                     String errorId = "500"; //아이디, 비밀번호 일치x
 
-
-
                     if (resultCode.equals(success)) {
-                        String userID = id_signup.getText().toString();
-                        String userPassword = pw_signup.getText().toString();
-
-                        //다른 통신을 하기 위해 token 저장
-                        //setPreference(token,token);
-
                         Toast.makeText(SignUp.this, "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                         finish();
 
                     } else if (resultCode.equals(errorId)) {
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
                         builder.setTitle("알림")
                                 .setMessage("사용중인 아이디입니다.\n")
@@ -159,15 +147,7 @@ public class SignUp  extends AppCompatActivity {
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
-
                     }
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.this);
-                    builder.setTitle("알림")
-                            .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
-                            .setPositiveButton("확인", null)
-                            .create()
-                            .show();
                 }
             }
 

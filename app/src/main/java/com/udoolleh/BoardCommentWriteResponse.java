@@ -2,18 +2,18 @@ package com.udoolleh;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SignUpResponse {
+public class BoardCommentWriteResponse {
     @SerializedName("id")
     public String id;
 
     @SerializedName("dateTime")
     public String dateTime;
 
-    @SerializedName("status")
-    public String status;
-
     @SerializedName("message")
     public String message;
+
+    @SerializedName("list")
+    public String list;
 
     public String getId() {
         return id;
@@ -29,17 +29,17 @@ public class SignUpResponse {
         this.dateTime = dateTime;
     }
 
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getMessage() {
         return message;
     }
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getList() {
+        return list;
+    }
+    public void setList(String list) {
+        this.list = list;
     }
 }

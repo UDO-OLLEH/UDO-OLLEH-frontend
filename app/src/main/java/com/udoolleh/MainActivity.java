@@ -47,27 +47,8 @@ public class MainActivity extends AppCompatActivity{
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
-        //네비게이션 메뉴
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-
-                    case R.id.nav_setting:
-                        Toast.makeText(getApplicationContext(), "setting", Toast.LENGTH_SHORT).show();
-
-                    case R.id.nav_example:
-                        Toast.makeText(getApplicationContext(), "example", Toast.LENGTH_SHORT).show();
-                }
-
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.END);
-                return true;
-            }
-        });
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
 
         map_img = findViewById(R.id.map_img);
         food_img = findViewById(R.id.food_img);
@@ -81,7 +62,6 @@ public class MainActivity extends AppCompatActivity{
         main_img.setImageResource(R.drawable.category_main_selected);
         tour_img.setImageResource((R.drawable.category_tour));
         board_img.setImageResource((R.drawable.category_board));
-
 
         LinearLayout map_fragment = findViewById(R.id.map_fragment);
         map_fragment.setOnClickListener(new View.OnClickListener() {
