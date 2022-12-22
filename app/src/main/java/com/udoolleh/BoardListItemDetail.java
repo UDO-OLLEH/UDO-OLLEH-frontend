@@ -69,27 +69,8 @@ public class BoardListItemDetail extends AppCompatActivity {
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
-        //네비게이션 뷰
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        Toast.makeText(getApplicationContext(), "home", Toast.LENGTH_SHORT).show();
-
-                    case R.id.nav_setting:
-                        Toast.makeText(getApplicationContext(), "setting", Toast.LENGTH_SHORT).show();
-
-                    case R.id.nav_example:
-                        Toast.makeText(getApplicationContext(), "example", Toast.LENGTH_SHORT).show();
-                }
-
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.END);
-                return true;
-            }
-        });
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
 
         //Intent로 게시글 텍스트 가져오기
         TextView titleDetail = findViewById(R.id.titleDetail);
