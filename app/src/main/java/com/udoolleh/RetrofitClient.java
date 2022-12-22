@@ -44,7 +44,7 @@ public class RetrofitClient {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 interceptorAccToken = getPreferenceString("accToken");
-                Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", interceptorAccToken).build();
+                Request newRequest = chain.request().newBuilder().addHeader("x-auth-token", accToken).build();
                 Response response = chain.proceed(newRequest);
 
                 if(response.code() == 401) {
