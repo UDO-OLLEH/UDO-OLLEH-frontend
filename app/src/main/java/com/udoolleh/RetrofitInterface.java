@@ -33,6 +33,10 @@ public interface RetrofitInterface {
     @POST("/login")
     Call<LoginResponse> getLoginResponse(@Body LoginRequest loginRequest);
 
+    //로그아웃 통신
+    @POST("/logout")
+    Call<LogoutResponse> getLogoutResponse();
+
     //회원가입 통신
     @POST("/user")
     Call<SignUpResponse> getSignUpResponse(@Body SignUpRequest signUpRequest);

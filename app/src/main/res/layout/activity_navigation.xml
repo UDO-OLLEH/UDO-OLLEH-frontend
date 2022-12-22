@@ -40,6 +40,7 @@
                         android:src="@drawable/ic_baseline_account_circle_24"/>
 
                     <TextView
+                        android:id="@+id/navigation_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="닉네임"
@@ -225,6 +226,7 @@
                 android:background="@color/layout_rounded_1">
 
                 <Button
+                    android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="로그아웃"
