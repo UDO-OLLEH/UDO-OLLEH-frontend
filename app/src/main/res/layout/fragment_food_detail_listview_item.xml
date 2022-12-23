@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:background="@color/layout_rounded_1">
 
-    <TextView
+    <ImageView
         android:id="@+id/foodMenuPhoto"
         android:layout_width="80dp"
         android:layout_height="80dp"

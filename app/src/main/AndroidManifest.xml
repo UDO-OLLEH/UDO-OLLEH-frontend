@@ -38,8 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".FoodListItemDetail" />
-        <activity android:name=".BoardListItemDetail" />
+        <activity android:name=".FoodDetail" />
+        <activity android:name=".BoardDetail" />
         <activity android:name=".BoardWrite" />
         <activity
             android:name=".Login"

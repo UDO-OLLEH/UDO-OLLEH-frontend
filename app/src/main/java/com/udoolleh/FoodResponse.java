@@ -129,7 +129,7 @@ public class FoodResponse {
             private String address;
 
             @SerializedName("imagesUrl")
-            private java.util.List<Object> imagesUrl = null;
+            private java.util.List<String> imagesUrl = null;
 
             @SerializedName("totalGrade")
             private Double totalGrade;
@@ -160,7 +160,7 @@ public class FoodResponse {
                 return address;
             }
 
-            public java.util.List<Object> getImagesUrl() {
+            public java.util.List<String> getImagesUrl() {
                 return imagesUrl;
             }
 

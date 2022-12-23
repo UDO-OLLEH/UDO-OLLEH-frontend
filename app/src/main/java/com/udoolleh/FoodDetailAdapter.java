@@ -10,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FoodListItemDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<FoodListItemDetailListItem> items = new ArrayList<FoodListItemDetailListItem>();
+public class FoodDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    ArrayList<FoodDetailListItem> items = new ArrayList<FoodDetailListItem>();
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_food_detail_listview_item, parent, false);
-        return new FoodListItemDetailViewHolder(view);
+        return new FoodDetailViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((FoodListItemDetailViewHolder)holder).onBind(items.get(position));
+        ((FoodDetailViewHolder)holder).onBind(items.get(position));
 
         //맛집 메뉴 목록 아이템 클릭시 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class FoodListItemDetailAdapter extends RecyclerView.Adapter<RecyclerView
         return items.size();
     }
 
-    public void addItem(FoodListItemDetailListItem item) {
+    public void addItem(FoodDetailListItem item) {
         items.add(item);
     }
 }

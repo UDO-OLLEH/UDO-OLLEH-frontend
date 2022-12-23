@@ -42,7 +42,7 @@ public interface RetrofitInterface {
 
     //맛집 메뉴 목록 조회 통신
     @GET("restaurant/{id}/menu")
-    Call<FoodListItemDetailResponse> getFoodListItemDetailResponse(@Path("id") String id);
+    Call<FoodDetailResponse> getFoodListItemDetailResponse(@Path("id") String id);
 
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
@@ -55,7 +55,7 @@ public interface RetrofitInterface {
 
     //게시판 댓글 조회 통신
     @GET("/board/{id}/comment")
-    Call<BoardListItemDetailResponse> getBoardListItemDetailResponse(@Path("id") String id);
+    Call<BoardDetailResponse> getBoardListItemDetailResponse(@Path("id") String id);
 
     //게시판 댓글 등록 통신
     @POST("/board/comment")

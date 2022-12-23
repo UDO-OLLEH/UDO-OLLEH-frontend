@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class FoodListItemDetailResponse {
+public class FoodDetailResponse {
     @SerializedName("id")
     private String id;
 

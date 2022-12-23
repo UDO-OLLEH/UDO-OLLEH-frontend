@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class BoardListItemDetailResponse {
+public class BoardDetailResponse {
     @SerializedName("id")
     private String id;
 

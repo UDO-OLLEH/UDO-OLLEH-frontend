@@ -3,7 +3,6 @@ package com.udoolleh;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 int pos = holder.getAdapterPosition();
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
-                    Intent foodListItemDetail = new Intent(context, FoodListItemDetail.class);
+                    Intent foodListItemDetail = new Intent(context, FoodDetail.class);
                     foodListItemDetail.putExtra("id", items.get(pos).getId());
                     foodListItemDetail.putExtra("imagesUrl", items.get(pos).getImagesUrl());
                     foodListItemDetail.putExtra("name", items.get(pos).getName());

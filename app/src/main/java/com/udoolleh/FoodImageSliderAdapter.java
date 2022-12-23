@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.MyViewHolder> {
+public class FoodImageSliderAdapter extends RecyclerView.Adapter<FoodImageSliderAdapter.MyViewHolder> {
     private Context context;
     private String[] sliderImage;
 
-    public ImageSliderAdapter(Context context, String[] sliderImage) {
+    public FoodImageSliderAdapter(Context context, String[] sliderImage) {
         this.context = context;
         this.sliderImage = sliderImage;
     }

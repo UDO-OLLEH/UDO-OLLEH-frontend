@@ -1,13 +1,13 @@
 package com.udoolleh;
 
-public class BoardListItemDetailListItem {
+public class BoardDetailListItem {
     String id;
     String context;
     String nickname;
     String photo;
     String createAt;
 
-    public BoardListItemDetailListItem(String id, String context, String nickname, String photo, String createAt) {
+    public BoardDetailListItem(String id, String context, String nickname, String photo, String createAt) {
         this.id = id;
         this.context = context;
         this.nickname = nickname;
