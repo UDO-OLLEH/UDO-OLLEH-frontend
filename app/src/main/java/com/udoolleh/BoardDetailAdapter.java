@@ -1,7 +1,6 @@
 package com.udoolleh;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class BoardListItemDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<BoardListItemDetailListItem> items = new ArrayList<BoardListItemDetailListItem>();
+public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    ArrayList<BoardDetailListItem> items = new ArrayList<BoardDetailListItem>();
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_board_detail_listview_item, parent, false);
-        return new BoardListItemDetailViewHolder(view);
+        return new BoardDetailViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((BoardListItemDetailViewHolder)holder).onBind(items.get(position));
+        ((BoardDetailViewHolder)holder).onBind(items.get(position));
 
         //게시판 리스트 아이템 클릭시 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +49,7 @@ public class BoardListItemDetailAdapter extends RecyclerView.Adapter<RecyclerVie
         return items.size();
     }
 
-    public void addItem(BoardListItemDetailListItem item) {
+    public void addItem(BoardDetailListItem item) {
         items.add(item);
     }
 }

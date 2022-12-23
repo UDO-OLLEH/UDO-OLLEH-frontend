@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,14 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,10 +41,8 @@ public class FoodFragment extends Fragment {
 
     //상단에 보여질 이미지 URL
     private String[] images = new String[]{
-            "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/03/08/21/41/landscape-4913841_1280.jpg",
-            "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg"
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
     };
 
     @Override
@@ -63,11 +56,11 @@ public class FoodFragment extends Fragment {
         context = container.getContext();
 
         //ViewPager
-        viewpager_slider = view.findViewById(R.id.viewpager_slider);
+        viewpager_slider = view.findViewById(R.id.food_viewpager_slider);
         layout_indicator = view.findViewById(R.id.layout_indicators);
 
         viewpager_slider.setOffscreenPageLimit(1);
-        viewpager_slider.setAdapter(new ImageSliderAdapter(context, images));
+        viewpager_slider.setAdapter(new FoodImageSliderAdapter(context, images));
         viewpager_slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

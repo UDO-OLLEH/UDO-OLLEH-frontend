@@ -16,37 +16,32 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".Seongsan">
-        </activity>
-        <activity
-            android:name=".Jongdal">
-        </activity>
-        <activity
-            android:name=".Whitebus">
-        </activity>
-        <activity
-            android:name=".Redbus">
-        </activity>
-        <activity
             android:name=".Splash"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity" />
-        <activity android:name=".FoodListItemDetail" />
-        <activity android:name=".BoardListItemDetail" />
+        <activity android:name=".FoodDetail" />
+        <activity android:name=".BoardDetail" />
         <activity android:name=".BoardWrite" />
+        <activity android:name=".Seongsan"/>
+        <activity android:name=".Jongdal"/>
+        <activity android:name=".Whitebus"/>
+        <activity android:name=".Redbus"/>
+        <activity android:name=".UserEditProfile"/>
+
         <activity
             android:name=".Login"
             android:theme="@style/SplashTheme" />
         <activity
             android:name=".SignUp"
             android:theme="@style/SplashTheme" />
+
     </application>
 
 </manifest>

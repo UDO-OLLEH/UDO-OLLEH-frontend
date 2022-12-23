@@ -6,13 +6,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BoardListItemDetailViewHolder extends RecyclerView.ViewHolder {
+public class BoardDetailViewHolder extends RecyclerView.ViewHolder {
     TextView boardCommentNickname;
     TextView boardCommentCreateAt;
     TextView boardCommentPhoto;
     TextView boardCommentContext;
 
-    public BoardListItemDetailViewHolder(@NonNull View itemView) {
+    public BoardDetailViewHolder(@NonNull View itemView) {
         super(itemView);
         boardCommentNickname = itemView.findViewById(R.id.boardCommentNickname);
         boardCommentCreateAt = itemView.findViewById(R.id.boardCommentCreateAt);
@@ -20,10 +20,10 @@ public class BoardListItemDetailViewHolder extends RecyclerView.ViewHolder {
         boardCommentContext = itemView.findViewById(R.id.boardCommentContext);
     }
 
-    public void onBind(BoardListItemDetailListItem boardListItemDetailListItem) {
-        boardCommentNickname.setText(boardListItemDetailListItem.getNickname());
-        boardCommentCreateAt.setText(boardListItemDetailListItem.getCreateAt());
-        boardCommentPhoto.setText(boardListItemDetailListItem.getPhoto());
-        boardCommentContext.setText(boardListItemDetailListItem.getContext());
+    public void onBind(BoardDetailListItem boardDetailListItem) {
+        boardCommentNickname.setText(boardDetailListItem.getNickname());
+        boardCommentCreateAt.setText(boardDetailListItem.getCreateAt());
+        boardCommentPhoto.setText(boardDetailListItem.getPhoto());
+        boardCommentContext.setText(boardDetailListItem.getContext());
     }
 }

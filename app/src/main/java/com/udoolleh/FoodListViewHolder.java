@@ -12,7 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.util.StringTokenizer;
+
 public class FoodListViewHolder extends RecyclerView.ViewHolder {
+    Context context;
     ImageView foodImagesUrl;
     TextView foodName;
     TextView foodPlaceType;
@@ -25,6 +30,7 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public FoodListViewHolder(@NonNull View itemView) {
         super(itemView);
+        context = itemView.getContext();
         foodImagesUrl = itemView.findViewById(R.id.foodImagesUrl);
         foodImagesUrl.setClipToOutline(true);
         foodName = itemView.findViewById(R.id.foodName);
@@ -38,6 +44,16 @@ public class FoodListViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(FoodListItem foodListItem) {
+        if(foodListItem.getImagesUrl() != "[]") {
+            StringTokenizer st = new StringTokenizer(foodListItem.getImagesUrl(), ",");
+            String tempImage1 = st.nextToken();
+            StringTokenizer st1 = new StringTokenizer(tempImage1, "[");
+            String image1 = st1.nextToken();
+
+            Glide.with(context).load(image1).into(foodImagesUrl);
+        } else {
+            foodImagesUrl.setImageResource(R.drawable.exampleimage);
+        }
         //foodImagesUrl.setText(foodListItem.getImagesUrl());
         foodName.setText(foodListItem.getName());
         //foodPlaceType.setText(foodListItem.getPlaceType());

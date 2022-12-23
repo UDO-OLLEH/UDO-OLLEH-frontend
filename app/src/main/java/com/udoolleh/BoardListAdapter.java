@@ -3,7 +3,6 @@ package com.udoolleh;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 int pos = holder.getAdapterPosition();
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
-                    Intent boardListItemDetail = new Intent(context, BoardListItemDetail.class);
+                    Intent boardListItemDetail = new Intent(context, BoardDetail.class);
                     boardListItemDetail.putExtra("id", items.get(pos).getId());
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());
                     boardListItemDetail.putExtra("context", items.get(pos).getContext());

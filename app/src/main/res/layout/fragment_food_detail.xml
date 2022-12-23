@@ -16,7 +16,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="400dp"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -32,15 +32,24 @@
                 <!--확장 툴바-->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="400dp"
                     android:background="@color/layout_rounded_1"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:fitsSystemWindows="true">
 
-                    <TextView
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/food_detail_viewpager_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="330dp"
+                        android:fitsSystemWindows="true"/>
+
+                    <!--
+                    <ImageView
                         android:id="@+id/imagesUrlDetail"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:background="@drawable/exampleimage"/>
+                        android:layout_height="330dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/exampleimage"/>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"

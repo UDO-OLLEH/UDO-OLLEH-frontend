@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +27,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -36,16 +36,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardListItemDetail extends AppCompatActivity {
+public class BoardDetail extends AppCompatActivity {
+    Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     RecyclerView boardCommentListView;
-    BoardListItemDetailAdapter boardListItemDetailAdapter;
+    BoardDetailAdapter boardDetailAdapter;
     TextView nonBoardCommentText;
     private boolean isLoading = false;
     private boolean isLastLoading = false;
     Toolbar toolbar;
     String id;
+    ImageView navigation_profile_image;
+    TextView navigation_nickname;
     EditText boardCommentWriteEditText;
     Button boardCommentWriteButton;
 
@@ -53,6 +56,7 @@ public class BoardListItemDetail extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_board_detail);
+        context = getApplicationContext();
 
         //뒤로가기 버튼
         Button board_close = findViewById(R.id.board_close);
@@ -63,18 +67,26 @@ public class BoardListItemDetail extends AppCompatActivity {
             }
         });
 
+        //NavigationView
+        navigation_profile_image = findViewById(R.id.navigation_profile_image);
+        navigation_nickname = findViewById(R.id.navigation_nickname);
+        UserResponse();
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+
         Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                 builder.setTitle("우도올레")
                         .setMessage("로그아웃 하시겠습니까?")
                         .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 new LogoutResponse();
-                                Toast.makeText(BoardListItemDetail.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(BoardDetail.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -90,9 +102,6 @@ public class BoardListItemDetail extends AppCompatActivity {
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
 
         //Intent로 게시글 텍스트 가져오기
         TextView titleDetail = findViewById(R.id.titleDetail);
@@ -117,7 +126,7 @@ public class BoardListItemDetail extends AppCompatActivity {
         nonBoardCommentText = findViewById(R.id.noneBoardCommentText);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         boardCommentListView.setLayoutManager(linearLayoutManager);
-        boardListItemDetailAdapter = new BoardListItemDetailAdapter();
+        boardDetailAdapter = new BoardDetailAdapter();
 
         //댓글 등록
         boardCommentWriteEditText = findViewById(R.id.boardCommentWriteEditText);
@@ -130,7 +139,7 @@ public class BoardListItemDetail extends AppCompatActivity {
 
                 //내용 미입력 시
                 if(comment.trim().length() == 0 || comment == null) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                     builder.setTitle("알림")
                             .setMessage("내용을 입력하세요.")
                             .setPositiveButton("확인", null)
@@ -148,6 +157,80 @@ public class BoardListItemDetail extends AppCompatActivity {
         BoardListItemDetailResponse();
     }
 
+    //Navigation View User Profile
+    public void UserResponse() {
+        SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken", "");
+
+        //Retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //UserResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getUserResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getUserResponse().enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                Log.d("udoLog", "유저 정보 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 정보 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 정보 조회 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    UserResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //로그아웃 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        String nickname = result.getList().getNickname();
+                        String profileImage = result.getList().getProfileImage();
+
+                        //유저 정보 조회 로그
+                        Log.d("udoLog", "유저 정보 조회 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n" +
+                                "nickname: " + nickname + "\n" +
+                                "profileImage: " + profileImage + "\n"
+                        );
+
+                        navigation_nickname.setText(nickname);
+                        if(profileImage != null) {
+                            Glide.with(BoardDetail.this).load(profileImage).into(navigation_profile_image);
+                        }
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
+                        builder.setTitle("알림")
+                                .setMessage("로그아웃을 할 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
     //게시판 댓글 조회
     public void BoardListItemDetailResponse() {
         //토큰 가져오기
@@ -159,9 +242,9 @@ public class BoardListItemDetail extends AppCompatActivity {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardListItemDetailResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardListItemDetailResponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardListItemDetailResponse(id).enqueue(new Callback<BoardListItemDetailResponse>() {
+        retrofitInterface.getBoardListItemDetailResponse(id).enqueue(new Callback<BoardDetailResponse>() {
             @Override
-            public void onResponse(Call<BoardListItemDetailResponse> call, Response<BoardListItemDetailResponse> response) {
+            public void onResponse(Call<BoardDetailResponse> call, Response<BoardDetailResponse> response) {
                 Log.d("udoLog", "게시판 댓글 조회 body 내용 = " + response.body());
                 Log.d("udoLog", "게시판 댓글 조회 성공여부 = " + response.isSuccessful());
                 Log.d("udoLog", "게시판 댓글 조회 상태코드 = " + response.code());
@@ -170,7 +253,7 @@ public class BoardListItemDetail extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
 
                     //response.body()를 result에 저장
-                    BoardListItemDetailResponse result = response.body();
+                    BoardDetailResponse result = response.body();
 
                     //받은 코드 저장
                     int resultCode = response.code();
@@ -183,7 +266,7 @@ public class BoardListItemDetail extends AppCompatActivity {
                         String dateTime = result.getDateTime();
                         Integer status = result.getStatus();
                         String message = result.getMessage();
-                        List<BoardListItemDetailResponse.BoardCommentList> boardCommentList = result.getList();
+                        List<BoardDetailResponse.BoardCommentList> boardCommentList = result.getList();
 
                         //게시판 댓글 조회 로그
                         Log.d("udoLog", "게시판 댓글 조회 성공 = \n" +
@@ -202,7 +285,7 @@ public class BoardListItemDetail extends AppCompatActivity {
                             nonBoardCommentText.setVisibility(View.INVISIBLE);
 
                             //Recycler View 레이아웃 설정
-                            for(BoardListItemDetailResponse.BoardCommentList boardComment : boardCommentList) {
+                            for(BoardDetailResponse.BoardCommentList boardComment : boardCommentList) {
 
                                 //게시판 댓글 내용 조회 로그
                                 Log.d("udoLog", "게시판 댓글 조회 리스트 = \n" +
@@ -212,14 +295,14 @@ public class BoardListItemDetail extends AppCompatActivity {
                                         "photo: " + boardComment.getPhoto() + "\n" +
                                         "createAt: " + boardComment.getCreateAt() + "\n"
                                 );
-                                boardListItemDetailAdapter.addItem(new BoardListItemDetailListItem(boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
+                                boardDetailAdapter.addItem(new BoardDetailListItem(boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
                             }
-                            boardCommentListView.setAdapter(boardListItemDetailAdapter);
+                            boardCommentListView.setAdapter(boardDetailAdapter);
                         }
 
                     } else {
                         //상태코드 != 200일 때
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                         builder.setTitle("알림")
                                 .setMessage("댓글을 불러올 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
@@ -231,8 +314,8 @@ public class BoardListItemDetail extends AppCompatActivity {
 
             //통신 실패
             @Override
-            public void onFailure(Call<BoardListItemDetailResponse> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+            public void onFailure(Call<BoardDetailResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
@@ -279,7 +362,7 @@ public class BoardListItemDetail extends AppCompatActivity {
                     int success = 200;
 
                     if (resultCode == success) {
-                        Toast.makeText(BoardListItemDetail.this, "댓글이 등록되었습니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BoardDetail.this, "댓글이 등록되었습니다.", Toast.LENGTH_LONG).show();
                         finish();//인텐트 종료
                         overridePendingTransition(0, 0);//인텐트 효과 없애기
                         Intent intent = getIntent(); //인텐트
@@ -287,7 +370,7 @@ public class BoardListItemDetail extends AppCompatActivity {
                         overridePendingTransition(0, 0);//인텐트 효과 없애기
 
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                         builder.setTitle("알림")
                                 .setMessage("댓글을 작성할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
@@ -301,7 +384,7 @@ public class BoardListItemDetail extends AppCompatActivity {
             //통신 실패
             @Override
             public void onFailure(Call<BoardCommentWriteResponse> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(BoardListItemDetail.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
