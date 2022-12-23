@@ -147,7 +147,6 @@ public class Login extends AppCompatActivity {
 
                         Toast.makeText(Login.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
-                        intent.putExtra("userId", id);
                         startActivity(intent);
                         Login.this.finish();
 

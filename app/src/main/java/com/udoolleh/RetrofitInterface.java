@@ -33,6 +33,9 @@ public interface RetrofitInterface {
     @POST("/user")
     Call<SignUpResponse> getSignUpResponse(@Body SignUpRequest signUpRequest);
 
+    @GET("/user")
+    Call<UserResponse> getUserResponse();
+
     //맛집 리스트 조회 통신
     @GET("/restaurant")
     Call<FoodResponse> getFoodResponse(@Query("page") Integer page);
