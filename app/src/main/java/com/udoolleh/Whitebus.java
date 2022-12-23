@@ -51,31 +51,8 @@ public class Whitebus extends AppCompatActivity {
         });
 
         //네비게이션 메뉴
-        NavigationView navigationView = findViewById(R.id.navigationView);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.nav_home:
-                        Toast.makeText(Whitebus.this, "home", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case R.id.nav_setting:
-                        Toast.makeText(Whitebus.this, "setting", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case R.id.nav_example:
-                        Toast.makeText(Whitebus.this, "example", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-
-                DrawerLayout drawer = findViewById(R.id.drawerLayout);
-                drawer.closeDrawer(GravityCompat.END);
-                return true;
-            }
-        });
-
+        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.END);
     }
 
     @Override
