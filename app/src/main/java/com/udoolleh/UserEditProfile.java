@@ -2,7 +2,6 @@ package com.udoolleh;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,6 +23,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -46,13 +46,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BoardWrite extends AppCompatActivity {
+public class UserEditProfile extends AppCompatActivity {
+    Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    Button board_write_close, boardWrite_Posting, boardWrite_Image;
-    EditText boardWrite_Title, boardWrite_Hashtag, boardWrite_Context;
-    ImageView board_write_image;
-    Context context;
+    Button edit_profile_close, edit_profile_ok;
+    FrameLayout profile_image;
+    EditText profile_nickname;
+    ImageView profile_image_resource;
     ContentResolver contentResolver;
     Uri URI;
     String cacheImageFileName = "udoolleh_cache_file_image";
@@ -60,28 +61,25 @@ public class BoardWrite extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_board_write);
+        setContentView(R.layout.activity_navigation_edit_profile);
+        context = getApplicationContext();
 
-        context = BoardWrite.this;
+        edit_profile_close = findViewById(R.id.edit_profile_close);
+        edit_profile_ok = findViewById(R.id.edit_profile_ok);
+        profile_image = findViewById(R.id.profile_image);
+        profile_nickname = findViewById(R.id.profile_nickname);
+        profile_image_resource = findViewById(R.id.profile_image_resource);
 
         //뒤로가기 버튼
-        board_write_close = findViewById(R.id.board_write_close);
-        board_write_close.setOnClickListener(new View.OnClickListener() {
+        edit_profile_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        boardWrite_Title = findViewById(R.id.boardWrite_Title);
-        boardWrite_Hashtag = findViewById(R.id.boardWrite_Hashtag);
-        boardWrite_Context = findViewById(R.id.boardWrite_Context);
-        boardWrite_Posting = findViewById(R.id.boardWrite_Posting);
-        boardWrite_Image = findViewById(R.id.boardWrite_Image);
-        board_write_image = findViewById(R.id.board_write_image);
-
         //이미지 선택
-        boardWrite_Image.setOnClickListener(new View.OnClickListener() {
+        profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -90,20 +88,19 @@ public class BoardWrite extends AppCompatActivity {
             }
         });
 
-        //게시 버튼
-        boardWrite_Posting.setOnClickListener(new View.OnClickListener() {
+        //완료 버튼
+        edit_profile_ok.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 hideKeyboard();
 
-                String title = boardWrite_Title.getText().toString();
-                String hashtag = boardWrite_Hashtag.getText().toString();
-                String context = boardWrite_Context.getText().toString();
+                String nickname = profile_nickname.getText().toString();
 
                 //내용 미입력 시
-                if (title.trim().length() == 0 || hashtag.trim().length() == 0 || context.trim().length() == 0 || title == null || hashtag == null || context == null) {
+                if (nickname.trim().length() == 0 || nickname == null) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
                     builder.setTitle("알림")
                             .setMessage("내용을 입력하세요.")
                             .setPositiveButton("확인", null)
@@ -113,13 +110,25 @@ public class BoardWrite extends AppCompatActivity {
                     alertDialog.show();
 
                 } else {
-                    //게시판 등록 통신
-                    BoardWriteResponse();
+                    //유저 정보 수정 통신
+                    EditProfileResponse();
+
+                    if(profile_image_resource.getDrawable() != getDrawable(R.drawable.ic_baseline_account_circle_24)) {
+                        //유저 프로필 사진 등록 및 수정 통신
+                        EditProfileImageResponse();
+                    }
+
                     //임시 저장한 이미지 삭제
                     deleteBitmapImage(view);
+
+                    Toast.makeText(UserEditProfile.this, "프로필 정보를 변경하였습니다.", Toast.LENGTH_LONG).show();
+
                 }
+
+                finish();
             }
         });
+
     }
 
     //갤러리에서 이미지 골라 표시
@@ -137,7 +146,7 @@ public class BoardWrite extends AppCompatActivity {
                         InputStream instream = resolver.openInputStream(uriResource);
                         Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
                         imgBitmap = rotateImage(uriResource, imgBitmap);
-                        board_write_image.setImageBitmap(imgBitmap);
+                        profile_image_resource.setImageBitmap(imgBitmap);
                         URI = uriResource;
                         contentResolver = resolver;
                         instream.close();
@@ -245,63 +254,37 @@ public class BoardWrite extends AppCompatActivity {
         }
     }
 
-    //게시글 등록 레트로핏 통신
-    public void BoardWriteResponse() {
+    //유저 정보 수정 (닉네임) 통신
+    public void EditProfileResponse() {
         //토큰 가져오기
-        SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
-        String accToken = sp.getString("accToken", "");
+        String accToken = getPreferenceString("accToken");
+        String nickname = getPreferenceString("UserNickNameValue");
+        String id = getPreferenceString("UserIdValue");
+        String password = getPreferenceString("UserPwValue");
 
-        MultipartBody.Part filePart;
-        if (board_write_image.getDrawable() != null) {
-            Bitmap bitmap = null;
+        //EditText에 적은 nickname 저장
+        String newNickname = profile_nickname.getText().toString().trim();
 
-            //Uri to bitmap
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
-                } else {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            //Bitmap Resize
-            bitmap = resizeBitmapImage(bitmap, 1080);
-
-            //Bitmap to Uri
-            URI = getImageUri(context, bitmap);
-
-            //Uri to Multipart
-            filePart = uriToMultipart(URI, "file", contentResolver);
-        } else {
-            filePart = null;
-        }
-
-        //requestDto
-        String title = boardWrite_Title.getText().toString().trim();
-        String hashtag = boardWrite_Hashtag.getText().toString().trim();
-        String context = boardWrite_Context.getText().toString().trim();
-        RequestBody requestDto = RequestBody.create(MediaType.parse("application/json"), "{\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
-        Log.d("udoLog", "게시판 작성 requestDto = {\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
+        //userEditProfileRequest에 새로운 닉네임과 비밀번호 저장
+        UserEditProfileRequest userEditProfileRequest = new UserEditProfileRequest(newNickname, password);
 
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //accToken, files, map을 RequestParams와 RequestBody로 저장 후 getBoardWriteRespons로 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardWriteResponse(filePart, requestDto).enqueue(new Callback<BoardWriteResponse>() {
+        //userEditProfileRequest에 저장된 데이터와 함께 interface에서 정의한 getUserEditProfileResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getUserEditProfileResponse(userEditProfileRequest).enqueue(new Callback<UserEditProfileResponse>() {
             @Override
-            public void onResponse(Call<BoardWriteResponse> call, Response<BoardWriteResponse> response) {
-                Log.d("udoLog", "게시판 작성 body 내용 = " + response.body());
-                Log.d("udoLog", "게시판 작성 성공여부 = " + response.isSuccessful());
-                Log.d("udoLog", "게시판 작성 상태코드 = " + response.code());
+            public void onResponse(Call<UserEditProfileResponse> call, Response<UserEditProfileResponse> response) {
+                Log.d("udoLog", "유저 정보 수정 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 정보 수정 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 정보 수정 상태코드 = " + response.code());
 
                 //통신 성공
                 if (response.isSuccessful() && response.body() != null) {
 
                     //response.body()를 result에 저장
-                    BoardWriteResponse result = response.body();
+                    UserEditProfileResponse result = response.body();
 
                     //받은 코드 저장
                     int resultCode = response.code();
@@ -310,10 +293,10 @@ public class BoardWrite extends AppCompatActivity {
                     int success = 200;
 
                     if (resultCode == success) {
-                        Toast.makeText(BoardWrite.this, "게시물을 등록하였습니다.", Toast.LENGTH_LONG).show();
-                        finish();
+                        //실행 코드
+
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
                         builder.setTitle("알림")
                                 .setMessage("게시물을 등록할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
@@ -327,8 +310,8 @@ public class BoardWrite extends AppCompatActivity {
 
             //통신 실패
             @Override
-            public void onFailure(Call<BoardWriteResponse> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(BoardWrite.this);
+            public void onFailure(Call<UserEditProfileResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
@@ -338,13 +321,107 @@ public class BoardWrite extends AppCompatActivity {
         });
     }
 
+    //유저 프로필 사진 등록 및 수정 통신
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void EditProfileImageResponse() {
+        //토큰 가져오기
+        String accToken = getPreferenceString("accToken");
+
+        MultipartBody.Part filePart;
+        Bitmap bitmap = null;
+
+        //Uri to bitmap
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
+            } else {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Bitmap Resize
+        bitmap = resizeBitmapImage(bitmap, 1080);
+
+        //Bitmap to Uri
+        URI = getImageUri(context, bitmap);
+
+        //Uri to Multipart
+        filePart = uriToMultipart(URI, "file", contentResolver);
+
+        //retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //Multipart image와 함께 getUserEditProfileImageResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getUserEditProfileImageResponse(filePart).enqueue(new Callback<UserEditProfileImageResponse>() {
+            @Override
+            public void onResponse(Call<UserEditProfileImageResponse> call, Response<UserEditProfileImageResponse> response) {
+                Log.d("udoLog", "유저 프로필 사진 등록 및 수정 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 프로필 사진 등록 및 수정 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 프로필 사진 등록 및 수정 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    UserEditProfileImageResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //게시물 작성 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        //실행 코드
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
+                        builder.setTitle("알림")
+                                .setMessage("게시물을 등록할 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<UserEditProfileImageResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+    //데이터를 내부 저장소에 저장하기
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    //내부 저장소에 저장된 데이터 가져오기
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+
     //키보드 숨기기
     private void hideKeyboard()
     {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(boardWrite_Title.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(boardWrite_Hashtag.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(boardWrite_Context.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(profile_nickname.getWindowToken(), 0);
     }
 
     //화면 터치 시 키보드 내려감

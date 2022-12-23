@@ -49,6 +49,8 @@ public class Login extends AppCompatActivity {
             autoLogin.setChecked(true);
             String userID = getPreferenceString("autoLoginId");
             String userPassword = getPreferenceString("autoLoginPw");
+            setPreference("UserIdValue", userID);
+            setPreference("UserPwValue", userPassword);
             LoginResponse(userID, userPassword);
             //checkAutoLogin(getPreferenceString("autoLoginId"));
         }
@@ -77,6 +79,8 @@ public class Login extends AppCompatActivity {
                     //로그인 통신
                     String userID = idLogin.getText().toString().trim();
                     String userPassword = pwLogin.getText().toString().trim();
+                    setPreference("UserIdValue", userID);
+                    setPreference("UserPwValue", userPassword);
                     LoginResponse(userID, userPassword);
                 }
             }

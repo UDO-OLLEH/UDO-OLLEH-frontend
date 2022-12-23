@@ -1,5 +1,6 @@
 package com.udoolleh;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.List;
@@ -34,6 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BoardDetail extends AppCompatActivity {
+    Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     RecyclerView boardCommentListView;
@@ -43,6 +47,8 @@ public class BoardDetail extends AppCompatActivity {
     private boolean isLastLoading = false;
     Toolbar toolbar;
     String id;
+    ImageView navigation_profile_image;
+    TextView navigation_nickname;
     EditText boardCommentWriteEditText;
     Button boardCommentWriteButton;
 
@@ -50,6 +56,7 @@ public class BoardDetail extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_board_detail);
+        context = getApplicationContext();
 
         //뒤로가기 버튼
         Button board_close = findViewById(R.id.board_close);
@@ -59,6 +66,14 @@ public class BoardDetail extends AppCompatActivity {
                 finish();
             }
         });
+
+        //NavigationView
+        navigation_profile_image = findViewById(R.id.navigation_profile_image);
+        navigation_nickname = findViewById(R.id.navigation_nickname);
+        UserResponse();
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
 
         Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +102,6 @@ public class BoardDetail extends AppCompatActivity {
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
 
         //Intent로 게시글 텍스트 가져오기
         TextView titleDetail = findViewById(R.id.titleDetail);
@@ -143,6 +155,80 @@ public class BoardDetail extends AppCompatActivity {
 
         //Retrofit
         BoardListItemDetailResponse();
+    }
+
+    //Navigation View User Profile
+    public void UserResponse() {
+        SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken", "");
+
+        //Retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //UserResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getUserResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getUserResponse().enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                Log.d("udoLog", "유저 정보 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 정보 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 정보 조회 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    UserResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //로그아웃 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        String nickname = result.getList().getNickname();
+                        String profileImage = result.getList().getProfileImage();
+
+                        //유저 정보 조회 로그
+                        Log.d("udoLog", "유저 정보 조회 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n" +
+                                "nickname: " + nickname + "\n" +
+                                "profileImage: " + profileImage + "\n"
+                        );
+
+                        navigation_nickname.setText(nickname);
+                        if(profileImage != null) {
+                            Glide.with(BoardDetail.this).load(profileImage).into(navigation_profile_image);
+                        }
+
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
+                        builder.setTitle("알림")
+                                .setMessage("로그아웃을 할 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
     }
 
     //게시판 댓글 조회

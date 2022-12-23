@@ -34,12 +34,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:background="@color/layout_rounded_1"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:fitsSystemWindows="true">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/food_detail_viewpager_slider"
                         android:layout_width="match_parent"
-                        android:layout_height="330dp"/>
+                        android:layout_height="330dp"
+                        android:fitsSystemWindows="true"/>
 
                     <!--
                     <ImageView

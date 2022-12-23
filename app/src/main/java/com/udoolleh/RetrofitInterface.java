@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -33,8 +34,18 @@ public interface RetrofitInterface {
     @POST("/user")
     Call<SignUpResponse> getSignUpResponse(@Body SignUpRequest signUpRequest);
 
+    //유저 정보 조회 통신
     @GET("/user")
     Call<UserResponse> getUserResponse();
+
+    //유저 정보 수정 통신
+    @PUT("/user")
+    Call<UserEditProfileResponse> getUserEditProfileResponse(@Body UserEditProfileRequest userEditProfileRequest);
+
+    //유저 프로필 사진 등록 및 수정 통신
+    @Multipart
+    @POST("/user/image")
+    Call<UserEditProfileImageResponse> getUserEditProfileImageResponse(@Part MultipartBody.Part file);
 
     //맛집 리스트 조회 통신
     @GET("/restaurant")
