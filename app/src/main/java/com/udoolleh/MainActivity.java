@@ -45,6 +45,20 @@ public class MainActivity extends AppCompatActivity{
     private final int MainFragment = 3;
     private final int TourFragment = 4;
     private final int BoardFragment = 5;
+    String userNickname, userImage;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //NavigationView
+        navigation_profile_image = findViewById(R.id.navigation_profile_image);
+        navigation_nickname = findViewById(R.id.navigation_nickname);
+        UserResponse();
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +74,13 @@ public class MainActivity extends AppCompatActivity{
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
-        //NavigationView
-        navigation_profile_image = findViewById(R.id.navigation_profile_image);
-        navigation_nickname = findViewById(R.id.navigation_nickname);
-        UserResponse();
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
-
         Button edit_profile = findViewById(R.id.edit_profile);
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, UserEditProfile.class);
+                intent.putExtra("userNickname", userNickname);
+                intent.putExtra("userImage", userImage);
                 startActivity(intent);
             }
         });
@@ -131,6 +139,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
     }
 
     public void UserResponse() {
@@ -177,9 +186,13 @@ public class MainActivity extends AppCompatActivity{
                                 "profileImage: " + profileImage + "\n"
                         );
 
-                        setPreference("UserNickNameValue", nickname);
+                        userNickname = nickname;
+                        userImage = profileImage;
+                        Log.d("udoLog", profileImage + "");
                         navigation_nickname.setText(nickname);
-                        if(profileImage != null) {
+                        if(profileImage == null || profileImage == "null" || profileImage == "") {
+                            navigation_profile_image.setImageResource(R.drawable.base_profile_image);
+                        } else {
                             Glide.with(MainActivity.this).load(profileImage).into(navigation_profile_image);
                         }
 
@@ -254,6 +267,7 @@ public class MainActivity extends AppCompatActivity{
                         setPreference("UserIdValue", "");
                         setPreference("UserPwValue", "");
                         setPreference("UserNickNameValue", "");
+                        setPreference("UserProfileImage", "");
 
                         Intent intent = new Intent(getApplicationContext(), Login.class);
                         startActivity(intent);

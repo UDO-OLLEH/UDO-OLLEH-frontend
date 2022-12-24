@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@color/layout_rounded_2">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
+        android:fitsSystemWindows="true"
         android:background="@drawable/layout_background_gradient">
 
         <Button
@@ -48,7 +50,9 @@
                 android:id="@+id/profile_image_resource"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:src="@drawable/ic_baseline_account_circle_24"/>
+                android:src="@drawable/base_profile_image"
+                android:clipToOutline="true"
+                android:background="@drawable/layout_rounded_box"/>
 
             <ImageView
                 android:layout_width="35dp"
@@ -82,8 +86,7 @@
             android:layout_margin="10dp"
             android:padding="10dp"
             android:background="@drawable/layout_rounded_box"
-            android:elevation="10dp"
-            android:hint="기존 닉네임"/>
+            android:elevation="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
