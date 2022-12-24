@@ -5,12 +5,17 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +36,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+
+import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,7 +64,9 @@ public class UserEditProfile extends AppCompatActivity {
     EditText profile_nickname;
     ImageView profile_image_resource;
     ContentResolver contentResolver;
+    String userNickname, userImage;
     Uri URI;
+    MultipartBody.Part filePart;
     String cacheImageFileName = "udoolleh_cache_file_image";
 
     @Override
@@ -69,6 +80,16 @@ public class UserEditProfile extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         profile_nickname = findViewById(R.id.profile_nickname);
         profile_image_resource = findViewById(R.id.profile_image_resource);
+
+        Intent intent = getIntent();
+        userNickname = intent.getExtras().getString("userNickname");
+        userImage = intent.getExtras().getString("userImage");
+        profile_nickname.setText(userNickname);
+        if(userImage == null || userImage == "null" || userImage == "") {
+            profile_image_resource.setImageResource(R.drawable.base_profile_image);
+        } else {
+            Glide.with(UserEditProfile.this).load(userImage).into(profile_image_resource);
+        }
 
         //뒤로가기 버튼
         edit_profile_close.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +111,7 @@ public class UserEditProfile extends AppCompatActivity {
 
         //완료 버튼
         edit_profile_ok.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
@@ -113,19 +135,25 @@ public class UserEditProfile extends AppCompatActivity {
                     //유저 정보 수정 통신
                     EditProfileResponse();
 
-                    if(profile_image_resource.getDrawable() != getDrawable(R.drawable.ic_baseline_account_circle_24)) {
+                    //Bitmap baseImageBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base_profile_image);
+                    //BitmapDrawable drawable = (BitmapDrawable) profile_image_resource.getDrawable();
+                    //Bitmap imageViewBitmap = drawable.getBitmap();
+
+                    //if(!imageViewBitmap.equals(baseImageBitmap)) {
                         //유저 프로필 사진 등록 및 수정 통신
+                    try {
                         EditProfileImageResponse();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    //}
 
                     //임시 저장한 이미지 삭제
                     deleteBitmapImage(view);
 
                     Toast.makeText(UserEditProfile.this, "프로필 정보를 변경하였습니다.", Toast.LENGTH_LONG).show();
-
+                    finish();
                 }
-
-                finish();
             }
         });
 
@@ -145,10 +173,18 @@ public class UserEditProfile extends AppCompatActivity {
                     try {
                         InputStream instream = resolver.openInputStream(uriResource);
                         Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
+                        //Bitmap rotate
                         imgBitmap = rotateImage(uriResource, imgBitmap);
+
+                        //Bitmap Resize
+                        imgBitmap = resizeBitmapImage(imgBitmap, 1080);
+
+                        //Bitmap to Uri
+                        URI = getImageUri(context, imgBitmap);
+
                         profile_image_resource.setImageBitmap(imgBitmap);
-                        URI = uriResource;
                         contentResolver = resolver;
+
                         instream.close();
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "사진을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
@@ -258,8 +294,6 @@ public class UserEditProfile extends AppCompatActivity {
     public void EditProfileResponse() {
         //토큰 가져오기
         String accToken = getPreferenceString("accToken");
-        String nickname = getPreferenceString("UserNickNameValue");
-        String id = getPreferenceString("UserIdValue");
         String password = getPreferenceString("UserPwValue");
 
         //EditText에 적은 nickname 저장
@@ -293,7 +327,6 @@ public class UserEditProfile extends AppCompatActivity {
                     int success = 200;
 
                     if (resultCode == success) {
-                        //실행 코드
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
@@ -323,29 +356,15 @@ public class UserEditProfile extends AppCompatActivity {
 
     //유저 프로필 사진 등록 및 수정 통신
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void EditProfileImageResponse() {
+    public void EditProfileImageResponse() throws IOException{
         //토큰 가져오기
         String accToken = getPreferenceString("accToken");
 
-        MultipartBody.Part filePart;
-        Bitmap bitmap = null;
+        BitmapDrawable drawable = (BitmapDrawable) profile_image_resource.getDrawable();
+        Bitmap temp = drawable.getBitmap();
+        URI = getImageUri(context, temp);
 
-        //Uri to bitmap
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
-            } else {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Bitmap Resize
-        bitmap = resizeBitmapImage(bitmap, 1080);
-
-        //Bitmap to Uri
-        URI = getImageUri(context, bitmap);
+        contentResolver = getContentResolver();
 
         //Uri to Multipart
         filePart = uriToMultipart(URI, "file", contentResolver);
@@ -375,7 +394,6 @@ public class UserEditProfile extends AppCompatActivity {
                     int success = 200;
 
                     if (resultCode == success) {
-                        //실행 코드
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(UserEditProfile.this);
