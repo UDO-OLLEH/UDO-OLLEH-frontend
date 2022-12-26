@@ -74,6 +74,6 @@ public interface RetrofitInterface {
 
     //광고 전체 조회 통신
     @GET("/ad")
-    Call<ADResponse> getADResponse();
+    Call<MainFragmentAdResponse> getADResponse();
 
 }

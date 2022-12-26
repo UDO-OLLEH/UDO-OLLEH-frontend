@@ -6,6 +6,8 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -83,6 +85,38 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private void showLoadingView(BoardListLoadingViewHolder holder){
         holder.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public class BoardListViewHolder extends RecyclerView.ViewHolder {
+        TextView boardTitle;
+        TextView boardContext;
+        TextView boardCreateAt;
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        public BoardListViewHolder(@NonNull View itemView) {
+            super(itemView);
+            boardTitle = itemView.findViewById(R.id.boardTitle);
+            boardContext = itemView.findViewById(R.id.boardContext);
+            boardCreateAt = itemView.findViewById(R.id.boardCreateAt);
+        }
+
+        public void onBind(BoardListItem boardListItem) {
+            boardTitle.setText(boardListItem.getTitle());
+            boardContext.setText(boardListItem.getContext());
+            boardCreateAt.setText(boardListItem.getCreateAt());
+        }
+    }
+
+    public class BoardListLoadingViewHolder extends RecyclerView.ViewHolder{
+        ProgressBar progressBar;
+        public BoardListLoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            progressBar = itemView.findViewById(R.id.loadmore);
+        }
+
+        public void onBind(BoardListItem boardListItem) {
+
+        }
     }
 }
 
