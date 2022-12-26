@@ -3,7 +3,9 @@ package com.udoolleh;
 import android.annotation.SuppressLint;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +31,18 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainFragment extends Fragment {
+    Context context;
     TextView weather, weatherSub;
     Button recycle;
     ImageView weather_layout;
     String weatherLink = "https://weather.naver.com/today/14110330";
+    ViewPager2 ad_viewpager_slider;
+
+    //상단에 보여질 이미지 URL
+    private String[] images = new String[]{
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,10 +52,22 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        context = container.getContext();
 
         weather = view.findViewById(R.id.weather);
         weatherSub = view.findViewById(R.id.weatherSub);
         weather_layout = view.findViewById(R.id.weather_layout);
+
+        //ViewPager
+        ad_viewpager_slider = view.findViewById(R.id.ad_viewpager_slider);
+        ad_viewpager_slider.setOffscreenPageLimit(1);
+        ad_viewpager_slider.setAdapter(new ADImageSliderAdapter(context, images));
+        ad_viewpager_slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
 
         WeatherBackgroundTask(weatherLink);
         WeatherSubBackgroundTask(weatherLink);

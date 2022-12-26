@@ -11,43 +11,43 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-public class ADImageSliderAdapter extends RecyclerView.Adapter<ADImageSliderAdapter.MyViewHolder> {
-    private Context context;
-    private String[] sliderImage;
+public class ADImageSliderAdapter extends RecyclerView.Adapter<ADImageSliderAdapter.ADMyViewHolder> {
+    private Context ad_context;
+    private String[] ad_sliderImage;
 
     public ADImageSliderAdapter(Context context, String[] sliderImage) {
-        this.context = context;
-        this.sliderImage = sliderImage;
+        this.ad_context = context;
+        this.ad_sliderImage = sliderImage;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ADImageSliderAdapter.ADMyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_ad_slider_item, parent, false);
-        return new MyViewHolder(view);
+        return new ADMyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ADImageSliderAdapter.MyViewHolder holder, int position) {
-        holder.bindSliderImage(sliderImage[position]);
+    public void onBindViewHolder(@NonNull ADImageSliderAdapter.ADMyViewHolder holder, int position) {
+        holder.bindSliderImage(ad_sliderImage[position]);
     }
 
     @Override
     public int getItemCount() {
-        return sliderImage.length;
+        return ad_sliderImage.length;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ADMyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImageView;
+        private ImageView ad_mImageView;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public ADMyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.slider_image);
+            ad_mImageView = itemView.findViewById(R.id.ad_slider_image);
         }
 
         public void bindSliderImage(String imageURL) {
-            Glide.with(context).load(imageURL).into(mImageView);
+            Glide.with(ad_context).load(imageURL).into(ad_mImageView);
         }
     }
 }

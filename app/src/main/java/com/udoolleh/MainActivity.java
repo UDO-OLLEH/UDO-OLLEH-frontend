@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity{
     private final int TourFragment = 4;
     private final int BoardFragment = 5;
     String userNickname, userImage;
-    private ViewPager2 viewpager_slider;
 
 
     @Override
@@ -65,12 +64,6 @@ public class MainActivity extends AppCompatActivity{
         drawer.closeDrawer(GravityCompat.END);
     }
 
-    //상단에 보여질 이미지 URL
-    private String[] images = new String[]{
-            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
-            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,18 +77,6 @@ public class MainActivity extends AppCompatActivity{
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
-
-        //ViewPager
-        viewpager_slider = findViewById(R.id.ad_viewpager_slider);
-        viewpager_slider.setOffscreenPageLimit(1);
-        viewpager_slider.setAdapter(new ADImageSliderAdapter(context, images));
-        viewpager_slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-            }
-        });
-
 
         Button edit_profile = findViewById(R.id.edit_profile);
         edit_profile.setOnClickListener(new View.OnClickListener() {

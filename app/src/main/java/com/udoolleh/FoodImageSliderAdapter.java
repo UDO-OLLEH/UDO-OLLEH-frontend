@@ -22,13 +22,13 @@ public class FoodImageSliderAdapter extends RecyclerView.Adapter<FoodImageSlider
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodImageSliderAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_food_slider_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodImageSliderAdapter.MyViewHolder holder, int position) {
         holder.bindSliderImage(sliderImage[position]);
     }
 
