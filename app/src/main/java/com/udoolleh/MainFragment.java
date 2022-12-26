@@ -36,10 +36,10 @@ public class MainFragment extends Fragment {
     Button recycle;
     ImageView weather_layout;
     String weatherLink = "https://weather.naver.com/today/14110330";
-    ViewPager2 ad_viewpager_slider;
+    private ViewPager2 ad_viewpager_slider;
 
     //상단에 보여질 이미지 URL
-    private String[] images = new String[]{
+    private String[] adimages = new String[]{
             "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
             "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
     };
@@ -61,7 +61,7 @@ public class MainFragment extends Fragment {
         //ViewPager
         ad_viewpager_slider = view.findViewById(R.id.ad_viewpager_slider);
         ad_viewpager_slider.setOffscreenPageLimit(1);
-        ad_viewpager_slider.setAdapter(new ADImageSliderAdapter(context, images));
+        ad_viewpager_slider.setAdapter(new ADImageSliderAdapter(context, adimages));
         ad_viewpager_slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

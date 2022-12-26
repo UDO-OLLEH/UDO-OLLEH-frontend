@@ -352,10 +352,17 @@
 
     <!--배너 광고 레이아웃-->
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/ad_viewpager_slider"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/ad_viewpager_slider"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
+
+    </LinearLayout>
+
 
     <!--하단 정보 레이아웃-->
     <LinearLayout
