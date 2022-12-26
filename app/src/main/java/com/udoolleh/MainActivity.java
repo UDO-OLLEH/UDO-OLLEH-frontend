@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,6 +29,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity{
     private final int TourFragment = 4;
     private final int BoardFragment = 5;
     String userNickname, userImage;
+    private ViewPager2 viewpager_slider;
+
 
     @Override
     protected void onResume() {
@@ -60,6 +65,12 @@ public class MainActivity extends AppCompatActivity{
         drawer.closeDrawer(GravityCompat.END);
     }
 
+    //상단에 보여질 이미지 URL
+    private String[] images = new String[]{
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +84,18 @@ public class MainActivity extends AppCompatActivity{
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
+
+        //ViewPager
+        viewpager_slider = findViewById(R.id.ad_viewpager_slider);
+        viewpager_slider.setOffscreenPageLimit(1);
+        viewpager_slider.setAdapter(new ADImageSliderAdapter(context, images));
+        viewpager_slider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+        });
+
 
         Button edit_profile = findViewById(R.id.edit_profile);
         edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +315,64 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
+            }
+        });
+    }
+
+    public void ADResponse(){
+
+        //retrofitclient 에서 instance 받아옴 광고에는 토큰 필요 없음 null 입력
+        //token is none 부분 봐라
+        //interface랑 clinet 연결
+        retrofitClient = RetrofitClient.getInstance(null);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //interface 위에서 연결 후 불러옴
+        retrofitInterface.getADResponse().enqueue(new Callback<ADResponse>() {
+            //통신 성공
+            @Override
+            //통신 성고하면 response 저장
+            public void onResponse(Call<ADResponse> call, Response<ADResponse> response) {
+                Log.d("udoLog", "유저 정보 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 정보 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 정보 조회 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null){
+
+                    //response.body() 를 reuslt 에 저장
+                    ADResponse result = response.body();
+
+                    //받은 코드 저장 (200 얘기하는거임)
+                    int resultCode = response.code();
+
+                    //광고 조회 성공
+                    int success = 200;
+
+                    if(resultCode == success){
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+
+                        //광고 정보 조회 로그
+                        Log.d("udoLog", "광고 정보 조회 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n"
+                        );
+
+                        //
+
+                    }
+
+                }
+
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<ADResponse> call, Throwable t) {
+
             }
         });
     }

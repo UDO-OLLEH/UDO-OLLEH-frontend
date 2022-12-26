@@ -351,10 +351,11 @@
     </LinearLayout>
 
     <!--배너 광고 레이아웃-->
-    <LinearLayout
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/ad_viewpager_slider"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/main_banner"/>
+        android:layout_height="match_parent"/>
 
     <!--하단 정보 레이아웃-->
     <LinearLayout
