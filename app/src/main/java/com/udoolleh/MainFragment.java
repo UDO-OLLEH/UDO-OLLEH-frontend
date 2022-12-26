@@ -173,11 +173,8 @@ public class MainFragment extends Fragment {
                             str.add(adList.getPhoto());
 
                         }
-
                     }
-
                 }
-
             }
 
             //통신 실패
