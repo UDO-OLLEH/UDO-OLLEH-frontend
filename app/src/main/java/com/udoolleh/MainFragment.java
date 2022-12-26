@@ -175,9 +175,7 @@ public class MainFragment extends Fragment {
                         }
                         ad_viewpager_slider.setAdapter(adImageSliderAdapter);
                     }
-
                 }
-
             }
 
             //통신 실패
