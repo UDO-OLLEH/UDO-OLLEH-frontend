@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity{
     ImageView navigation_profile_image, map_img, food_img, main_img, tour_img, board_img;
     TextView navigation_nickname;
     private RetrofitInterface retrofitInterface;
+    private RetrofitClient retrofitClient;
     FloatingActionButton addBoardBtn;
     private final int MapFragment = 1;
     private final int FoodFragment = 2;
