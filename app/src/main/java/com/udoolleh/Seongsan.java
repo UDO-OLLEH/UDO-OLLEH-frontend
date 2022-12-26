@@ -285,6 +285,10 @@ public class Seongsan extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         switch (item.getItemId()){
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+
             case R.id.drawer:
                 if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                     Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();

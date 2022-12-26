@@ -55,15 +55,6 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.fragment_food_detail);
         context = getApplicationContext();
 
-        //뒤로가기 버튼
-        Button board_close = findViewById(R.id.board_close);
-        board_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         //NavigationView
         navigation_profile_image = findViewById(R.id.navigation_profile_image);
         navigation_nickname = findViewById(R.id.navigation_nickname);
@@ -71,6 +62,10 @@ public class FoodDetail extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -331,6 +326,10 @@ public class FoodDetail extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
         switch (item.getItemId()) {
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+
             case R.id.drawer:
                 if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                     Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();

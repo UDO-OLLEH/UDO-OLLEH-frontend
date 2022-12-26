@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity{
     TextView navigation_nickname;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    private RetrofitClient retrofitClient;
     FloatingActionButton addBoardBtn;
     private final int MapFragment = 1;
     private final int FoodFragment = 2;
