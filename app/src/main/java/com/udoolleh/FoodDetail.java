@@ -288,6 +288,7 @@ public class FoodDetail extends AppCompatActivity {
                                     "price: " + foodMenu.getPrice() + "\n" +
                                     "description: " + foodMenu.getDescription() + "\n"
                             );
+
                             foodDetailAdapter.addItem(new FoodDetailListItem(foodMenu.getName(), foodMenu.getPhoto(), foodMenu.getPrice(), foodMenu.getDescription()));
                         }
                         foodMenuListView.setAdapter(foodDetailAdapter);

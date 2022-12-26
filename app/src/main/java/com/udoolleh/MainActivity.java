@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,8 +28,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
     ImageView navigation_profile_image, map_img, food_img, main_img, tour_img, board_img;
     TextView navigation_nickname;
+    private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     private RetrofitClient retrofitClient;
     FloatingActionButton addBoardBtn;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity{
     private final int TourFragment = 4;
     private final int BoardFragment = 5;
     String userNickname, userImage;
-
 
     @Override
     protected void onResume() {
@@ -299,8 +296,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

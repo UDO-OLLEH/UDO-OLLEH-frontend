@@ -4,16 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ADResponse {
-
+public class MainFragmentAdResponse {
     @SerializedName("id")
     private String id;
+
     @SerializedName("dateTime")
     private String dateTime;
+
     @SerializedName("message")
     private String message;
+
     @SerializedName("list")
-    private java.util.List<ADList> list = new ArrayList<>();
+    private java.util.List<AdList> list = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -39,17 +41,18 @@ public class ADResponse {
         this.message = message;
     }
 
-    public java.util.List<ADList> getList() {
+    public java.util.List<AdList> getList() {
         return list;
     }
 
-    public void setList(java.util.List<ADList> list) {
+    public void setList(java.util.List<AdList> list) {
         this.list = list;
     }
 
-    public class ADList{
+    public class AdList{
         @SerializedName("id")
         private String id;
+
         @SerializedName("photo")
         private String photo;
 
