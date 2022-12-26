@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
     ImageView navigation_profile_image, map_img, food_img, main_img, tour_img, board_img;
     TextView navigation_nickname;
-    private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     FloatingActionButton addBoardBtn;
     private final int MapFragment = 1;
@@ -300,63 +299,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public void ADResponse(){
 
-        //retrofitclient 에서 instance 받아옴 광고에는 토큰 필요 없음 null 입력
-        //token is none 부분 봐라
-        //interface랑 clinet 연결
-        retrofitClient = RetrofitClient.getInstance(null);
-        retrofitInterface = RetrofitClient.getRetrofitInterface();
-
-        //interface 위에서 연결 후 불러옴
-        retrofitInterface.getADResponse().enqueue(new Callback<ADResponse>() {
-            //통신 성공
-            @Override
-            //통신 성고하면 response 저장
-            public void onResponse(Call<ADResponse> call, Response<ADResponse> response) {
-                Log.d("udoLog", "유저 정보 조회 body 내용 = " + response.body());
-                Log.d("udoLog", "유저 정보 조회 성공여부 = " + response.isSuccessful());
-                Log.d("udoLog", "유저 정보 조회 상태코드 = " + response.code());
-
-                //통신 성공
-                if (response.isSuccessful() && response.body() != null){
-
-                    //response.body() 를 reuslt 에 저장
-                    ADResponse result = response.body();
-
-                    //받은 코드 저장 (200 얘기하는거임)
-                    int resultCode = response.code();
-
-                    //광고 조회 성공
-                    int success = 200;
-
-                    if(resultCode == success){
-                        String id = result.getId();
-                        String dateTime = result.getDateTime();
-                        String message = result.getMessage();
-
-                        //광고 정보 조회 로그
-                        Log.d("udoLog", "광고 정보 조회 = \n" +
-                                "Id: " + id + "\n" +
-                                "dateTime: " + dateTime + "\n" +
-                                "message: " + message + "\n"
-                        );
-
-                        //
-
-                    }
-
-                }
-
-            }
-
-            //통신 실패
-            @Override
-            public void onFailure(Call<ADResponse> call, Throwable t) {
-
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

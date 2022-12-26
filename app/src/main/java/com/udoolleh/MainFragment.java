@@ -1,18 +1,18 @@
 package com.udoolleh;
 
 import android.annotation.SuppressLint;
-
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,27 +22,30 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainFragment extends Fragment {
     Context context;
     TextView weather, weatherSub;
     Button recycle;
     ImageView weather_layout;
+    private RetrofitClient retrofitClient;
+    private RetrofitInterface retrofitInterface;
     String weatherLink = "https://weather.naver.com/today/14110330";
     private ViewPager2 ad_viewpager_slider;
+    ArrayList<String> str = new ArrayList<>();
 
-    //상단에 보여질 이미지 URL
-    private String[] adimages = new String[]{
-            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
-            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,9 +83,9 @@ public class MainFragment extends Fragment {
         df.setTimeZone(tz);
         if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
             weather_layout.setImageResource(R.drawable.main_weather_day);
-        } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6){
+        } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6) {
             weather_layout.setImageResource(R.drawable.main_weather_sunset);
-        } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18 )
+        } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18)
             weather_layout.setImageResource(R.drawable.main_weather_sunset);
         else {
             weather_layout.setImageResource(R.drawable.main_weather_night);
@@ -102,9 +105,9 @@ public class MainFragment extends Fragment {
                 df.setTimeZone(tz);
                 if (Integer.parseInt(df.format(date)) >= 7 && Integer.parseInt(df.format(date)) <= 16) {
                     weather_layout.setImageResource(R.drawable.main_weather_day);
-                } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6){
+                } else if (Integer.parseInt(df.format(date)) >= 5 && Integer.parseInt(df.format(date)) <= 6) {
                     weather_layout.setImageResource(R.drawable.main_weather_sunset);
-                } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18 )
+                } else if (Integer.parseInt(df.format(date)) >= 17 && Integer.parseInt(df.format(date)) <= 18)
                     weather_layout.setImageResource(R.drawable.main_weather_sunset);
                 else {
                     weather_layout.setImageResource(R.drawable.main_weather_night);
@@ -114,9 +117,80 @@ public class MainFragment extends Fragment {
 
         return view;
     }
+    //상단에 보여질 이미지 URL
+    private String[] adimages = new String[]{
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/b1dab7de-d124-4ce9-8c4a-1e192564f801%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC.png",
+            "https://udo-photo-bucket.s3.ap-northeast-2.amazonaws.com/restaurant/a6cd7f6a-86f2-4771-a46a-125040da3327%ED%95%B4%EB%85%80%EC%B4%8C%ED%95%B4%EC%82%B0%EB%AC%BC2.png"
+    };
+    public void ADResponse() {
+
+        //retrofitclient 에서 instance 받아옴 광고에는 토큰 필요 없음 null 입력
+        //token is none 부분 봐라
+        //interface랑 clinet 연결
+        retrofitClient = RetrofitClient.getInstance(null);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //interface 위에서 연결 후 불러옴
+        retrofitInterface.getADResponse().enqueue(new Callback<ADResponse>() {
+            //통신 성공
+            @Override
+            //통신 성고하면 response 저장
+            public void onResponse(Call<ADResponse> call, Response<ADResponse> response) {
+
+                Log.d("udoLog", "유저 정보 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "유저 정보 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "유저 정보 조회 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body() 를 reuslt 에 저장
+                    ADResponse result = response.body();
+
+                    //받은 코드 저장 (200 얘기하는거임)
+                    int resultCode = response.code();
+
+                    //광고 조회 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        List<ADResponse.ADList> imglist = result.getList();
+
+                        //광고 정보 조회 로그
+                        Log.d("udoLog", "광고 정보 조회 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n"
+                        );
+
+                        //
+
+                        for(ADResponse.ADList adList : imglist){
+                            //어레이리스트 str에 넣음
+                            str.add(adList.getPhoto());
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<ADResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
     //우도 현재 날씨 크롤링
     Disposable weatherBackgroundTask;
+
     void WeatherBackgroundTask(String URLs) {
         //onPreExecute
 
@@ -148,6 +222,7 @@ public class MainFragment extends Fragment {
 
     //우도 대기 상태 크롤링
     Disposable weatherSubBackgroundTask;
+
     void WeatherSubBackgroundTask(String URLs) {
         //onPreExecute
 
@@ -173,4 +248,5 @@ public class MainFragment extends Fragment {
             weatherSubBackgroundTask.dispose();
         }, throwable -> System.out.println("Error"));
     }
+
 }
