@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,7 @@ public class FoodDetailReviewAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView foodReviewNickname;
         ImageView foodReviewPhoto;
         TextView foodReviewContext;
-        TextView foodReviewGrade;
+        RatingBar foodReviewGrade;
 
         public FoodDetailReviewViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,7 +78,7 @@ public class FoodDetailReviewAdapter extends RecyclerView.Adapter<RecyclerView.V
             foodReviewNickname.setText(foodDetailListItem.getNickname());
             Glide.with(context).load(foodDetailListItem.getPhoto()).into(foodReviewPhoto);
             foodReviewContext.setText(foodDetailListItem.getContext());
-            foodReviewGrade.setText(foodDetailListItem.getGrade());
+            foodReviewGrade.setRating((float) foodDetailListItem.getGrade());
         }
     }
 }

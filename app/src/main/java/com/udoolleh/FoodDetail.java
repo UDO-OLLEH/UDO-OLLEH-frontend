@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class FoodDetail extends AppCompatActivity {
     String imagesUrl;
     String name;
     String address;
-    String totalGrade;
+    double totalGrade;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class FoodDetail extends AppCompatActivity {
         //ImageView imagesUrlDetail = findViewById(R.id.imagesUrlDetail);
         TextView nameDetail = findViewById(R.id.nameDetail);
         TextView addressDetail = findViewById(R.id.addressDetail);
-        TextView totalGradeDetail = findViewById(R.id.totalGradeDetail);
+        RatingBar totalGradeDetail = findViewById(R.id.totalGradeDetail);
 
         Intent intent = getIntent();
 
@@ -115,7 +116,7 @@ public class FoodDetail extends AppCompatActivity {
         imagesUrl = intent.getExtras().getString("imagesUrl");
         name = intent.getExtras().getString("name");
         address = intent.getExtras().getString("address");
-        totalGrade = intent.getExtras().getString("totalGrade");
+        totalGrade = intent.getDoubleExtra("totalGrade", 0);
 
         //이미지 URL을 뷰 페이저에 넣기 (리스트 형태의 String을 StringTokenizer로 URL만 분리 후 뷰 페이저에 넣기)
         if(!imagesUrl.equals("[]")) {
@@ -155,7 +156,7 @@ public class FoodDetail extends AppCompatActivity {
 
         nameDetail.setText(name);
         addressDetail.setText(address);
-        totalGradeDetail.setText(totalGrade);
+        totalGradeDetail.setRating((float) totalGrade);
 
         //메뉴 조회 RecyclerView
         foodMenuListView = findViewById(R.id.foodMenuListView);

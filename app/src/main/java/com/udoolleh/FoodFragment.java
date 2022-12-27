@@ -197,7 +197,7 @@ public class FoodFragment extends Fragment {
                                         "xcoordinate: " + food.getXcoordinate() + "\n" +
                                         "ycoordinate: " + food.getYcoordinate() + "\n"
                                 );
-                                foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
+                                foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade(), food.getXcoordinate(), food.getYcoordinate()));
                             }
                             foodGridView.setAdapter(foodListAdapter);
                         }
@@ -285,7 +285,7 @@ public class FoodFragment extends Fragment {
                                     "xcoordinate: " + food.getXcoordinate() + "\n" +
                                     "ycoordinate: " + food.getYcoordinate() + "\n"
                             );
-                            foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade().toString(), food.getXcoordinate(), food.getYcoordinate()));
+                            foodListAdapter.addItem(new FoodListItem(food.getId(), food.getName(), food.getPlaceType(), food.getCategory(), food.getAddress(), food.getImagesUrl().toString(), food.getTotalGrade(), food.getXcoordinate(), food.getYcoordinate()));
                         }
                         foodListAdapter.notifyDataSetChanged();
                         isLoading = false;

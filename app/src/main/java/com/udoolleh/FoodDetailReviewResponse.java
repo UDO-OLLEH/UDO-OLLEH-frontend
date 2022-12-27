@@ -47,7 +47,7 @@ public class FoodDetailReviewResponse {
         private String context;
 
         @SerializedName("grade")
-        private String grade;
+        private double grade;
 
         public String getReviewId() {
             return reviewId;
@@ -65,7 +65,7 @@ public class FoodDetailReviewResponse {
             return context;
         }
 
-        public String getGrade() {
+        public double getGrade() {
             return grade;
         }
     }
