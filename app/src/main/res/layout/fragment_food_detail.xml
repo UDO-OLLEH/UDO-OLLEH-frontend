@@ -43,14 +43,6 @@
                         android:layout_height="330dp"
                         android:fitsSystemWindows="true"/>
 
-                    <!--
-                    <ImageView
-                        android:id="@+id/imagesUrlDetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="330dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/exampleimage"/>-->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
@@ -71,11 +63,16 @@
                             android:textSize="20dp"
                             android:textStyle="bold"/>
 
-                        <TextView
+                        <RatingBar
                             android:id="@+id/totalGradeDetail"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"/>
+                            android:layout_gravity="center"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:stepSize="0.5"
+                            android:rating="0"
+                            android:progressBackgroundTint="#AAAAAA"
+                            android:isIndicator="true"/>
 
                         <TextView
                             android:id="@+id/addressDetail"

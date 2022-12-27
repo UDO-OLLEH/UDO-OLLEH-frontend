@@ -7,11 +7,11 @@ public class FoodListItem {
     String category;
     String address;
     String imagesUrl;
-    String totalGrade;
+    double totalGrade;
     String xcoordinate;
     String ycoordinate;
 
-    public FoodListItem(String id, String name, String placeType, String category, String address, String imagesUrl, String totalGrade, String xcoordinate, String ycoordinate) {
+    public FoodListItem(String id, String name, String placeType, String category, String address, String imagesUrl, double totalGrade, String xcoordinate, String ycoordinate) {
         this.id = id;
         this.name = name;
         this.placeType = placeType;
@@ -71,11 +71,11 @@ public class FoodListItem {
         this.imagesUrl = imagesUrl;
     }
 
-    public String getTotalGrade() {
+    public double getTotalGrade() {
         return totalGrade;
     }
 
-    public void setTotalGrade(String totalGrade) {
+    public void setTotalGrade(double totalGrade) {
         this.totalGrade = totalGrade;
     }
 

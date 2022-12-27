@@ -5,9 +5,9 @@ public class FoodDetailReviewListItem {
     String nickname;
     String photo;
     String context;
-    String grade;
+    double grade;
 
-    public FoodDetailReviewListItem(String reviewId, String nickname, String photo, String context, String grade) {
+    public FoodDetailReviewListItem(String reviewId, String nickname, String photo, String context, double grade) {
         this.reviewId = reviewId;
         this.nickname = nickname;
         this.photo = photo;
@@ -31,7 +31,7 @@ public class FoodDetailReviewListItem {
         return context;
     }
 
-    public String getGrade() {
+    public double getGrade() {
         return grade;
     }
 }

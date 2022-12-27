@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -99,7 +100,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView foodPlaceType;
         TextView foodCategory;
         TextView foodAddress;
-        TextView foodTotalGrade;
+        RatingBar foodTotalGrade;
         TextView foodXcoordinate;
         TextView foodYcoordinate;
 
@@ -135,7 +136,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             //foodPlaceType.setText(foodListItem.getPlaceType());
             //foodCategory.setText(foodListItem.getCategory());
             foodAddress.setText(foodListItem.getAddress());
-            foodTotalGrade.setText(foodListItem.getTotalGrade());
+            foodTotalGrade.setRating((float)foodListItem.getTotalGrade());
             //foodXcoordinate.setText(foodListItem.getXcoordinate());
             //foodYcoordinate.setText(foodListItem.getYcoordinate());
         }
