@@ -53,7 +53,11 @@ public interface RetrofitInterface {
 
     //맛집 메뉴 목록 조회 통신
     @GET("restaurant/{id}/menu")
-    Call<FoodDetailResponse> getFoodListItemDetailResponse(@Path("id") String id);
+    Call<FoodDetailMenuResponse> getFoodDetailMenuResponse(@Path("id") String id);
+
+    //맛집 리뷰 목록 조회 통신
+    @GET("restaurant/{name}/review")
+    Call<FoodDetailReviewResponse> getFoodDetailReviewResponse(@Path("name") String name);
 
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
