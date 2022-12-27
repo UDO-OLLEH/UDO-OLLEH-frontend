@@ -42,12 +42,19 @@ public class FoodDetail extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     RecyclerView foodMenuListView;
-    FoodDetailAdapter foodDetailAdapter;
+    RecyclerView foodReviewListView;
+    FoodDetailMenuAdapter foodDetailMenuAdapter;
+    FoodDetailReviewAdapter foodDetailReviewAdapter;
     Toolbar toolbar;
     String id;
     private ViewPager2 food_detail_viewpager_slider;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
+
+    String imagesUrl;
+    String name;
+    String address;
+    String totalGrade;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,10 +112,10 @@ public class FoodDetail extends AppCompatActivity {
         Intent intent = getIntent();
 
         id = intent.getExtras().getString("id");
-        String imagesUrl = intent.getExtras().getString("imagesUrl");
-        String name = intent.getExtras().getString("name");
-        String address = intent.getExtras().getString("address");
-        String totalGrade = intent.getExtras().getString("totalGrade");
+        imagesUrl = intent.getExtras().getString("imagesUrl");
+        name = intent.getExtras().getString("name");
+        address = intent.getExtras().getString("address");
+        totalGrade = intent.getExtras().getString("totalGrade");
 
         //이미지 URL을 뷰 페이저에 넣기 (리스트 형태의 String을 StringTokenizer로 URL만 분리 후 뷰 페이저에 넣기)
         if(!imagesUrl.equals("[]")) {
@@ -150,14 +157,23 @@ public class FoodDetail extends AppCompatActivity {
         addressDetail.setText(address);
         totalGradeDetail.setText(totalGrade);
 
-        //RecyclerView
+        //메뉴 조회 RecyclerView
         foodMenuListView = findViewById(R.id.foodMenuListView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        foodMenuListView.setLayoutManager(linearLayoutManager);
-        foodDetailAdapter = new FoodDetailAdapter();
+        LinearLayoutManager menuLinearLayoutManager = new LinearLayoutManager(this);
+        foodMenuListView.setLayoutManager(menuLinearLayoutManager);
+        foodDetailMenuAdapter = new FoodDetailMenuAdapter();
 
-        //Retrofit
-        FoodListItemDetailResponse();
+        //메뉴 조회 Retrofit
+        FoodDetailMenuResponse();
+
+        //리뷰 조회 RecyclerView
+        foodReviewListView = findViewById(R.id.foodReviewListView);
+        LinearLayoutManager reviewLinearLayoutManager = new LinearLayoutManager(this);
+        foodReviewListView.setLayoutManager(reviewLinearLayoutManager);
+        foodDetailReviewAdapter = new FoodDetailReviewAdapter();
+
+        //리뷰 조회 Retrofit
+        FoodDetailReviewResponse();
     }
 
     //Navigation View User Profile
@@ -234,15 +250,15 @@ public class FoodDetail extends AppCompatActivity {
         });
     }
 
-    public void FoodListItemDetailResponse() {
+    public void FoodDetailMenuResponse() {
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //FoodListItemDetailResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getFoodListItemDetailResponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getFoodListItemDetailResponse(id).enqueue(new Callback<FoodDetailResponse>() {
+        retrofitInterface.getFoodDetailMenuResponse(id).enqueue(new Callback<FoodDetailMenuResponse>() {
             @Override
-            public void onResponse(Call<FoodDetailResponse> call, Response<FoodDetailResponse> response) {
+            public void onResponse(Call<FoodDetailMenuResponse> call, Response<FoodDetailMenuResponse> response) {
                 Log.d("udoLog", "맛집 메뉴 목록 조회 body 내용 = " + response.body());
                 Log.d("udoLog", "맛집 메뉴 목록 조회 성공여부 = " + response.isSuccessful());
                 Log.d("udoLog", "맛집 메뉴 목록 조회 상태코드 = " + response.code());
@@ -251,7 +267,7 @@ public class FoodDetail extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
 
                     //response.body()를 result에 저장
-                    FoodDetailResponse result = response.body();
+                    FoodDetailMenuResponse result = response.body();
 
                     //받은 코드 저장
                     int resultCode = response.code();
@@ -263,7 +279,7 @@ public class FoodDetail extends AppCompatActivity {
                         String id = result.getId();
                         String dateTime = result.getDateTime();
                         String message = result.getMessage();
-                        List<FoodDetailResponse.FoodMenuList> foodMenuList = result.getList();
+                        List<FoodDetailMenuResponse.FoodMenuList> foodMenuList = result.getList();
 
                         //게시판 댓글 조회 로그
                         Log.d("udoLog", "맛집 메뉴 목록 조회 성공 = \n" +
@@ -274,7 +290,7 @@ public class FoodDetail extends AppCompatActivity {
                         );
 
                         //Recycler View 레이아웃 설정
-                        for(FoodDetailResponse.FoodMenuList foodMenu : foodMenuList) {
+                        for(FoodDetailMenuResponse.FoodMenuList foodMenu : foodMenuList) {
 
                             //게시판 댓글 내용 조회 로그
                             Log.d("udoLog", "맛집 메뉴 목록 조회 리스트 = \n" +
@@ -284,9 +300,9 @@ public class FoodDetail extends AppCompatActivity {
                                     "description: " + foodMenu.getDescription() + "\n"
                             );
 
-                            foodDetailAdapter.addItem(new FoodDetailListItem(foodMenu.getName(), foodMenu.getPhoto(), foodMenu.getPrice(), foodMenu.getDescription()));
+                            foodDetailMenuAdapter.addItem(new FoodDetailMenuListItem(foodMenu.getName(), foodMenu.getPhoto(), foodMenu.getPrice(), foodMenu.getDescription()));
                         }
-                        foodMenuListView.setAdapter(foodDetailAdapter);
+                        foodMenuListView.setAdapter(foodDetailMenuAdapter);
 
                     } else {
                         //상태코드 != 200일 때
@@ -302,7 +318,87 @@ public class FoodDetail extends AppCompatActivity {
 
             //통신 실패
             @Override
-            public void onFailure(Call<FoodDetailResponse> call, Throwable t) {
+            public void onFailure(Call<FoodDetailMenuResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(FoodDetail.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+    public void FoodDetailReviewResponse() {
+        //Retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(null);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //FoodListItemDetailResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getFoodListItemDetailResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getFoodDetailReviewResponse(name).enqueue(new Callback<FoodDetailReviewResponse>() {
+            @Override
+            public void onResponse(Call<FoodDetailReviewResponse> call, Response<FoodDetailReviewResponse> response) {
+                Log.d("udoLog", "맛집 리뷰 목록 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "맛집 리뷰 목록 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "맛집 리뷰 목록 조회 상태코드 = " + response.code());
+
+                //통신 성공
+                if(response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    FoodDetailReviewResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //식당 리뷰 조회 성공
+                    int success = 200;
+
+                    if(resultCode == success) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        List<FoodDetailReviewResponse.FoodReviewList> foodReviewList = result.getList();
+
+                        //식당 리뷰 조회 로그
+                        Log.d("udoLog", "맛집 리뷰 목록 조회 성공 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n" +
+                                "content" + foodReviewList
+                        );
+
+                        //Recycler View 레이아웃 설정
+                        for(FoodDetailReviewResponse.FoodReviewList foodReview : foodReviewList) {
+
+                            //식당 리뷰 내용 조회 로그
+                            Log.d("udoLog", "맛집 메뉴 목록 조회 리스트 = \n" +
+                                    "reviewId: " + foodReview.getReviewId() + "\n" +
+                                    "nickname: " + foodReview.getNickname() + "\n" +
+                                    "photo: " + foodReview.getPhoto() + "\n" +
+                                    "context: " + foodReview.getContext() + "\n" +
+                                    "grade: " + foodReview.getGrade() + "\n"
+                            );
+
+                            foodDetailReviewAdapter.addItem(new FoodDetailReviewListItem(foodReview.getReviewId(), foodReview.getNickname(), foodReview.getPhoto(), foodReview.getContext(), foodReview.getGrade()));
+                        }
+                        foodReviewListView.setAdapter(foodDetailReviewAdapter);
+
+                    } else {
+                        //상태코드 != 200일 때
+                        AlertDialog.Builder builder = new AlertDialog.Builder(FoodDetail.this);
+                        builder.setTitle("알림")
+                                .setMessage("댓글을 불러올 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<FoodDetailReviewResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(FoodDetail.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")

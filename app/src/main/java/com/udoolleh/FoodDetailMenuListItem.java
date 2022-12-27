@@ -1,12 +1,12 @@
 package com.udoolleh;
 
-public class FoodDetailListItem {
+public class FoodDetailMenuListItem {
     String name;
     String photo;
     String price;
     String description;
 
-    public FoodDetailListItem(String name, String photo, String price, String description) {
+    public FoodDetailMenuListItem(String name, String photo, String price, String description) {
         this.name = name;
         this.photo = photo;
         this.price = price;
