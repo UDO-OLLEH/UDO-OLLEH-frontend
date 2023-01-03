@@ -41,6 +41,9 @@ public class BoardDetailResponse {
     }
 
     public class BoardCommentList {
+        @SerializedName("email")
+        private String email;
+
         @SerializedName("id")
         private String id;
 
@@ -55,6 +58,10 @@ public class BoardDetailResponse {
 
         @SerializedName("createAt")
         private String createAt;
+
+        public String getEmail() {
+            return email;
+        }
 
         public String getId() {
             return id;

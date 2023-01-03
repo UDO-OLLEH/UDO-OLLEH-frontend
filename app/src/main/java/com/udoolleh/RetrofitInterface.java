@@ -4,6 +4,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -59,6 +60,11 @@ public interface RetrofitInterface {
     @GET("restaurant/{name}/review")
     Call<FoodDetailReviewResponse> getFoodDetailReviewResponse(@Path("name") String name);
 
+    //맛집 리뷰 작성 통신
+    @Multipart
+    @POST("/restaurant/review")
+    Call<FoodDetailReviewWriteResponse> getFoodDetailReviewWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
+
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
@@ -75,6 +81,13 @@ public interface RetrofitInterface {
     //게시판 댓글 등록 통신
     @POST("/board/comment")
     Call<BoardCommentWriteResponse> getBoardCommentWriteResponse(@Body BoardCommentWriteRequest boardCommentWriteRequest);
+
+    //게시판 댓글 수정 통신
+    @PUT("/board/comment")
+    Call<BoardCommentEditResponse> getBoardCommentEditResponse(@Body BoardCommentEditRequest boardCommentEditRequest);
+
+    @DELETE("/board/comment/{id}")
+    Call<BoardCommentDeleteResponse> getBoardCommentDeleteResponse(@Path("id") String id);
 
     //광고 전체 조회 통신
     @GET("/ad")

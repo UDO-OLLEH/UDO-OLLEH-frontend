@@ -119,6 +119,9 @@ public class BoardResponse {
         }
 
         public class Content {
+            @SerializedName("email")
+            private String email;
+
             @SerializedName("id")
             private String id;
 
@@ -136,6 +139,10 @@ public class BoardResponse {
 
             @SerializedName("countLikes")
             private String countLikes;
+
+            public String getEmail() {
+                return email;
+            }
 
             public String getId() {
                 return id;

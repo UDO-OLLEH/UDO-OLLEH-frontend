@@ -34,6 +34,9 @@ public class FoodDetailReviewResponse {
     }
 
     public class FoodReviewList {
+        @SerializedName("email")
+        private String email;
+
         @SerializedName("reviewId")
         private String reviewId;
 
@@ -48,6 +51,10 @@ public class FoodDetailReviewResponse {
 
         @SerializedName("grade")
         private double grade;
+
+        public String getEmail() {
+            return email;
+        }
 
         public String getReviewId() {
             return reviewId;

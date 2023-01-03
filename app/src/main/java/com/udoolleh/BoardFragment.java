@@ -119,6 +119,7 @@ public class BoardFragment extends Fragment {
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
+        String userIdValue = sp.getString("UserIdValue", "");
 
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
@@ -172,6 +173,7 @@ public class BoardFragment extends Fragment {
 
                                 //게시판 내용 조회 로그
                                 Log.d("udoLog", "게시판 조회 리스트 = \n" +
+                                        "email" + board.getEmail() + "\n" +
                                         "id: " + board.getId() + "\n" +
                                         "title: " + board.getTitle() + "\n" +
                                         "context: " + board.getContext() + "\n" +
@@ -179,7 +181,7 @@ public class BoardFragment extends Fragment {
                                         "countVisit: " + board.getCountVisit() + "\n" +
                                         "countLikes: " + board.getCountLikes() + "\n"
                                 );
-                                boardListAdapter.addItem(new BoardListItem(board.getId(), board.getTitle(), board.getContext(), board.getCreateAt(), board.getCountVisit(), board.getCountLikes()));
+                                boardListAdapter.addItem(new BoardListItem(userIdValue, board.getEmail(), board.getId(), board.getTitle(), board.getContext(), board.getCreateAt(), board.getCountVisit(), board.getCountLikes()));
                             }
                             boardGridView.setAdapter(boardListAdapter);
                         }
@@ -219,6 +221,7 @@ public class BoardFragment extends Fragment {
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
+        String userIdValue = sp.getString("UserIdValue", "");
 
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
@@ -265,6 +268,7 @@ public class BoardFragment extends Fragment {
 
                             //게시판 내용 조회 로그
                             Log.d("udoLog", "게시판 조회 추가 로딩 리스트 = \n" +
+                                    "email" + board.getEmail() + "\n" +
                                     "id: " + board.getId() + "\n" +
                                     "title: " + board.getTitle() + "\n" +
                                     "context: " + board.getContext() + "\n" +
@@ -272,7 +276,7 @@ public class BoardFragment extends Fragment {
                                     "countVisit: " + board.getCountVisit() + "\n" +
                                     "countLikes: " + board.getCountLikes() + "\n"
                             );
-                            boardListAdapter.addItem(new BoardListItem(board.getId(), board.getTitle(), board.getContext(), board.getCreateAt(), board.getCountVisit(), board.getCountLikes()));
+                            boardListAdapter.addItem(new BoardListItem(userIdValue, board.getEmail(), board.getId(), board.getTitle(), board.getContext(), board.getCreateAt(), board.getCountVisit(), board.getCountLikes()));
                         }
                         boardListAdapter.notifyDataSetChanged();
                         isLoading = false;

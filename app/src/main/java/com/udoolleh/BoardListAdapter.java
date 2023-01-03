@@ -6,6 +6,8 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -55,6 +57,8 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 Context context = view.getContext();
                 if (pos != RecyclerView.NO_POSITION) {
                     Intent boardListItemDetail = new Intent(context, BoardDetail.class);
+                    boardListItemDetail.putExtra("userIdValue", items.get(pos).getUserIdValue());
+                    boardListItemDetail.putExtra("email", items.get(pos).getEmail());
                     boardListItemDetail.putExtra("id", items.get(pos).getId());
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());
                     boardListItemDetail.putExtra("context", items.get(pos).getContext());
