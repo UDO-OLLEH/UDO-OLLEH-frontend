@@ -64,6 +64,10 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return items.size();
     }
 
+    public int getPosition() {
+        return mPosition;
+    }
+
     public void addItem(BoardDetailListItem item) {
         items.add(item);
     }
@@ -108,9 +112,9 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
             if(email.equals(userIdValue)) {
-                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.food_review_item_menu_personal, contextMenu);
+                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.board_comment_item_menu_personal, contextMenu);
             } else {
-                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.food_review_item_menu_nonpersonal, contextMenu);
+                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.board_comment_item_menu_nonpersonal, contextMenu);
             }
         }
     }

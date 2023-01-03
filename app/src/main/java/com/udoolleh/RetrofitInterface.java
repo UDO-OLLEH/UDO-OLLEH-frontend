@@ -4,6 +4,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -80,6 +81,13 @@ public interface RetrofitInterface {
     //게시판 댓글 등록 통신
     @POST("/board/comment")
     Call<BoardCommentWriteResponse> getBoardCommentWriteResponse(@Body BoardCommentWriteRequest boardCommentWriteRequest);
+
+    //게시판 댓글 수정 통신
+    @PUT("/board/comment")
+    Call<BoardCommentEditResponse> getBoardCommentEditResponse(@Body BoardCommentEditRequest boardCommentEditRequest);
+
+    @DELETE("/board/comment/{id}")
+    Call<BoardCommentDeleteResponse> getBoardCommentDeleteResponse(@Path("id") String id);
 
     //광고 전체 조회 통신
     @GET("/ad")
