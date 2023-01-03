@@ -342,6 +342,9 @@ public class FoodDetail extends AppCompatActivity {
     }
 
     public void FoodDetailReviewResponse() {
+        SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String userIdValue = sp.getString("UserIdValue", "");
+
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
@@ -385,6 +388,7 @@ public class FoodDetail extends AppCompatActivity {
 
                             //식당 리뷰 내용 조회 로그
                             Log.d("udoLog", "맛집 메뉴 목록 조회 리스트 = \n" +
+                                    "email" + foodReview.getEmail() + "\n" +
                                     "reviewId: " + foodReview.getReviewId() + "\n" +
                                     "nickname: " + foodReview.getNickname() + "\n" +
                                     "photo: " + foodReview.getPhoto() + "\n" +
@@ -392,7 +396,7 @@ public class FoodDetail extends AppCompatActivity {
                                     "grade: " + foodReview.getGrade() + "\n"
                             );
 
-                            foodDetailReviewAdapter.addItem(new FoodDetailReviewListItem(foodReview.getReviewId(), foodReview.getNickname(), foodReview.getPhoto(), foodReview.getContext(), foodReview.getGrade()));
+                            foodDetailReviewAdapter.addItem(new FoodDetailReviewListItem(userIdValue, foodReview.getEmail(), foodReview.getReviewId(), foodReview.getNickname(), foodReview.getPhoto(), foodReview.getContext(), foodReview.getGrade()));
                         }
                         foodReviewListView.setAdapter(foodDetailReviewAdapter);
 
@@ -419,6 +423,17 @@ public class FoodDetail extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.food_review_item_menu_edit:
+                //edit api start
+            case R.id.food_review_item_menu_delete:
+                //delete api start
+        }
+        return super.onContextItemSelected(item);
     }
 
     //드로어 메뉴 메뉴 목록

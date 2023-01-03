@@ -1,6 +1,8 @@
 package com.udoolleh;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,23 @@ import java.util.ArrayList;
 public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<BoardDetailListItem> items = new ArrayList<BoardDetailListItem>();
 
+    public interface BoardDetailOnItemLongClickEventListener {
+        void onItemLongClick(int position);
+    }
+
+    private int mPosition = RecyclerView.NO_POSITION;
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_board_detail_listview_item, parent, false);
-        return new BoardDetailViewHolder(view);
+        BoardDetailOnItemLongClickEventListener listener = new BoardDetailOnItemLongClickEventListener() {
+            @Override
+            public void onItemLongClick(int position) {
+                mPosition = position;
+            }
+        };
+        return new BoardDetailViewHolder(view, listener);
     }
 
     @Override
@@ -54,25 +68,50 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         items.add(item);
     }
 
-    public class BoardDetailViewHolder extends RecyclerView.ViewHolder {
+    public class BoardDetailViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         TextView boardCommentNickname;
         TextView boardCommentCreateAt;
         TextView boardCommentPhoto;
         TextView boardCommentContext;
+        String email, userIdValue;
 
-        public BoardDetailViewHolder(@NonNull View itemView) {
+        public BoardDetailViewHolder(@NonNull View itemView, BoardDetailOnItemLongClickEventListener itemLongClickEventListener) {
             super(itemView);
+            itemView.setOnCreateContextMenuListener(this);
+
             boardCommentNickname = itemView.findViewById(R.id.boardCommentNickname);
             boardCommentCreateAt = itemView.findViewById(R.id.boardCommentCreateAt);
             boardCommentPhoto = itemView.findViewById(R.id.boardCommentPhoto);
             boardCommentContext = itemView.findViewById(R.id.boardCommentContext);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        itemLongClickEventListener.onItemLongClick(position);
+                    }
+                    return false;
+                }
+            });
         }
 
         public void onBind(BoardDetailListItem boardDetailListItem) {
+            email = boardDetailListItem.getEmail();
+            userIdValue = boardDetailListItem.getUserIdValue();
             boardCommentNickname.setText(boardDetailListItem.getNickname());
             boardCommentCreateAt.setText(boardDetailListItem.getCreateAt());
             boardCommentPhoto.setText(boardDetailListItem.getPhoto());
             boardCommentContext.setText(boardDetailListItem.getContext());
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            if(email.equals(userIdValue)) {
+                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.food_review_item_menu_personal, contextMenu);
+            } else {
+                ((Activity) view.getContext()).getMenuInflater().inflate(R.menu.food_review_item_menu_nonpersonal, contextMenu);
+            }
         }
     }
 }

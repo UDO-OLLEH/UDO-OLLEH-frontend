@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,11 +47,13 @@ public class BoardDetail extends AppCompatActivity {
     private boolean isLoading = false;
     private boolean isLastLoading = false;
     Toolbar toolbar;
-    String id;
+    String id, userIdValue, email;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
     EditText boardCommentWriteEditText;
     Button boardCommentWriteButton;
+    LinearLayout board_personal_layout;
+    Button board_personal_edit, board_personal_delete;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +102,9 @@ public class BoardDetail extends AppCompatActivity {
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
         //Intent로 게시글 텍스트 가져오기
+        board_personal_layout = findViewById(R.id.board_personal_layout);
+        board_personal_edit = findViewById(R.id.board_personal_edit);
+        board_personal_delete = findViewById(R.id.board_personal_delete);
         TextView titleDetail = findViewById(R.id.titleDetail);
         TextView titleDetail2 = findViewById(R.id.titleDetail2);
         TextView contextDetail = findViewById(R.id.contextDetail);
@@ -106,10 +112,18 @@ public class BoardDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        userIdValue = intent.getExtras().getString("userIdValue");
+        email = intent.getExtras().getString("email");
         id = intent.getExtras().getString("id");
         String title = intent.getExtras().getString("title");
         String context = intent.getExtras().getString("context");
         String createAt = intent.getExtras().getString("createAt");
+
+        if(userIdValue.equals(email)) {
+            board_personal_layout.setVisibility(View.VISIBLE);
+        } else {
+            board_personal_layout.setVisibility(View.GONE);
+        }
 
         titleDetail.setText(title);
         titleDetail2.setText(title);
@@ -231,6 +245,7 @@ public class BoardDetail extends AppCompatActivity {
         //토큰 가져오기
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
+        String userIdValue = sp.getString("UserIdValue", "");
 
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
@@ -284,13 +299,14 @@ public class BoardDetail extends AppCompatActivity {
 
                                 //게시판 댓글 내용 조회 로그
                                 Log.d("udoLog", "게시판 댓글 조회 리스트 = \n" +
+                                        "email" + boardComment.getEmail() + "\n" +
                                         "id: " + boardComment.getId() + "\n" +
                                         "context: " + boardComment.getContext() + "\n" +
                                         "nickname: " + boardComment.getNickname() + "\n" +
                                         "photo: " + boardComment.getPhoto() + "\n" +
                                         "createAt: " + boardComment.getCreateAt() + "\n"
                                 );
-                                boardDetailAdapter.addItem(new BoardDetailListItem(boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
+                                boardDetailAdapter.addItem(new BoardDetailListItem(userIdValue, boardComment.getEmail(), boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
                             }
                             boardCommentListView.setAdapter(boardDetailAdapter);
                         }
@@ -318,6 +334,17 @@ public class BoardDetail extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.food_review_item_menu_edit:
+                //edit api start
+            case R.id.food_review_item_menu_delete:
+                //delete api start
+        }
+        return super.onContextItemSelected(item);
     }
 
     //게시판 댓글 등록
