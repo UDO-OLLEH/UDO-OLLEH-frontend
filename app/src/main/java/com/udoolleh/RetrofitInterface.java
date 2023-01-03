@@ -59,6 +59,11 @@ public interface RetrofitInterface {
     @GET("restaurant/{name}/review")
     Call<FoodDetailReviewResponse> getFoodDetailReviewResponse(@Path("name") String name);
 
+    //맛집 리뷰 작성 통신
+    @Multipart
+    @POST("/restaurant/review")
+    Call<FoodDetailReviewWriteResponse> getFoodDetailReviewWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
+
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);

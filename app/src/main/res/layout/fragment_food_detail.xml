@@ -169,6 +169,14 @@
                         android:scrollbars="vertical"
                         android:nestedScrollingEnabled="false"/>
 
+                    <Button
+                        android:id="@+id/foodReviewButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/layout_rounded_2"
+                        android:layout_marginTop="10dp"
+                        android:text="리뷰 작성"/>
+
                 </LinearLayout>
 
             </LinearLayout>

@@ -51,7 +51,7 @@ public class FoodDetail extends AppCompatActivity {
     private ViewPager2 food_detail_viewpager_slider;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
-
+    Button foodReviewButton;
     String imagesUrl;
     String name;
     String address;
@@ -175,6 +175,17 @@ public class FoodDetail extends AppCompatActivity {
 
         //리뷰 조회 Retrofit
         FoodDetailReviewResponse();
+
+        //리뷰 작성으로 이동
+        foodReviewButton = findViewById(R.id.foodReviewButton);
+        foodReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foodDetailReviewWrite = new Intent(context, FoodDetailReviewWrite.class);
+                foodDetailReviewWrite.putExtra("name", name);
+                startActivity(foodDetailReviewWrite);
+            }
+        });
     }
 
     //Navigation View User Profile
