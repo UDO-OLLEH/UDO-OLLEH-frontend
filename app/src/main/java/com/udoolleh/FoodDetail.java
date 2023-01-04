@@ -31,6 +31,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -56,6 +57,7 @@ public class FoodDetail extends AppCompatActivity {
     String name;
     String address;
     double totalGrade;
+    ArrayList<FoodDetailReviewListItem> mArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -395,8 +397,8 @@ public class FoodDetail extends AppCompatActivity {
                                     "context: " + foodReview.getContext() + "\n" +
                                     "grade: " + foodReview.getGrade() + "\n"
                             );
-
                             foodDetailReviewAdapter.addItem(new FoodDetailReviewListItem(userIdValue, foodReview.getEmail(), foodReview.getReviewId(), foodReview.getNickname(), foodReview.getPhoto(), foodReview.getContext(), foodReview.getGrade()));
+                            mArrayList.add(new FoodDetailReviewListItem(userIdValue, foodReview.getEmail(), foodReview.getReviewId(), foodReview.getNickname(), foodReview.getPhoto(), foodReview.getContext(), foodReview.getGrade()));
                         }
                         foodReviewListView.setAdapter(foodDetailReviewAdapter);
 
@@ -425,13 +427,87 @@ public class FoodDetail extends AppCompatActivity {
         });
     }
 
+    public void FoodDetailReviewDeleteResponse(String reviewId) {
+        //토큰 가져오기
+        SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken", "");
+
+        //retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getFoodDetailReviewDeleteResponse(reviewId).enqueue(new Callback<FoodDetailReviewDeleteResponse>() {
+            @Override
+            public void onResponse(Call<FoodDetailReviewDeleteResponse> call, Response<FoodDetailReviewDeleteResponse> response) {
+                Log.d("udoLog", "식당 리뷰 삭제 body 내용 = " + response.body());
+                Log.d("udoLog", "식당 리뷰 삭제 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "식당 리뷰 삭제 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    FoodDetailReviewDeleteResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //게시판 댓글 작성 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        Toast.makeText(FoodDetail.this, "리뷰가 삭제되었습니다.", Toast.LENGTH_LONG).show();
+                        finish();//인텐트 종료
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+                        Intent intent = getIntent(); //인텐트
+                        startActivity(intent); //액티비티 열기
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+
+                    } else {
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FoodDetail.this);
+                        builder.setTitle("알림")
+                                .setMessage("리뷰를 삭제할 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<FoodDetailReviewDeleteResponse> call, Throwable t) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FoodDetail.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.food_review_item_menu_edit:
-                //edit api start
+                Intent reviewEdit = new Intent(FoodDetail.this, FoodDetailReviewEdit.class);
+                final int positionEdit = foodDetailReviewAdapter.getPosition();
+                reviewEdit.putExtra("reviewId", mArrayList.get(positionEdit).getReviewId());
+                reviewEdit.putExtra("context", mArrayList.get(positionEdit).getContext());
+                reviewEdit.putExtra("grade", mArrayList.get(positionEdit).getGrade());
+                reviewEdit.putExtra("photo", mArrayList.get(positionEdit).getPhoto());
+                FoodDetail.this.startActivity(reviewEdit);
+                break;
+
             case R.id.food_review_item_menu_delete:
-                //delete api start
+                final int positionDelete = foodDetailReviewAdapter.getPosition();
+                String reviewId = mArrayList.get(positionDelete).getReviewId();
+                FoodDetailReviewDeleteResponse(reviewId);
+                mArrayList.remove(positionDelete);
+                break;
         }
         return super.onContextItemSelected(item);
     }

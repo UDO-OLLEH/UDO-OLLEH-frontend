@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/layout_rounded_2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center|left"
+        android:orientation="vertical"
+        android:background="@drawable/layout_background_gradient">
+
+        <Button
+            android:id="@+id/food_edit_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/layout_button_back"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/food_edit_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="리뷰 내용"/>
+
+                <EditText
+                    android:id="@+id/foodEdit_Context"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:padding="20dp"
+                    android:gravity="top"
+                    android:background="@drawable/layout_rounded_box"
+                    android:elevation="10dp"
+                    android:hint="리뷰 내용을 작성하세요."
+                    android:textSize="15dp"
+                    android:minLines="5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="별점"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@color/layout_rounded_1"
+                    android:elevation="10dp"
+                    android:layout_margin="20dp">
+
+                    <RatingBar
+                        android:id="@+id/foodEdit_Grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        style="@style/Widget.AppCompat.RatingBar.Indicator"
+                        android:stepSize="0.5"
+                        android:rating="0"
+                        android:isIndicator="false"
+                        android:progressBackgroundTint="#AAAAAA"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/foodEdit_Image"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@drawable/picture_icon"/>
+
+        <Button
+            android:id="@+id/foodEdit_Posting"
+            android:background="@drawable/layout_button_gradient_press_motion"
+            android:layout_width="320dp"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:text="리뷰 등록"/>
+
+    </LinearLayout>
+
+</LinearLayout>

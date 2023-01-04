@@ -29,7 +29,9 @@
         <activity android:name=".FoodDetail" />
         <activity android:name=".BoardDetail"/>
         <activity android:name=".BoardWrite" />
+        <activity android:name=".BoardEdit" />
         <activity android:name=".FoodDetailReviewWrite" />
+        <activity android:name=".FoodDetailReviewEdit" />
         <activity android:name=".Seongsan"/>
         <activity android:name=".Jongdal"/>
         <activity android:name=".Whitebus"/>
