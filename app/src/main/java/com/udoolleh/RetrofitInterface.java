@@ -65,6 +65,15 @@ public interface RetrofitInterface {
     @POST("/restaurant/review")
     Call<FoodDetailReviewWriteResponse> getFoodDetailReviewWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
 
+    //맛집 리뷰 작성 통신
+    @Multipart
+    @POST("/restaurant/review/{id}")
+    Call<FoodDetailReviewEditResponse> getFoodDetailReviewEditResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto, @Path("id") String id);
+
+    //맛집 리뷰 삭제 통신
+    @DELETE("restaurant/review/{id}")
+    Call<FoodDetailReviewDeleteResponse> getFoodDetailReviewDeleteResponse(@Path("id") String id);
+
     //게시판 조회 Page / Size 설정시 사용
     @GET("/board/list")
     Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
@@ -86,6 +95,7 @@ public interface RetrofitInterface {
     @PUT("/board/comment")
     Call<BoardCommentEditResponse> getBoardCommentEditResponse(@Body BoardCommentEditRequest boardCommentEditRequest);
 
+    //게시판 댓글 삭제 통신
     @DELETE("/board/comment/{id}")
     Call<BoardCommentDeleteResponse> getBoardCommentDeleteResponse(@Path("id") String id);
 

@@ -71,6 +71,10 @@ public class FoodDetailReviewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return items.size();
     }
 
+    public int getPosition() {
+        return mPosition;
+    }
+
     public void addItem(FoodDetailReviewListItem item) {
         items.add(item);
     }

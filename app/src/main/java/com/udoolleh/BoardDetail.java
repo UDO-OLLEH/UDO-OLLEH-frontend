@@ -175,6 +175,14 @@ public class BoardDetail extends AppCompatActivity {
                 //work
             }
         });
+
+        //게시글 삭제
+        board_personal_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //work
+            }
+        });
     }
 
     //Navigation View User Profile
@@ -348,6 +356,7 @@ public class BoardDetail extends AppCompatActivity {
         });
     }
 
+    //댓글 롱클릭 이벤트
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
