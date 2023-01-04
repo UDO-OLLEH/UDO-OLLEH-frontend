@@ -47,7 +47,7 @@ public class FoodDetail extends AppCompatActivity {
     RecyclerView foodReviewListView;
     FoodDetailMenuAdapter foodDetailMenuAdapter;
     FoodDetailReviewAdapter foodDetailReviewAdapter;
-    Toolbar toolbar;
+    Toolbar food_toolbar;
     String id;
     private ViewPager2 food_detail_viewpager_slider;
     ImageView navigation_profile_image;
@@ -73,10 +73,6 @@ public class FoodDetail extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +94,10 @@ public class FoodDetail extends AppCompatActivity {
         });
 
         //툴바 설정
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        food_toolbar = (Toolbar)findViewById(R.id.food_toolbar);
+        setSupportActionBar(food_toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.food_toolbar_layout);
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));

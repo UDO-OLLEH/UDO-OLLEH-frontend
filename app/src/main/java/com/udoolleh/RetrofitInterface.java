@@ -112,4 +112,8 @@ public interface RetrofitInterface {
     @GET("/ad")
     Call<MainFragmentAdResponse> getADResponse();
 
+    //여행지 코스 전체 목록 조회
+    @GET("/course")
+    Call<TourFragmentCourseResponse> getFragmentTourCourseResponse();
+
 }

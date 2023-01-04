@@ -14,20 +14,20 @@
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+            android:id="@+id/food_app_bar"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+                android:id="@+id/food_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:expandedTitleGravity="top"
                 app:contentScrim="@color/udoGreen"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/food_toolbar">
 
                 <!--확장 툴바-->
                 <FrameLayout
@@ -85,7 +85,7 @@
                 </FrameLayout>
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/food_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:theme="@style/Theme.Udoolleh"
@@ -94,7 +94,7 @@
 
                     <!--기본 툴바-->
                     <TextView
-                        android:id="@+id/titleDetail2"
+                        android:id="@+id/food_titleDetail2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
