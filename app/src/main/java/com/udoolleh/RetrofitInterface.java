@@ -83,6 +83,15 @@ public interface RetrofitInterface {
     @POST("/board")
     Call<BoardWriteResponse> getBoardWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
 
+    //게시판 수정 통신
+    @Multipart
+    @POST("/board/{id}")
+    Call<BoardEditResponse> getBoardEditResponse(@Part MultipartBody.Part file, @Part("updateBoardDto") RequestBody updateBoardDto, @Path("id") String id);
+
+    //게시판 삭제 통신
+    @DELETE("board/{id}")
+    Call<BoardDeleteResponse> getBoardDeleteResponse(@Path("id") String id);
+
     //게시판 댓글 조회 통신
     @GET("/board/{id}/comment")
     Call<BoardDetailResponse> getBoardListItemDetailResponse(@Path("id") String id);

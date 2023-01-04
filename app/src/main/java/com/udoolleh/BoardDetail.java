@@ -49,7 +49,7 @@ public class BoardDetail extends AppCompatActivity {
     private boolean isLoading = false;
     private boolean isLastLoading = false;
     Toolbar toolbar;
-    String id, userIdValue, email;
+    String id, userIdValue, email, title, boardContext, createAt;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
     EditText boardCommentWriteEditText;
@@ -122,9 +122,9 @@ public class BoardDetail extends AppCompatActivity {
         userIdValue = intent.getExtras().getString("userIdValue");
         email = intent.getExtras().getString("email");
         id = intent.getExtras().getString("id");
-        String title = intent.getExtras().getString("title");
-        String context = intent.getExtras().getString("context");
-        String createAt = intent.getExtras().getString("createAt");
+        title = intent.getExtras().getString("title");
+        boardContext = intent.getExtras().getString("context");
+        createAt = intent.getExtras().getString("createAt");
 
         if(userIdValue.equals(email)) {
             board_personal_layout.setVisibility(View.VISIBLE);
@@ -134,7 +134,7 @@ public class BoardDetail extends AppCompatActivity {
 
         titleDetail.setText(title);
         titleDetail2.setText(title);
-        contextDetail.setText(context);
+        contextDetail.setText(boardContext);
         createAtDetail.setText(createAt);
 
         //RecyclerView
@@ -172,7 +172,13 @@ public class BoardDetail extends AppCompatActivity {
         board_personal_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //work
+                Intent boardEdit = new Intent(BoardDetail.this, BoardEdit.class);
+                boardEdit.putExtra("boardId", id);
+                boardEdit.putExtra("title", title);
+                //boardEdit.putExtra("hashtag", hashtag);
+                boardEdit.putExtra("context", boardContext);
+                //boardEdit.putExtra("photo", photo);
+                BoardDetail.this.startActivity(boardEdit);
             }
         });
 
@@ -180,7 +186,7 @@ public class BoardDetail extends AppCompatActivity {
         board_personal_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //work
+                BoardDeleteResponse(id);
             }
         });
     }
@@ -250,6 +256,68 @@ public class BoardDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(BoardDetail.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+            }
+        });
+    }
+
+    public void BoardDeleteResponse(String boardId) {
+        //토큰 가져오기
+        SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken", "");
+
+        //retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
+        retrofitInterface.getBoardDeleteResponse(boardId).enqueue(new Callback<BoardDeleteResponse>() {
+            @Override
+            public void onResponse(Call<BoardDeleteResponse> call, Response<BoardDeleteResponse> response) {
+                Log.d("udoLog", "게시판 삭제 body 내용 = " + response.body());
+                Log.d("udoLog", "게시판 삭제 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "게시판 삭제 상태코드 = " + response.code());
+
+                //통신 성공
+                if (response.isSuccessful() && response.body() != null) {
+
+                    //response.body()를 result에 저장
+                    BoardDeleteResponse result = response.body();
+
+                    //받은 코드 저장
+                    int resultCode = response.code();
+
+                    //게시판 댓글 작성 성공
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        Toast.makeText(BoardDetail.this, "리뷰가 삭제되었습니다.", Toast.LENGTH_LONG).show();
+                        finish();//인텐트 종료
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+                        Intent intent = getIntent(); //인텐트
+                        startActivity(intent); //액티비티 열기
+                        overridePendingTransition(0, 0);//인텐트 효과 없애기
+
+                    } else {
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(BoardDetail.this);
+                        builder.setTitle("알림")
+                                .setMessage("리뷰를 삭제할 수 없습니다.\n 다시 시도해주세요.")
+                                .setPositiveButton("확인", null)
+                                .create()
+                                .show();
+
+                    }
+                }
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<BoardDeleteResponse> call, Throwable t) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(BoardDetail.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
