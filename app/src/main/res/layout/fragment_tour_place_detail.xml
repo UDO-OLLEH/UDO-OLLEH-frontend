@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/tour_place_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/tour_place_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleGravity="top"
+            app:contentScrim="@color/udoGreen"
+            app:toolbarId="@+id/tour_place_toolbar">
+
+            <!--확장 툴바-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/layout_rounded_1"
+                android:layout_marginBottom="20dp"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/layout_background_gradient"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:elevation="10dp"
+                    android:background="@drawable/layout_rounded_box">
+
+                    <TextView
+                        android:id="@+id/placeName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/intro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tour_place_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Theme.Udoolleh"
+                app:titleTextAppearance="@style/ToolbarStyle"
+                app:layout_collapseMode="pin">
+
+                <!--기본 툴바-->
+                <TextView
+                    android:id="@+id/placeName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:textStyle="bold"/>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/layout_rounded_2"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
+        android:layout_marginBottom="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:background="@color/layout_rounded_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추천 관광지 지도"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/place_latitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/place_longitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:background="@color/layout_rounded_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="추천 관광지 소개"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/detail_place_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/detail_place_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -29,275 +29,28 @@
                 android:paddingTop="20dp"
                 android:paddingLeft="50dp"/>
 
-            <HorizontalScrollView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tourPlaceRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="horizontal"
+                    android:visibility="invisible"/>
 
-                    <!--관광지 박스 레이아웃 5개-->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="10dp"
-                        app:cardUseCompatPadding="true"
-                        android:visibility="visible">
+                <TextView
+                    android:id="@+id/noneTourPlaceText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="추천 관광지가 없습니다."
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:visibility="visible"/>
 
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="10dp">
-
-                            <ImageView
-                                android:src="@drawable/tour1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/layout_rounded_box"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="bottom"
-                                android:paddingTop="30dp"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:background="@drawable/layout_rounded_box_gradient">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도 밭담"
-                                    android:textStyle="bold"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/white"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="정겨운 농사와 어루어진 현무암의 밭담"
-                                    android:textSize="10dp"
-                                    android:textColor="@color/white"/>
-
-                            </LinearLayout>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="10dp"
-                        app:cardUseCompatPadding="true"
-                        android:visibility="visible">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="10dp">
-
-                            <ImageView
-                                android:src="@drawable/tour2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="bottom"
-                                android:paddingTop="30dp"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:background="@drawable/layout_rounded_box_gradient">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도 밭담"
-                                    android:textStyle="bold"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/white"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="정겨운 농사와 어루어진 현무암의 밭담"
-                                    android:textSize="10dp"
-                                    android:textColor="@color/white"/>
-
-                            </LinearLayout>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="10dp"
-                        app:cardUseCompatPadding="true"
-                        android:visibility="visible">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="10dp">
-
-                            <ImageView
-                                android:src="@drawable/tour3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="bottom"
-                                android:paddingTop="30dp"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:background="@drawable/layout_rounded_box_gradient">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도 밭담"
-                                    android:textStyle="bold"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/white"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="정겨운 농사와 어루어진 현무암의 밭담"
-                                    android:textSize="10dp"
-                                    android:textColor="@color/white"/>
-
-                            </LinearLayout>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="10dp"
-                        app:cardUseCompatPadding="true"
-                        android:visibility="visible">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="10dp">
-
-                            <ImageView
-                                android:src="@drawable/tour1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="bottom"
-                                android:paddingTop="30dp"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:background="@drawable/layout_rounded_box_gradient">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도 밭담"
-                                    android:textStyle="bold"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/white"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="정겨운 농사와 어루어진 현무암의 밭담"
-                                    android:textSize="10dp"
-                                    android:textColor="@color/white"/>
-
-                            </LinearLayout>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="180dp"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="25dp"
-                        app:cardElevation="10dp"
-                        app:cardUseCompatPadding="true"
-                        android:visibility="visible">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="10dp">
-
-                            <ImageView
-                                android:src="@drawable/tour2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_gravity="bottom"
-                                android:paddingTop="30dp"
-                                android:paddingBottom="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:background="@drawable/layout_rounded_box_gradient">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도 밭담"
-                                    android:textStyle="bold"
-                                    android:textSize="15dp"
-                                    android:textColor="@color/white"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="정겨운 농사와 어루어진 현무암의 밭담"
-                                    android:textSize="10dp"
-                                    android:textColor="@color/white"/>
-
-                            </LinearLayout>
-
-                        </FrameLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
+            </FrameLayout>
 
         </LinearLayout>
 
@@ -306,7 +59,7 @@
     <!--우도 여행코스 Top5 레이아웃-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/layout_rounded_1">
 
@@ -320,269 +73,28 @@
             android:paddingLeft="50dp"
             android:paddingBottom="10dp"/>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <!--우도 여행코스 Top5 콘텐츠 레이아웃-->
-            <androidx.cardview.widget.CardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tourCourseRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                android:visibility="visible">
+                android:scrollbars="horizontal"
+                android:visibility="invisible"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:elevation="10dp">
-
-                    <ImageView
-                        android:src="@drawable/tour_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/layout_rounded_box"
-                        android:scaleType="centerCrop"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="30dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="@drawable/layout_rounded_box_gradient">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="여유롭게 즐기는 우도 코스"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:textColor="@color/white"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해운 선착장 - 전기차 - 우도정원 - 산호 해수욕장"
-                            android:textSize="13dp"
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <TextView
+                android:id="@+id/noneTourCourseText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                android:visibility="visible">
+                android:gravity="center"
+                android:text="여행 코스가 없습니다."
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:visibility="visible"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:elevation="10dp">
-
-                    <ImageView
-                        android:src="@drawable/tour_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="30dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="@drawable/layout_rounded_box_gradient">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="여유롭게 즐기는 우도 코스"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:textColor="@color/white"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해운 선착장 - 전기차 - 우도정원 - 산호 해수욕장"
-                            android:textSize="13dp"
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                android:visibility="visible">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:elevation="10dp">
-
-                    <ImageView
-                        android:src="@drawable/tour_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="30dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="@drawable/layout_rounded_box_gradient">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="여유롭게 즐기는 우도 코스"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:textColor="@color/white"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해운 선착장 - 전기차 - 우도정원 - 산호 해수욕장"
-                            android:textSize="13dp"
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                android:visibility="visible">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:elevation="10dp">
-
-                    <ImageView
-                        android:src="@drawable/tour_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="30dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="@drawable/layout_rounded_box_gradient">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="여유롭게 즐기는 우도 코스"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:textColor="@color/white"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해운 선착장 - 전기차 - 우도정원 - 산호 해수욕장"
-                            android:textSize="13dp"
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:cardUseCompatPadding="true"
-                android:visibility="visible">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:elevation="10dp">
-
-                    <ImageView
-                        android:src="@drawable/tour_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="bottom"
-                        android:paddingTop="30dp"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="@drawable/layout_rounded_box_gradient">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="여유롭게 즐기는 우도 코스"
-                            android:textStyle="bold"
-                            android:textSize="20dp"
-                            android:textColor="@color/white"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="해운 선착장 - 전기차 - 우도정원 - 산호 해수욕장"
-                            android:textSize="13dp"
-                            android:textColor="@color/white"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
 

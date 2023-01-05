@@ -30,6 +30,8 @@
         <activity android:name=".BoardDetail"/>
         <activity android:name=".BoardWrite" />
         <activity android:name=".BoardEdit" />
+        <activity android:name=".TourCourseDetail" />
+        <activity android:name=".TourPlaceDetail" />
         <activity android:name=".FoodDetailReviewWrite" />
         <activity android:name=".FoodDetailReviewEdit" />
         <activity android:name=".Seongsan"/>
