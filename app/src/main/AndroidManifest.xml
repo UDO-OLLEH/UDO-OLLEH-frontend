@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".Splash"
+            android:name=".view.splash.Splash"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -25,26 +25,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".FoodDetail" />
-        <activity android:name=".BoardDetail"/>
-        <activity android:name=".BoardWrite" />
-        <activity android:name=".BoardEdit" />
-        <activity android:name=".TourCourseDetail" />
-        <activity android:name=".TourPlaceDetail" />
-        <activity android:name=".FoodDetailReviewWrite" />
-        <activity android:name=".FoodDetailReviewEdit" />
-        <activity android:name=".Seongsan"/>
-        <activity android:name=".Jongdal"/>
-        <activity android:name=".Whitebus"/>
-        <activity android:name=".Redbus"/>
-        <activity android:name=".UserEditProfile"/>
+        <activity android:name=".view.main.activity.MainActivity" />
+        <activity android:name=".view.food.activity.FoodDetail" />
+        <activity android:name=".view.board.activity.BoardDetail"/>
+        <activity android:name=".view.board.activity.BoardWrite" />
+        <activity android:name=".view.board.activity.BoardEdit" />
+        <activity android:name=".view.tour.activity.TourCourseDetail" />
+        <activity android:name=".view.tour.activity.TourPlaceDetail" />
+        <activity android:name=".view.food.activity.FoodDetailReviewWrite" />
+        <activity android:name=".view.food.activity.FoodDetailReviewEdit" />
+        <activity android:name=".view.map.activity.MapFragmentSeongsan"/>
+        <activity android:name=".view.map.activity.MapFragmentJongdal"/>
+        <activity android:name=".view.map.activity.MapFragmentWhitebus"/>
+        <activity android:name=".view.map.activity.MapFragmentRedbus"/>
+        <activity android:name=".view.user.activity.UserEditProfile"/>
 
         <activity
-            android:name=".Login"
+            android:name=".view.login.activity.Login"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name=".SignUp"
+            android:name=".view.signup.activity.SignUp"
             android:theme="@style/SplashTheme" />
 
     </application>
