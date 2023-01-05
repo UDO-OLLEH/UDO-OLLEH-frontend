@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".Seongsan">
+    tools:context=".view.map.activity.MapFragmentSeongsan">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
