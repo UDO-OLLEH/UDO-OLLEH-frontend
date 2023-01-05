@@ -114,6 +114,13 @@ public interface RetrofitInterface {
 
     //여행지 코스 전체 목록 조회
     @GET("/course")
-    Call<TourFragmentCourseResponse> getFragmentTourCourseResponse();
+    Call<TourFragmentCourseResponse> getTourFragmentCourseResponse();
 
+    //추천 관광지 조회
+    @GET("/place")
+    Call<TourFragmentPlaceResponse> getTourFragmentPlaceResponse();
+
+    //추천 관광지 상세 조회
+    @GET("/place/{id}")
+    Call<TourFragmentPlaceDetailResponse> getTourFragmentPlaceDetailResponse(@Path("id") int id);
 }

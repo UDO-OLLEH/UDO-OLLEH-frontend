@@ -6,20 +6,20 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/tour_course_app_bar"
+        android:id="@+id/tour_place_app_bar"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/tour_course_toolbar_layout"
+            android:id="@+id/tour_place_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:expandedTitleGravity="top"
             app:contentScrim="@color/udoGreen"
-            app:toolbarId="@+id/tour_course_toolbar">
+            app:toolbarId="@+id/tour_place_toolbar">
 
             <!--확장 툴바-->
             <FrameLayout
@@ -46,7 +46,7 @@
                     android:background="@drawable/layout_rounded_box">
 
                     <TextView
-                        android:id="@+id/courseName"
+                        android:id="@+id/placeName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -55,7 +55,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/course"
+                        android:id="@+id/intro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
@@ -65,7 +65,7 @@
             </FrameLayout>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/tour_course_toolbar"
+                android:id="@+id/tour_place_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/Theme.Udoolleh"
@@ -74,7 +74,7 @@
 
                 <!--기본 툴바-->
                 <TextView
-                    android:id="@+id/courseName2"
+                    android:id="@+id/placeName2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -114,17 +114,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="여행지 지도"
+                    android:text="추천 관광지 지도"
                     android:textStyle="bold"
                     android:textSize="20dp"/>
 
                 <TextView
-                    android:id="@+id/course_latitude"
+                    android:id="@+id/place_latitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
-                    android:id="@+id/course_longitude"
+                    android:id="@+id/place_longitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -141,23 +141,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="여행지 소개"
+                    android:text="추천 관광지 소개"
                     android:textStyle="bold"
                     android:textSize="20dp"/>
 
-                <TextView
-                    android:id="@+id/detail_type_title_context"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
                 <ImageView
-                    android:id="@+id/detail_type_photo_context"
+                    android:id="@+id/detail_place_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"/>
 
                 <TextView
-                    android:id="@+id/detail_type_text_context"
+                    android:id="@+id/detail_place_context"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

@@ -20,7 +20,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 public class TourCourseDetail extends AppCompatActivity {
     Context context;
     Toolbar tour_course_toolbar;
-    TextView courseName, course, courseName2, latitude, longitude, detail_type_title_context, detail_type_text_context;
+    TextView courseName, course, courseName2, course_latitude, course_longitude, detail_type_title_context, detail_type_text_context;
     ImageView detail_type_photo_context;
 
     @Override
@@ -41,8 +41,8 @@ public class TourCourseDetail extends AppCompatActivity {
         courseName = findViewById(R.id.courseName);
         course = findViewById(R.id.course);
         courseName2 = findViewById(R.id.courseName2);
-        latitude = findViewById(R.id.latitude);
-        longitude = findViewById(R.id.longitude);
+        course_latitude = findViewById(R.id.course_latitude);
+        course_longitude = findViewById(R.id.course_longitude);
         detail_type_title_context = findViewById(R.id.detail_type_title_context);
         detail_type_photo_context = findViewById(R.id.detail_type_photo_context);
         detail_type_text_context = findViewById(R.id.detail_type_text_context);
@@ -52,8 +52,8 @@ public class TourCourseDetail extends AppCompatActivity {
         courseName.setText(intent.getExtras().getString("courseName"));
         //courseName2.setText(intent.getExtras().getString("courseName"));
         course.setText(intent.getExtras().getString("course"));
-        latitude.setText(intent.getExtras().getString("latitude"));
-        longitude.setText(intent.getExtras().getString("longitude"));
+        course_latitude.setText(intent.getExtras().getString("latitude"));
+        course_longitude.setText(intent.getExtras().getString("longitude"));
         detail_type_title_context.setText(intent.getExtras().getString("title"));
         Glide.with(context).load(intent.getExtras().getString("photo")).into(detail_type_photo_context);
         detail_type_text_context.setText(intent.getExtras().getString("text"));
