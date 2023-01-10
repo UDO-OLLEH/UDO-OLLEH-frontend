@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyATTaGR-WtOFhKIxj1fQL4fIrbhMKEwGAQ"/>
+            android:value="${GOOGLE_API_KEY}"/>
 
         <activity
             android:name=".view.splash.Splash"
