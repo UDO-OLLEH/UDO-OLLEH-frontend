@@ -6,16 +6,16 @@ public class BoardDetailListItem {
     String id;
     String context;
     String nickname;
-    String photo;
+    String profile;
     String createAt;
 
-    public BoardDetailListItem(String userIdValue, String email, String id, String context, String nickname, String photo, String createAt) {
+    public BoardDetailListItem(String userIdValue, String email, String id, String context, String nickname, String profile, String createAt) {
         this.userIdValue = userIdValue;
         this.email = email;
         this.id = id;
         this.context = context;
         this.nickname = nickname;
-        this.photo = photo;
+        this.profile = profile;
         this.createAt = createAt;
     }
 
@@ -39,8 +39,8 @@ public class BoardDetailListItem {
         return nickname;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getProfile() {
+        return profile;
     }
 
     public String getCreateAt() {

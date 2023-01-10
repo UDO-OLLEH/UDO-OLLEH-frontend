@@ -132,7 +132,7 @@ public class FoodResponse {
             private java.util.List<String> imagesUrl = null;
 
             @SerializedName("totalGrade")
-            private Double totalGrade;
+            private double totalGrade;
 
             @SerializedName("xcoordinate")
             private String xcoordinate;
@@ -164,7 +164,7 @@ public class FoodResponse {
                 return imagesUrl;
             }
 
-            public Double getTotalGrade() {
+            public double getTotalGrade() {
                 return totalGrade;
             }
 

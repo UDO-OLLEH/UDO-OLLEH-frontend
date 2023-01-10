@@ -53,8 +53,8 @@ public class BoardDetailResponse {
         @SerializedName("nickname")
         private String nickname;
 
-        @SerializedName("photo")
-        private String photo;
+        @SerializedName("profile")
+        private String profile;
 
         @SerializedName("createAt")
         private String createAt;
@@ -75,8 +75,8 @@ public class BoardDetailResponse {
             return nickname;
         }
 
-        public String getPhoto() {
-            return photo;
+        public String getProfile() {
+            return profile;
         }
 
         public String getCreateAt() {

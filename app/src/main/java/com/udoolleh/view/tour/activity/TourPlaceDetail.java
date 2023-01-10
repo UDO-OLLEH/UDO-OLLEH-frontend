@@ -17,6 +17,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
@@ -27,20 +34,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TourPlaceDetail extends AppCompatActivity {
+public class TourPlaceDetail extends AppCompatActivity implements OnMapReadyCallback {
+    private GoogleMap map;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
     int id;
     Context context;
     Toolbar tour_place_toolbar;
-    TextView placeName, intro, placeName2, place_latitude, place_longitude, detail_place_context;
+    TextView placeName, intro, placeName2, detail_place_context;
     ImageView detail_place_photo;
+    double latitude, longitude;
+    String _name, _intro;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_tour_place_detail);
         context = getApplicationContext();
+
+        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.tourPlaceMapView);
+        mapFragment.getMapAsync(this);
 
         //툴바 설정
         tour_place_toolbar = (Toolbar)findViewById(R.id.tour_place_toolbar);
@@ -54,8 +67,6 @@ public class TourPlaceDetail extends AppCompatActivity {
         placeName = findViewById(R.id.placeName);
         intro = findViewById(R.id.intro);
         placeName2 = findViewById(R.id.placeName2);
-        place_latitude = findViewById(R.id.place_latitude);
-        place_longitude = findViewById(R.id.place_longitude);
         detail_place_photo = findViewById(R.id.detail_place_photo);
         detail_place_context = findViewById(R.id.detail_place_context);
 
@@ -111,10 +122,15 @@ public class TourPlaceDetail extends AppCompatActivity {
                         placeName.setText(result.getPlaceDetailList().getPlaceName());
                         //placeName2.setText(result.getPlaceDetailList().getPlaceName());
                         intro.setText(result.getPlaceDetailList().getIntro());
-                        place_latitude.setText(result.getPlaceDetailList().getGps().get(0).getLatitude().toString());
-                        place_longitude.setText(result.getPlaceDetailList().getGps().get(0).getLongitude().toString());
                         detail_place_context.setText(result.getPlaceDetailList().getContext());
                         Glide.with(context).load(result.getPlaceDetailList().getPhoto()).into(detail_place_photo);
+
+                        _name = result.getPlaceDetailList().getPlaceName();
+                        _intro = result.getPlaceDetailList().getIntro();
+                        latitude = result.getPlaceDetailList().getGps().get(0).getLatitude();
+                        longitude = result.getPlaceDetailList().getGps().get(0).getLongitude();
+
+                        Log.d("udoLogeee", latitude + " " + latitude);
 
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(TourPlaceDetail.this);
@@ -153,5 +169,21 @@ public class TourPlaceDetail extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        LatLng PLACE = new LatLng(latitude, longitude);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(PLACE);
+        markerOptions.title(_name);
+        markerOptions.snippet(_intro);
+
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(PLACE, 15));
     }
 }

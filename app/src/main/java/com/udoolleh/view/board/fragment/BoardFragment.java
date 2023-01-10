@@ -46,8 +46,9 @@ public class BoardFragment extends Fragment {
     private boolean isLoading = false;
     private boolean isLastLoading = false;
     Spinner spinner;
-    String[] spinner_items = {"최근순", "추천순", "인기순"};
-
+    String[] spinner_items = {"최근순", "좋아요순", "조회순"};
+    int size = 1000;
+    String sort_;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +59,11 @@ public class BoardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_board, container, false);
         context = container.getContext();
 
+        //RecyclerView
+        boardGridView = view.findViewById(R.id.boardGridView);
+        noneBoardText = view.findViewById(R.id.noneBoardText);
+
+
         //Spinner
         spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, spinner_items);
@@ -66,7 +72,39 @@ public class BoardFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spinner_items[i] == "최근순") {
+                    String sort = "createAt";
+                    sort_ = "createAt";
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                    boardGridView.setLayoutManager(gridLayoutManager);
+                    boardListAdapter = new BoardListAdapter();
 
+                    //Retrofit 게시판 최초 조회
+                    BoardResponse(sort);
+                    boardListAdapter.notifyDataSetChanged();
+
+                } else if(spinner_items[i] == "좋아요순") {
+                    String sort = "countLikes";
+                    sort_ = "countLikes";
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                    boardGridView.setLayoutManager(gridLayoutManager);
+                    boardListAdapter = new BoardListAdapter();
+
+                    //Retrofit 게시판 최초 조회
+                    BoardResponse(sort);
+                    boardListAdapter.notifyDataSetChanged();
+
+                } else if(spinner_items[i] == "조회순") {
+                    String sort = "countVisit";
+                    sort_ = "countVisit";
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+                    boardGridView.setLayoutManager(gridLayoutManager);
+                    boardListAdapter = new BoardListAdapter();
+
+                    //Retrofit 게시판 최초 조회
+                    BoardResponse(sort);
+                    boardListAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -75,18 +113,8 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        //RecyclerView
-        boardGridView = view.findViewById(R.id.boardGridView);
-        noneBoardText = view.findViewById(R.id.noneBoardText);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
-        boardGridView.setLayoutManager(gridLayoutManager);
-        boardListAdapter = new BoardListAdapter();
-
-        //Retrofit 게시판 최초 조회
-        BoardResponse();
-
-        //게시판 스크롤 시 추가 로딩
-        boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        //게시판 스크롤 시 추가 로딩 (adapter 갱신시 NestedScrollView와 adapter position 값 불일치로 구현X)
+        /*boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -102,17 +130,17 @@ public class BoardFragment extends Fragment {
                 if(!isLoading & !isLastLoading){
                     if(layoutManager != null && lastItem == boardListAdapter.getItemCount() - 1) {
                         isLoading = true;
-                        BoardBackgroundTask();
+                        BoardBackgroundTask(sort_);
                     }
                 }
             }
-        });
+        });*/
 
         return view;
     }
 
     //게시판 리스트 조회
-    public void BoardResponse() {
+    public void BoardResponse(String sort) {
         //토큰 가져오기
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -123,7 +151,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardResponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, sort, size).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 body 내용 = " + response.body());
@@ -209,7 +237,7 @@ public class BoardFragment extends Fragment {
     }
 
 
-    public void BoardLoadMoreResponse() {
+    public void BoardLoadMoreResponse(String sort) {
         //로딩 중 항목 삭제
         boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);
         int scrollPosition = boardListAdapter.getItemCount();
@@ -225,7 +253,7 @@ public class BoardFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
         //BoardResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardSesponse 함수를 실행한 후 응답을 받음
-        retrofitInterface.getBoardResponse(itemPage, 10).enqueue(new Callback<BoardResponse>() {
+        retrofitInterface.getBoardResponse(itemPage, sort, size).enqueue(new Callback<BoardResponse>() {
             @Override
             public void onResponse(Call<BoardResponse> call, Response<BoardResponse> response) {
                 Log.d("udoLog", "게시판 조회 추가 로딩 body 내용 = " + response.body());
@@ -304,15 +332,15 @@ public class BoardFragment extends Fragment {
     }
 
     //게시판 추가 로딩 비동기 처리
-    private void BoardBackgroundTask() {
+    private void BoardBackgroundTask(String sort) {
         boardListAdapter.addItem(null);
         boardListAdapter.notifyItemInserted(boardListAdapter.getItemCount()-1);
         itemPage++;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                BoardLoadMoreResponse();
+                BoardLoadMoreResponse(sort);
             }
-        },1000);
+        },2000);
     }
 }

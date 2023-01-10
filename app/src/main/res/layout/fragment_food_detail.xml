@@ -179,6 +179,29 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
+                    android:padding="10dp"
+                    android:background="@color/layout_rounded_1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오시는길"
+                        android:textStyle="bold"
+                        android:textSize="20dp"/>
+
+                    <fragment
+                        android:id="@+id/foodMapView"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

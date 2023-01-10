@@ -134,8 +134,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/board_nameDetail"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/createAtDetail"
@@ -169,13 +171,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@color/layout_rounded_1">
 
                     <TextView
                         android:id="@+id/contextDetail"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"/>
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -186,8 +190,96 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:orientation="horizontal"
                     android:layout_marginBottom="20dp"
                     android:background="@color/layout_rounded_1">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/likes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="추천 "/>
+
+                        <TextView
+                            android:id="@+id/likesCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="5"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="댓글 "/>
+
+                        <TextView
+                            android:id="@+id/commentCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:src="@drawable/visit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="조회수 "/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="145"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="회"/>
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <FrameLayout
@@ -208,6 +300,7 @@
                         android:id="@+id/noneBoardCommentText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/layout_rounded_2"
                         android:gravity="center"
                         android:text="댓글이 없습니다."
                         android:textSize="20dp"

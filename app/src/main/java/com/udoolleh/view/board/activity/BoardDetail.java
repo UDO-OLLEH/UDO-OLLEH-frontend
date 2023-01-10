@@ -65,7 +65,7 @@ public class BoardDetail extends AppCompatActivity {
     Toolbar toolbar;
     String id, userIdValue, email, title, boardContext, createAt;
     ImageView navigation_profile_image;
-    TextView navigation_nickname;
+    TextView navigation_nickname, commentCount, likesCount;
     EditText boardCommentWriteEditText;
     Button boardCommentWriteButton;
     LinearLayout board_personal_layout;
@@ -95,6 +95,9 @@ public class BoardDetail extends AppCompatActivity {
         TextView titleDetail2 = findViewById(R.id.titleDetail2);
         TextView contextDetail = findViewById(R.id.contextDetail);
         TextView createAtDetail = findViewById(R.id.createAtDetail);
+        TextView board_nameDetail = findViewById(R.id.board_nameDetail);
+        commentCount = findViewById(R.id.commentCount);
+        likesCount = findViewById(R.id.likesCount);
 
         UserResponse();
 
@@ -150,6 +153,7 @@ public class BoardDetail extends AppCompatActivity {
         titleDetail2.setText(title);
         contextDetail.setText(boardContext);
         createAtDetail.setText(createAt);
+        board_nameDetail.setText(email);
 
         //RecyclerView
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -404,14 +408,16 @@ public class BoardDetail extends AppCompatActivity {
                                         "id: " + boardComment.getId() + "\n" +
                                         "context: " + boardComment.getContext() + "\n" +
                                         "nickname: " + boardComment.getNickname() + "\n" +
-                                        "photo: " + boardComment.getPhoto() + "\n" +
+                                        "photo: " + boardComment.getProfile() + "\n" +
                                         "createAt: " + boardComment.getCreateAt() + "\n"
                                 );
-                                boardDetailAdapter.addItem(new BoardDetailListItem(userIdValue, boardComment.getEmail(), boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
-                                mArrayList.add(new BoardDetailListItem(userIdValue, boardComment.getEmail(), boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getPhoto(), boardComment.getCreateAt()));
+                                boardDetailAdapter.addItem(new BoardDetailListItem(userIdValue, boardComment.getEmail(), boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getProfile(), boardComment.getCreateAt()));
+                                mArrayList.add(new BoardDetailListItem(userIdValue, boardComment.getEmail(), boardComment.getId(), boardComment.getContext(), boardComment.getNickname(), boardComment.getProfile(), boardComment.getCreateAt()));
                             }
                             boardCommentListView.setAdapter(boardDetailAdapter);
                         }
+                        String commentNum = String.valueOf(boardDetailAdapter.getItemCount());
+                        commentCount.setText(commentNum);
 
                     } else {
                         //상태코드 != 200일 때

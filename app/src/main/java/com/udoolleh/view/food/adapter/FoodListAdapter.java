@@ -68,6 +68,8 @@ public class FoodListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     foodListItemDetail.putExtra("name", items.get(pos).getName());
                     foodListItemDetail.putExtra("address", items.get(pos).getAddress());
                     foodListItemDetail.putExtra("totalGrade", items.get(pos).getTotalGrade());
+                    foodListItemDetail.putExtra("xcoordinate", items.get(pos).getXcoordinate());
+                    foodListItemDetail.putExtra("ycoordinate", items.get(pos).getYcoordinate());
                     context.startActivity(foodListItemDetail);
                 }
             }

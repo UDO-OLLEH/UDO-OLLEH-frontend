@@ -29,6 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
@@ -51,7 +57,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FoodDetail extends AppCompatActivity {
+public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback {
+    private GoogleMap map;
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
@@ -70,12 +77,17 @@ public class FoodDetail extends AppCompatActivity {
     String address;
     double totalGrade;
     ArrayList<FoodDetailReviewListItem> mArrayList = new ArrayList<>();
+    double latitude, longitude;
+    String _name, _address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_food_detail);
         context = getApplicationContext();
+
+        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.foodMapView);
+        mapFragment.getMapAsync(this);
 
         //NavigationView
         navigation_profile_image = findViewById(R.id.navigation_profile_image);
@@ -128,6 +140,13 @@ public class FoodDetail extends AppCompatActivity {
         name = intent.getExtras().getString("name");
         address = intent.getExtras().getString("address");
         totalGrade = intent.getDoubleExtra("totalGrade", 0);
+
+        _name = intent.getExtras().getString("name");
+        _address = intent.getExtras().getString("address");
+        String xcoordinate = intent.getExtras().getString("xcoordinate");
+        String ycoordinate = intent.getExtras().getString("ycoordinate");
+        latitude = Double.parseDouble(ycoordinate);
+        longitude = Double.parseDouble(xcoordinate);
 
         //이미지 URL을 뷰 페이저에 넣기 (리스트 형태의 String을 StringTokenizer로 URL만 분리 후 뷰 페이저에 넣기)
         if(!imagesUrl.equals("[]")) {
@@ -560,5 +579,21 @@ public class FoodDetail extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        LatLng PLACE = new LatLng(latitude, longitude);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(PLACE);
+        markerOptions.title(_name);
+        markerOptions.snippet(_address);
+
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(PLACE, 15));
     }
 }

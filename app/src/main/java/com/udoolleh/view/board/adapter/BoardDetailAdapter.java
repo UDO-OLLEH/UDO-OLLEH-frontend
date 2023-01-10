@@ -6,11 +6,13 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.udoolleh.R;
 import com.udoolleh.view.board.item.BoardDetailListItem;
 
@@ -76,9 +78,10 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public class BoardDetailViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+        Context context;
         TextView boardCommentNickname;
         TextView boardCommentCreateAt;
-        TextView boardCommentPhoto;
+        ImageView boardCommentPhoto;
         TextView boardCommentContext;
         String email, userIdValue;
 
@@ -86,6 +89,7 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             itemView.setOnCreateContextMenuListener(this);
 
+            context = itemView.getContext();
             boardCommentNickname = itemView.findViewById(R.id.boardCommentNickname);
             boardCommentCreateAt = itemView.findViewById(R.id.boardCommentCreateAt);
             boardCommentPhoto = itemView.findViewById(R.id.boardCommentPhoto);
@@ -108,7 +112,7 @@ public class BoardDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userIdValue = boardDetailListItem.getUserIdValue();
             boardCommentNickname.setText(boardDetailListItem.getNickname());
             boardCommentCreateAt.setText(boardDetailListItem.getCreateAt());
-            boardCommentPhoto.setText(boardDetailListItem.getPhoto());
+            Glide.with(context).load(boardDetailListItem.getProfile()).into(boardCommentPhoto);
             boardCommentContext.setText(boardDetailListItem.getContext());
         }
 

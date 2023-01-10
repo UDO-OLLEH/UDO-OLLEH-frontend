@@ -106,9 +106,9 @@ public interface RetrofitInterface {
     @DELETE("restaurant/review/{id}")
     Call<FoodDetailReviewDeleteResponse> getFoodDetailReviewDeleteResponse(@Path("id") String id);
 
-    //게시판 조회 Page / Size 설정시 사용
+    //게시판 조회 Page / Sort 설정시 사용
     @GET("/board/list")
-    Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("size") Integer size);
+    Call<BoardResponse> getBoardResponse(@Query("page") Integer page, @Query("sort") String sort, @Query("size") int size);
 
     //게시판 작성 통신
     @Multipart

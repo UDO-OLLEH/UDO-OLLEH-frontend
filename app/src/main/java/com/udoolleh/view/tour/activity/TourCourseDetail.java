@@ -15,20 +15,32 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.udoolleh.R;
 
-public class TourCourseDetail extends AppCompatActivity {
+public class TourCourseDetail extends AppCompatActivity implements OnMapReadyCallback {
+    private GoogleMap map;
     Context context;
     Toolbar tour_course_toolbar;
-    TextView courseName, course, courseName2, course_latitude, course_longitude, detail_type_title_context, detail_type_text_context;
+    TextView courseName, course, courseName2, detail_type_title_context, detail_type_text_context;
     ImageView detail_type_photo_context;
+    double latitude, longitude;
+    String _courseName, _course;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_tour_course_detail);
         context = getApplicationContext();
+
+        SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.tourCourseMapView);
+        mapFragment.getMapAsync(this);
 
         //툴바 설정
         tour_course_toolbar = (Toolbar)findViewById(R.id.tour_course_toolbar);
@@ -42,8 +54,6 @@ public class TourCourseDetail extends AppCompatActivity {
         courseName = findViewById(R.id.courseName);
         course = findViewById(R.id.course);
         courseName2 = findViewById(R.id.courseName2);
-        course_latitude = findViewById(R.id.course_latitude);
-        course_longitude = findViewById(R.id.course_longitude);
         detail_type_title_context = findViewById(R.id.detail_type_title_context);
         detail_type_photo_context = findViewById(R.id.detail_type_photo_context);
         detail_type_text_context = findViewById(R.id.detail_type_text_context);
@@ -53,11 +63,14 @@ public class TourCourseDetail extends AppCompatActivity {
         courseName.setText(intent.getExtras().getString("courseName"));
         //courseName2.setText(intent.getExtras().getString("courseName"));
         course.setText(intent.getExtras().getString("course"));
-        course_latitude.setText(intent.getExtras().getString("latitude"));
-        course_longitude.setText(intent.getExtras().getString("longitude"));
         detail_type_title_context.setText(intent.getExtras().getString("title"));
         Glide.with(context).load(intent.getExtras().getString("photo")).into(detail_type_photo_context);
         detail_type_text_context.setText(intent.getExtras().getString("text"));
+
+        latitude = intent.getExtras().getDouble("latitude");
+        longitude = intent.getExtras().getDouble("longitude");
+        _courseName = intent.getExtras().getString("courseName");
+        _course = intent.getExtras().getString("course");
     }
 
     //드로어 메뉴 선택
@@ -73,5 +86,21 @@ public class TourCourseDetail extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        LatLng PLACE = new LatLng(latitude, longitude);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(PLACE);
+        markerOptions.title(_courseName);
+        markerOptions.snippet(_course);
+
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(PLACE, 15));
     }
 }
