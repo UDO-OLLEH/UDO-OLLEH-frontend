@@ -63,7 +63,7 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     boardListItemDetail.putExtra("email", items.get(pos).getEmail());
                     boardListItemDetail.putExtra("id", items.get(pos).getId());
                     boardListItemDetail.putExtra("title", items.get(pos).getTitle());
-                    boardListItemDetail.putExtra("context", items.get(pos).getContext());
+                    boardListItemDetail.putExtra("context", items.get(pos).getContext().replaceAll("/n", System.getProperty("line.separator")));
                     boardListItemDetail.putExtra("createAt", items.get(pos).getCreateAt());
                     context.startActivity(boardListItemDetail);
                 }
@@ -108,7 +108,8 @@ public class BoardListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public void onBind(BoardListItem boardListItem) {
             boardTitle.setText(boardListItem.getTitle());
-            boardContext.setText(boardListItem.getContext());
+            String context = boardListItem.getContext().replaceAll("/n", System.getProperty("line.separator"));
+            boardContext.setText(context);
             boardCreateAt.setText(boardListItem.getCreateAt());
         }
     }

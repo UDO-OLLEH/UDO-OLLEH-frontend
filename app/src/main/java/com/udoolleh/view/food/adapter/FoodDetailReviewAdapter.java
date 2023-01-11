@@ -113,7 +113,7 @@ public class FoodDetailReviewAdapter extends RecyclerView.Adapter<RecyclerView.V
             userIdValue = foodDetailListItem.getUserIdValue();
             foodReviewNickname.setText(foodDetailListItem.getNickname());
             Glide.with(context).load(foodDetailListItem.getPhoto()).into(foodReviewPhoto);
-            foodReviewContext.setText(foodDetailListItem.getContext());
+            foodReviewContext.setText(foodDetailListItem.getContext().replaceAll("/n", System.getProperty("line.separator")));
             foodReviewGrade.setRating((float) foodDetailListItem.getGrade());
         }
 

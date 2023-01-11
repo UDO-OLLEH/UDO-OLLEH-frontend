@@ -292,7 +292,8 @@ public class FoodDetailReviewEdit extends AppCompatActivity {
         }
 
         //requestDto
-        String context = foodEdit_Context.getText().toString().trim();
+        String context_temp = foodEdit_Context.getText().toString().trim();
+        String context = context_temp.replaceAll(System.getProperty("line.separator"), "/n");
         float grade = foodEdit_Grade.getRating();
 
         RequestBody requestDto = RequestBody.create(MediaType.parse("application/json"), "{\"context\": \"" + context + "\", \"grade\": " + grade + "}");

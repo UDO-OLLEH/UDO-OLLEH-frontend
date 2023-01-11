@@ -284,7 +284,8 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
         //requestDto
         Intent intent = getIntent();
         String name = intent.getExtras().getString("name");
-        String context = foodWrite_Context.getText().toString().trim();
+        String context_temp = foodWrite_Context.getText().toString().trim();
+        String context = context_temp.replaceAll(System.getProperty("line.separator"), "/n");
         float grade = foodWrite_Grade.getRating();
 
         RequestBody requestDto = RequestBody.create(MediaType.parse("application/json"), "{\"restaurantName\": \"" + name + "\", \"context\": \"" + context + "\", \"grade\": " + grade + "}");
