@@ -47,7 +47,7 @@ public class BoardFragment extends Fragment {
     private boolean isLastLoading = false;
     Spinner spinner;
     String[] spinner_items = {"최근순", "좋아요순", "조회순"};
-    int size = 1000;
+    int size = 20;
     String sort_;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,7 @@ public class BoardFragment extends Fragment {
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                     boardGridView.setLayoutManager(gridLayoutManager);
                     boardListAdapter = new BoardListAdapter();
+                    itemPage = 0;
 
                     //Retrofit 게시판 최초 조회
                     BoardResponse(sort);
@@ -89,6 +90,7 @@ public class BoardFragment extends Fragment {
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                     boardGridView.setLayoutManager(gridLayoutManager);
                     boardListAdapter = new BoardListAdapter();
+                    itemPage = 0;
 
                     //Retrofit 게시판 최초 조회
                     BoardResponse(sort);
@@ -100,6 +102,7 @@ public class BoardFragment extends Fragment {
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
                     boardGridView.setLayoutManager(gridLayoutManager);
                     boardListAdapter = new BoardListAdapter();
+                    itemPage = 0;
 
                     //Retrofit 게시판 최초 조회
                     BoardResponse(sort);
@@ -113,8 +116,8 @@ public class BoardFragment extends Fragment {
             }
         });
 
-        //게시판 스크롤 시 추가 로딩 (adapter 갱신시 NestedScrollView와 adapter position 값 불일치로 구현X)
-        /*boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        //게시판 스크롤 시 추가 로딩
+        boardGridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -134,7 +137,7 @@ public class BoardFragment extends Fragment {
                     }
                 }
             }
-        });*/
+        });
 
         return view;
     }
@@ -341,6 +344,6 @@ public class BoardFragment extends Fragment {
             public void run() {
                 BoardLoadMoreResponse(sort);
             }
-        },2000);
+        },1000);
     }
 }
