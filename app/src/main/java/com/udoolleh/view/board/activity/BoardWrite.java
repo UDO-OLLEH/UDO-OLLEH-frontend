@@ -285,7 +285,8 @@ public class BoardWrite extends AppCompatActivity {
         //requestDto
         String title = boardWrite_Title.getText().toString().trim();
         String hashtag = boardWrite_Hashtag.getText().toString().trim();
-        String context = boardWrite_Context.getText().toString().trim();
+        String context_temp = boardWrite_Context.getText().toString().trim();
+        String context = context_temp.replaceAll(System.getProperty("line.separator"), "/n");
         RequestBody requestDto = RequestBody.create(MediaType.parse("application/json"), "{\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
         Log.d("udoLog", "게시판 작성 requestDto = {\"title\": \"" + title + "\", \"hashtag\": \"" + hashtag + "\", \"context\": \"" + context + "\"}");
 
