@@ -22,7 +22,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.amar.library.ui.StickyScrollView;
 import com.bumptech.glide.Glide;
-import com.udoolleh.view.login.activity.Login;
 import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
@@ -60,7 +59,7 @@ public class MapFragmentJongdal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jongdal);
+        setContentView(R.layout.fragment_map_harbor_jongdal);
         context = getApplicationContext();
 
         scrollView = findViewById(R.id.scrollView);
