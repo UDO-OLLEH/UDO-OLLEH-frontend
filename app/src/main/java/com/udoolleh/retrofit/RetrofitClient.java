@@ -28,9 +28,9 @@ public class RetrofitClient {
     private RetrofitInterface retrofitInterface;
     private static RetrofitClient instance = null;
     private static RetrofitInterface RetrofitInterface;
+    private String interceptorAccToken;
     //서버 BASE 주소
     private static String baseUrl = "http://ec2-54-241-190-224.us-west-1.compute.amazonaws.com/";
-    private String interceptorAccToken;
 
     //Token is visible
     public RetrofitClient(String accToken) {

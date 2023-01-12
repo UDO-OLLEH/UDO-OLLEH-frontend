@@ -66,9 +66,9 @@ public class BoardEdit extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_board_edit);
-
         context = BoardEdit.this;
 
+        //findViewById
         board_edit_image = findViewById(R.id.board_edit_image);
         boardEdit_Title = findViewById(R.id.boardEdit_Title);
         boardEdit_Hashtag = findViewById(R.id.boardEdit_Hashtag);
@@ -76,8 +76,8 @@ public class BoardEdit extends AppCompatActivity {
         boardEdit_Posting = findViewById(R.id.boardEdit_Posting);
         boardEdit_Image = findViewById(R.id.boardEdit_Image);
 
+        //Intent로 가져오기
         Intent boardEdit = getIntent();
-
         boardId = boardEdit.getExtras().getString("boardId");
         boardEdit_Title.setText(boardEdit.getExtras().getString("title"));
         //boardEdit_Hashtag.setText(boardEdit.getExtras().getString("hashtag"));
@@ -257,7 +257,7 @@ public class BoardEdit extends AppCompatActivity {
         }
     }
 
-    //게시글 등록 레트로핏 통신
+    //게시글 등록 통신
     public void BoardEditResponse() {
         //토큰 가져오기
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
@@ -351,13 +351,6 @@ public class BoardEdit extends AppCompatActivity {
         });
     }
 
-    //키보드 숨기기
-    private void hideKeyboard()
-    {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(boardEdit_Context.getWindowToken(), 0);
-    }
-
     //화면 터치 시 키보드 내려감
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -374,5 +367,12 @@ public class BoardEdit extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    //키보드 숨기기
+    private void hideKeyboard()
+    {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(boardEdit_Context.getWindowToken(), 0);
     }
 }

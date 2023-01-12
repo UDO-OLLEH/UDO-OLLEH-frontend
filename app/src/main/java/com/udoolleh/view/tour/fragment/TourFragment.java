@@ -72,6 +72,7 @@ public class TourFragment extends Fragment {
         return view;
     }
 
+    //추천 관광지 조회 통신
     public void TourPlaceResponse() {
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
@@ -103,7 +104,7 @@ public class TourFragment extends Fragment {
                         String message = result.getMessage();
                         List<TourFragmentPlaceResponse.PlaceList> placeList = result.getPlaceList();
 
-                        //여행지 코스 전체 목록 조회 로그
+                        //추천 관광지 조회 로그
                         Log.d("udoLog", "추천 관광지 조회 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
@@ -158,6 +159,7 @@ public class TourFragment extends Fragment {
         });
     }
 
+    //여행지 코스 전체 목록 조회
     public void TourCourseResponse() {
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);

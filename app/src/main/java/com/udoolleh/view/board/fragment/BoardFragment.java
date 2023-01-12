@@ -42,13 +42,14 @@ public class BoardFragment extends Fragment {
     RecyclerView boardGridView;
     BoardListAdapter boardListAdapter;
     TextView noneBoardText;
+    Spinner spinner;
+    String sort_;
     int itemPage = 0;
     private boolean isLoading = false;
     private boolean isLastLoading = false;
-    Spinner spinner;
-    String[] spinner_items = {"최근순", "좋아요순", "조회순"};
-    int size = 20;
-    String sort_;
+    String[] spinner_items = {"최근순", "좋아요순", "조회순"};    //게시글 정렬
+    int size = 20;  //게시글 사이즈
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +63,6 @@ public class BoardFragment extends Fragment {
         //RecyclerView
         boardGridView = view.findViewById(R.id.boardGridView);
         noneBoardText = view.findViewById(R.id.noneBoardText);
-
 
         //Spinner
         spinner = view.findViewById(R.id.spinner);
@@ -239,7 +239,7 @@ public class BoardFragment extends Fragment {
         });
     }
 
-
+    //게시판 리스트 추가 로딩 조회
     public void BoardLoadMoreResponse(String sort) {
         //로딩 중 항목 삭제
         boardListAdapter.removeItem(boardListAdapter.getItemCount() - 1);

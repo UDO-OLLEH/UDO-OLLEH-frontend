@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    //Navigation View User Profile
     public void UserResponse() {
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -233,6 +234,7 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    //로그아웃 통신
     public void LogoutResponse() {
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String refToken = sp.getString("refToken", "");
@@ -309,12 +311,14 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    //드로어 메뉴 메뉴 목록
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_appbar_menu, menu);
         return true;
     }
 
+    //드로어 메뉴 선택
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -333,6 +337,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    //드로어 메뉴 열린 상태에서 뒤로가기 버튼 눌렀을 때
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -343,6 +348,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    //Fragment View 클릭 시 아이콘 처리
     private void onClick(View view){
         switch (view.getId()) {
             case R.id.map_fragment:
@@ -392,6 +398,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    //Fragment View 클릭시 fragment 전환
     private void FragmentView(int fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -433,6 +440,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    //데이터를 내부 저장소에 저장하기
     public void setPreference(String key, String value){
         SharedPreferences pref = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();

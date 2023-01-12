@@ -59,18 +59,17 @@ public class BoardDetail extends AppCompatActivity {
     private RetrofitInterface retrofitInterface;
     RecyclerView boardCommentListView;
     BoardDetailAdapter boardDetailAdapter;
-    TextView nonBoardCommentText;
-    private boolean isLoading = false;
-    private boolean isLastLoading = false;
     Toolbar toolbar;
     String id, userIdValue, email, title, boardContext, createAt;
     ImageView navigation_profile_image;
-    TextView navigation_nickname, commentCount, likesCount;
+    TextView nonBoardCommentText, navigation_nickname, commentCount, likesCount, titleDetail, titleDetail2, contextDetail, createAtDetail, board_nameDetail;
     EditText boardCommentWriteEditText;
-    Button boardCommentWriteButton;
+    Button boardCommentWriteButton, board_personal_edit, board_personal_delete, logout;
     LinearLayout board_personal_layout;
-    Button board_personal_edit, board_personal_delete;
+    DrawerLayout drawer;
     ArrayList<BoardDetailListItem> mArrayList = new ArrayList<>();
+    private boolean isLoading = false;
+    private boolean isLastLoading = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +77,13 @@ public class BoardDetail extends AppCompatActivity {
         setContentView(R.layout.fragment_board_detail);
         context = getApplicationContext();
 
-        //NavigationView
+        //findViewById
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         navigation_profile_image = findViewById(R.id.navigation_profile_image);
         navigation_nickname = findViewById(R.id.navigation_nickname);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
-        Button logout = findViewById(R.id.logout);
+        logout = findViewById(R.id.logout);
         boardCommentListView = findViewById(R.id.boardCommentListView);
         nonBoardCommentText = findViewById(R.id.noneBoardCommentText);
         boardCommentWriteEditText = findViewById(R.id.boardCommentWriteEditText);
@@ -91,20 +91,20 @@ public class BoardDetail extends AppCompatActivity {
         board_personal_layout = findViewById(R.id.board_personal_layout);
         board_personal_edit = findViewById(R.id.board_personal_edit);
         board_personal_delete = findViewById(R.id.board_personal_delete);
-        TextView titleDetail = findViewById(R.id.titleDetail);
-        TextView titleDetail2 = findViewById(R.id.titleDetail2);
-        TextView contextDetail = findViewById(R.id.contextDetail);
-        TextView createAtDetail = findViewById(R.id.createAtDetail);
-        TextView board_nameDetail = findViewById(R.id.board_nameDetail);
+        titleDetail = findViewById(R.id.titleDetail);
+        titleDetail2 = findViewById(R.id.titleDetail2);
+        contextDetail = findViewById(R.id.contextDetail);
+        createAtDetail = findViewById(R.id.createAtDetail);
+        board_nameDetail = findViewById(R.id.board_nameDetail);
         commentCount = findViewById(R.id.commentCount);
         likesCount = findViewById(R.id.likesCount);
 
+        //키보드 숨기기
+        hideKeyboard();
+
+        //NavigationView
         UserResponse();
-
         drawer.closeDrawer(GravityCompat.END);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +126,8 @@ public class BoardDetail extends AppCompatActivity {
         });
 
         //툴바 설정
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
@@ -135,7 +135,6 @@ public class BoardDetail extends AppCompatActivity {
 
         //Intent로 게시글 텍스트 가져오기
         Intent intent = getIntent();
-
         userIdValue = intent.getExtras().getString("userIdValue");
         email = intent.getExtras().getString("email");
         id = intent.getExtras().getString("id");
@@ -160,6 +159,9 @@ public class BoardDetail extends AppCompatActivity {
         boardCommentListView.setLayoutManager(linearLayoutManager);
         boardDetailAdapter = new BoardDetailAdapter();
 
+        //Retrofit
+        BoardListItemDetailResponse();
+
         //댓글 등록
         boardCommentWriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,9 +184,6 @@ public class BoardDetail extends AppCompatActivity {
                 }
             }
         });
-
-        //Retrofit
-        BoardListItemDetailResponse();
 
         //게시글 수정
         board_personal_edit.setOnClickListener(new View.OnClickListener() {
@@ -209,16 +208,93 @@ public class BoardDetail extends AppCompatActivity {
         });
     }
 
+    //드로어 메뉴 메뉴 목록
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_appbar_menu, menu);
+        return true;
+    }
+
+    //드로어 메뉴 선택
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+
+        switch (item.getItemId()) {
+            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+
+            case R.id.drawer:
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();
+                }
+                else if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //드로어 메뉴 열린 상태에서 뒤로가기 버튼 눌렀을 때
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    //댓글 롱클릭 이벤트
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.board_comment_item_menu_edit:
+                final EditText dlgEdt = new EditText(getApplicationContext());
+                AlertDialog.Builder dlg = new AlertDialog.Builder(BoardDetail.this);
+                dlg.setTitle("댓글 수정");
+                dlg.setView(dlgEdt);
+                dlg.setPositiveButton("수정", new DialogInterface.OnClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (dlgEdt.getText().toString().equals("")) {
+                            Toast.makeText(BoardDetail.this, "내용을 입력하세요." , Toast.LENGTH_SHORT).show();
+                        } else {
+                            String editContext = dlgEdt.getText().toString();
+                            final int position = boardDetailAdapter.getPosition();
+                            String commentId = mArrayList.get(position).getId();
+                            BoardCommentEditResponse(commentId, editContext);
+                            boardDetailAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+                dlg.setNegativeButton("취소", null);
+                dlg.show();
+                break;
+
+            case R.id.board_comment_item_menu_delete:
+                final int position = boardDetailAdapter.getPosition();
+                String commentId = mArrayList.get(position).getId();
+                BoardCommentDeleteResponse(commentId);
+                mArrayList.remove(position);
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
     //Navigation View User Profile
     public void UserResponse() {
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
 
-        //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //UserResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getUserResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getUserResponse().enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -283,16 +359,15 @@ public class BoardDetail extends AppCompatActivity {
         });
     }
 
+    //게시물 삭제 통신
     public void BoardDeleteResponse(String boardId) {
         //토큰 가져오기
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
 
-        //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getBoardDeleteResponse(boardId).enqueue(new Callback<BoardDeleteResponse>() {
             @Override
             public void onResponse(Call<BoardDeleteResponse> call, Response<BoardDeleteResponse> response) {
@@ -327,7 +402,6 @@ public class BoardDetail extends AppCompatActivity {
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
-
                     }
                 }
             }
@@ -352,11 +426,9 @@ public class BoardDetail extends AppCompatActivity {
         String accToken = sp.getString("accToken", "");
         String userIdValue = sp.getString("UserIdValue", "");
 
-        //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //BoardListItemDetailResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getBoardListItemDetailResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getBoardListItemDetailResponse(id).enqueue(new Callback<BoardDetailResponse>() {
             @Override
             public void onResponse(Call<BoardDetailResponse> call, Response<BoardDetailResponse> response) {
@@ -444,49 +516,6 @@ public class BoardDetail extends AppCompatActivity {
         });
     }
 
-    //댓글 롱클릭 이벤트
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.board_comment_item_menu_edit:
-                final EditText dlgEdt = new EditText(getApplicationContext());
-                AlertDialog.Builder dlg = new AlertDialog.Builder(BoardDetail.this);
-                dlg.setTitle("댓글 수정");
-                dlg.setView(dlgEdt);
-                dlg.setPositiveButton("수정", new DialogInterface.OnClickListener() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (dlgEdt.getText().toString().equals("")) {
-                            Toast.makeText(BoardDetail.this, "내용을 입력하세요." , Toast.LENGTH_SHORT).show();
-                        } else {
-                            String editContext = dlgEdt.getText().toString();
-                            final int position = boardDetailAdapter.getPosition();
-                            String commentId = mArrayList.get(position).getId();
-                            BoardCommentEditResponse(commentId, editContext);
-                            boardDetailAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-                dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dlg.show();
-                break;
-
-            case R.id.board_comment_item_menu_delete:
-                final int position = boardDetailAdapter.getPosition();
-                String commentId = mArrayList.get(position).getId();
-                BoardCommentDeleteResponse(commentId);
-                mArrayList.remove(position);
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
-
     //게시판 댓글 등록
     public void BoardCommentWriteResponse() {
         //토큰 가져오기
@@ -538,7 +567,6 @@ public class BoardDetail extends AppCompatActivity {
                                 .setPositiveButton("확인", null)
                                 .create()
                                 .show();
-
                     }
                 }
             }
@@ -683,47 +711,6 @@ public class BoardDetail extends AppCompatActivity {
                         .show();
             }
         });
-    }
-
-    //드로어 메뉴 메뉴 목록
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_appbar_menu, menu);
-        return true;
-    }
-
-    //드로어 메뉴 선택
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-
-        switch (item.getItemId()) {
-            case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
-                finish();
-                return true;
-
-            case R.id.drawer:
-                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                    Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();
-                }
-                else if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                    drawerLayout.openDrawer(GravityCompat.END);
-                }
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    //드로어 메뉴 열린 상태에서 뒤로가기 버튼 눌렀을 때
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     //키보드 숨기기

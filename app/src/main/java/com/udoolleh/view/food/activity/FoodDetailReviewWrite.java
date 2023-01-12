@@ -61,7 +61,7 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
     ImageView food_write_image;
     ContentResolver contentResolver;
     Uri URI;
-    String cacheImageFileName = "udoolleh_cache_file_image";
+    String cacheImageFileName = "udoolleh_cache_file_image";    //캐시 이미지 파일 이름 설정
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

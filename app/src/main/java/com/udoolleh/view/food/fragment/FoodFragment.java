@@ -85,7 +85,7 @@ public class FoodFragment extends Fragment {
         foodGridView.setLayoutManager(gridLayoutManager);
         foodListAdapter = new FoodListAdapter();
 
-        //Retrofit
+        //맛집 조회 Retrofit
         FoodResponse();
 
         //맛집 조회 추가 로딩
@@ -322,6 +322,7 @@ public class FoodFragment extends Fragment {
         });
     }
 
+    //맛집 조회 추가 로딩 비동기 처리
     private void FoodBackgroundTask() {
         foodListAdapter.addItem(null);
         foodListAdapter.notifyItemInserted(foodListAdapter.getItemCount() - 1);

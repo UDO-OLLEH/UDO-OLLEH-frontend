@@ -106,6 +106,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    //로그인 통신
     public void LoginResponse(String userID, String userPassword) {
         String id = userID;
         String pw = userPassword;
@@ -245,19 +246,17 @@ public class Login extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    //자동 로그인 유저
-    public void checkAutoLogin(String id){
-        Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-
-    }
-
     //뒤로 가기 버튼 2번 클릭시 종료
     @Override public void onBackPressed() {
         //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
     }
 
+    /* 자동 로그인 유저 (사용 안함)
+    public void checkAutoLogin(String id){
+        Toast.makeText(this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }*/
 }
