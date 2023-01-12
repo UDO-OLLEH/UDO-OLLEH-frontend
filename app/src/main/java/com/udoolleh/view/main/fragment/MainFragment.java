@@ -56,9 +56,9 @@ public class MainFragment extends Fragment {
     TextView weather, weatherSub, noneTourPlaceText;
     Button recycle;
     ImageView weather_layout;
-    String weatherLink = "https://weather.naver.com/today/14110330";
     private ViewPager2 ad_viewpager_slider;
     MainFragmentAdImageSliderAdapter adImageSliderAdapter;
+    String weatherLink = "https://weather.naver.com/today/14110330";    //날씨 크롤링 링크
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,19 +142,14 @@ public class MainFragment extends Fragment {
         return view;
     }
 
-    //광고 조회
+    //광고 조회 통신
     public void AdResponse() {
-        //retrofitclient 에서 instance 받아옴 광고에는 토큰 필요 없음 null 입력
-        //token is none 부분 봐라
-        //interface랑 clinet 연결
         retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //interface 위에서 연결 후 불러옴
         retrofitInterface.getADResponse().enqueue(new Callback<MainFragmentAdResponse>() {
             //통신 성공
             @Override
-            //통신 성고하면 response 저장
             public void onResponse(Call<MainFragmentAdResponse> call, Response<MainFragmentAdResponse> response) {
                 Log.d("udoLog", "광고 정보 조회 body 내용 = " + response.body());
                 Log.d("udoLog", "광고 정보 조회 성공여부 = " + response.isSuccessful());
@@ -186,17 +181,13 @@ public class MainFragment extends Fragment {
                                 "imglist" + imglist
                         );
 
-                        //
-
                         for(MainFragmentAdResponse.AdList adList : imglist){
-
                             //광고 정보 상세 조회 로그
                             Log.d("udoLog", "광고 정보 조회 = \n" +
                                     "id: " + adList.getId() + "\n" +
                                     "photo: " + adList.getPhoto() + "\n"
                             );
                             adImageSliderAdapter.addImage(new MainFragmentAdImageSliderItem(adList.getPhoto()));
-                            //str.add(adList.getPhoto());
                         }
                         ad_viewpager_slider.setAdapter(adImageSliderAdapter);
                     }
@@ -211,12 +202,13 @@ public class MainFragment extends Fragment {
         });
     }
 
+    //추천 관광지 조회 통신
     public void TourPlaceResponse() {
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //TourCourseResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getCourseSesponse 함수를 실행한 후 응답을 받음
+        //TourPlaceResponse에 저장된 데이터와 함께 RetrofitInterface에서 정의한 getPlaceSesponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getTourFragmentPlaceResponse().enqueue(new Callback<TourFragmentPlaceResponse>() {
             @Override
             public void onResponse(Call<TourFragmentPlaceResponse> call, Response<TourFragmentPlaceResponse> response) {
@@ -260,7 +252,7 @@ public class MainFragment extends Fragment {
                             //Recycler View 레이아웃 설정
                             for (TourFragmentPlaceResponse.PlaceList place : placeList) {
 
-                                //맛집 리스트 상세 조회 로그
+                                //여행지 코스 전체 목록 상세 조회 로그
                                 Log.d("udoLog", "추천 관광지 리스트 = \n" +
                                         "id: " + place.getId() + "\n" +
                                         "placeName: " + place.getPlaceName() + "\n" +
@@ -299,7 +291,6 @@ public class MainFragment extends Fragment {
 
     //우도 현재 날씨 크롤링
     Disposable weatherBackgroundTask;
-
     void WeatherBackgroundTask(String URLs) {
         //onPreExecute
 
@@ -331,7 +322,6 @@ public class MainFragment extends Fragment {
 
     //우도 대기 상태 크롤링
     Disposable weatherSubBackgroundTask;
-
     void WeatherSubBackgroundTask(String URLs) {
         //onPreExecute
 

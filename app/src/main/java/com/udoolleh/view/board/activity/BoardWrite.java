@@ -65,8 +65,15 @@ public class BoardWrite extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_board_write);
-
         context = BoardWrite.this;
+
+        //findViewById
+        boardWrite_Title = findViewById(R.id.boardWrite_Title);
+        boardWrite_Hashtag = findViewById(R.id.boardWrite_Hashtag);
+        boardWrite_Context = findViewById(R.id.boardWrite_Context);
+        boardWrite_Posting = findViewById(R.id.boardWrite_Posting);
+        boardWrite_Image = findViewById(R.id.boardWrite_Image);
+        board_write_image = findViewById(R.id.board_write_image);
 
         //뒤로가기 버튼
         board_write_close = findViewById(R.id.board_write_close);
@@ -76,13 +83,6 @@ public class BoardWrite extends AppCompatActivity {
                 finish();
             }
         });
-
-        boardWrite_Title = findViewById(R.id.boardWrite_Title);
-        boardWrite_Hashtag = findViewById(R.id.boardWrite_Hashtag);
-        boardWrite_Context = findViewById(R.id.boardWrite_Context);
-        boardWrite_Posting = findViewById(R.id.boardWrite_Posting);
-        boardWrite_Image = findViewById(R.id.boardWrite_Image);
-        board_write_image = findViewById(R.id.board_write_image);
 
         //이미지 선택
         boardWrite_Image.setOnClickListener(new View.OnClickListener() {
@@ -343,15 +343,6 @@ public class BoardWrite extends AppCompatActivity {
         });
     }
 
-    //키보드 숨기기
-    private void hideKeyboard()
-    {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(boardWrite_Title.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(boardWrite_Hashtag.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(boardWrite_Context.getWindowToken(), 0);
-    }
-
     //화면 터치 시 키보드 내려감
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -368,5 +359,14 @@ public class BoardWrite extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    //키보드 숨기기
+    private void hideKeyboard()
+    {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(boardWrite_Title.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(boardWrite_Hashtag.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(boardWrite_Context.getWindowToken(), 0);
     }
 }

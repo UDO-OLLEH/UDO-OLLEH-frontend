@@ -322,7 +322,7 @@ public class UserEditProfile extends AppCompatActivity {
                     //받은 코드 저장
                     int resultCode = response.code();
 
-                    //게시물 작성 성공
+                    //통신 성공
                     int success = 200;
 
                     if (resultCode == success) {

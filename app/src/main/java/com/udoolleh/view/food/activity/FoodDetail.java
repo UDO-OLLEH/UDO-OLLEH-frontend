@@ -62,23 +62,17 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
     Context context;
     private RetrofitClient retrofitClient;
     private RetrofitInterface retrofitInterface;
-    RecyclerView foodMenuListView;
-    RecyclerView foodReviewListView;
     FoodDetailMenuAdapter foodDetailMenuAdapter;
     FoodDetailReviewAdapter foodDetailReviewAdapter;
+    RecyclerView foodMenuListView, foodReviewListView;
     Toolbar food_toolbar;
-    String id;
+    String id, imagesUrl, name, address, _name, _address;
     private ViewPager2 food_detail_viewpager_slider;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
     Button foodReviewButton;
-    String imagesUrl;
-    String name;
-    String address;
-    double totalGrade;
+    double totalGrade, latitude, longitude;
     ArrayList<FoodDetailReviewListItem> mArrayList = new ArrayList<>();
-    double latitude, longitude;
-    String _name, _address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +80,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         setContentView(R.layout.fragment_food_detail);
         context = getApplicationContext();
 
+        //Google Maps API
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.foodMapView);
         mapFragment.getMapAsync(this);
 
@@ -94,6 +89,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         navigation_nickname = findViewById(R.id.navigation_nickname);
         UserResponse();
 
+        //Drawer Layout
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
 
@@ -292,6 +288,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         });
     }
 
+    //맛집 상세 메뉴 조회 통신
     public void FoodDetailMenuResponse() {
         //Retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
@@ -371,6 +368,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         });
     }
 
+    //맛집 상세 리뷰 조회 통신
     public void FoodDetailReviewResponse() {
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String userIdValue = sp.getString("UserIdValue", "");
@@ -455,6 +453,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         });
     }
 
+    //맛집 상세 리뷰 삭제 통신
     public void FoodDetailReviewDeleteResponse(String reviewId) {
         //토큰 가져오기
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);
@@ -464,7 +463,6 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         retrofitClient = RetrofitClient.getInstance(accToken);
         retrofitInterface = RetrofitClient.getRetrofitInterface();
 
-        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
         retrofitInterface.getFoodDetailReviewDeleteResponse(reviewId).enqueue(new Callback<FoodDetailReviewDeleteResponse>() {
             @Override
             public void onResponse(Call<FoodDetailReviewDeleteResponse> call, Response<FoodDetailReviewDeleteResponse> response) {
@@ -517,6 +515,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         });
     }
 
+    //리뷰 롱클릭 이벤트
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -581,6 +580,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         }
     }
 
+    //Google Maps API 마커 표시
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;

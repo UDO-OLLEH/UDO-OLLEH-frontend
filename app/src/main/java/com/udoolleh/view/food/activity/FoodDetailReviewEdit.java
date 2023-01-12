@@ -61,9 +61,9 @@ public class FoodDetailReviewEdit extends AppCompatActivity {
     EditText foodEdit_Context;
     RatingBar foodEdit_Grade;
     ContentResolver contentResolver;
-    Uri URI;
-    String cacheImageFileName = "udoolleh_cache_file_image";
     String reviewId;
+    Uri URI;
+    String cacheImageFileName = "udoolleh_cache_file_image";    //캐시 이미지 파일 이름 설정
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -258,7 +258,7 @@ public class FoodDetailReviewEdit extends AppCompatActivity {
         }
     }
 
-    //게시글 등록 레트로핏 통신
+    //게시글 등록 통신
     public void FoodEditResponse() {
         //토큰 가져오기
         SharedPreferences sp = getSharedPreferences("DATA_STORE", MODE_PRIVATE);

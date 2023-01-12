@@ -52,6 +52,7 @@ public class TourPlaceDetail extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.fragment_tour_place_detail);
         context = getApplicationContext();
 
+        //Google Maps API
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.tourPlaceMapView);
         mapFragment.getMapAsync(this);
 
@@ -76,6 +77,7 @@ public class TourPlaceDetail extends AppCompatActivity implements OnMapReadyCall
         TourPlaceDetailResponse();
     }
 
+    //추천 관광지 상세 조회 통신
     public void TourPlaceDetailResponse() {
         //retrofit 생성
         retrofitClient = RetrofitClient.getInstance(null);
@@ -106,7 +108,7 @@ public class TourPlaceDetail extends AppCompatActivity implements OnMapReadyCall
                         String dateTime = result.getDateTime();
                         String message = result.getMessage();
 
-                        //여행지 코스 전체 목록 조회 로그
+                        //추천 관광지 상세 조회 로그
                         Log.d("udoLog", "추천 관광지 상세 조회 = \n" +
                                 "Id: " + id + "\n" +
                                 "dateTime: " + dateTime + "\n" +
@@ -171,6 +173,7 @@ public class TourPlaceDetail extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
+    //Google Maps API 마커 표시
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;

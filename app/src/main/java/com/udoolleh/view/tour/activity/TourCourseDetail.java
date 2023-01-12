@@ -39,6 +39,7 @@ public class TourCourseDetail extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.fragment_tour_course_detail);
         context = getApplicationContext();
 
+        //Google Maps API
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.tourCourseMapView);
         mapFragment.getMapAsync(this);
 
@@ -88,6 +89,7 @@ public class TourCourseDetail extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
+    //Google Maps API 마커 표시
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;

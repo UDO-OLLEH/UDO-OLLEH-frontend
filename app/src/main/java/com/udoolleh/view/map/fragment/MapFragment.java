@@ -56,7 +56,6 @@ public class MapFragment extends Fragment {
         ivSeongsan.setOnClickListener(this::onClick);
 
         return view;
-
     }
 
     private void onClick(View view){
