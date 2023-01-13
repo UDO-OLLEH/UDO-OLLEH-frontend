@@ -102,654 +102,494 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tvRoute2"
-                            android:layout_width="169dp"
-                            android:layout_height="22dp"
-                            android:layout_marginLeft="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:text="우도 빨간버스 노선도"
                             android:textColor="#383838"
                             android:textSize="20dp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvTime2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="90dp"
                             android:text="평균배차간격:15분"
                             android:textColor="#8B8787"
                             android:textSize="13dp" />
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="40dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                            <ImageView
-                                android:id="@+id/ivLine"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="34dp"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/map_line" />
-
-                            <FrameLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:layout_marginRight="11dp">
-
-                                <ImageView
-                                    android:id="@+id/ivEdge"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    app:srcCompat="@drawable/map_route_edge" />
-
-                                <ImageView
-                                    android:id="@+id/ivCircle"
-                                    android:layout_width="17dp"
-                                    android:layout_height="17dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/map_route_circle" />
-                            </FrameLayout>
-
-                        </LinearLayout>
-
+                        <!--하우항(출발)-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
+                            <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:src="@drawable/map_circle"/>
 
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="하우항(출발)"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.3km 이동시간:4분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
+                            <TextView
+                                android:id="@+id/route_name2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="하우항(출발)"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="산호사해변"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.9km 이동시간:7분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="천진항"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1km 이동시간:4분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="돌칸이"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.4km 이동시간:5분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도봉입구"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.4km 이동시간:5분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="검몰레"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.7km 이동시간:5분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="우도땅콩마을"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:2.6km 이동시간:9분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:text="비양도입구"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.4km 이동시간:5분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="하고수동해수욕장"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:text="이동거리:1.3km 이동시간:4분"
-                                    android:textColor="#8B8787"
-                                    android:textSize="13dp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="29dp"
-                                    android:textSize="20dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:text="하우항(도착)"
-                                    android:textColor="#383838"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="168dp"
-                                    android:layout_height="17dp"
-                                    android:textSize="13dp"
-                                    android:visibility="invisible" />
-                            </LinearLayout>
+                                android:text="이동거리:1.3km 이동시간:4분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
 
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--산호사해변-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="산호사해변"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.9km 이동시간:7분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--천진항-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="천진항"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1km 이동시간:4분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--돌칸이-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="돌칸이"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.4km 이동시간:5분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--우도봉입구-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="우도봉입구"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.4km 이동시간:5분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--검몰레-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="검몰레"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.7km 이동시간:5분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--우도땅콩마을-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="우도땅콩마을"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:2.6km 이동시간:9분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--비양도입구-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="비양도입구"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.4km 이동시간:5분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--하고수동해수욕장-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="하고수동해수욕장"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="이동거리:1.3km 이동시간:4분"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layerType="software"
+                                android:src="@drawable/map_dash_line"/>
+
+                        </LinearLayout>
+
+                        <!--하우항(도착)-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/map_circle"/>
+
+                            <TextView
+                                android:id="@+id/route_name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1"
+                                android:text="하우항(도착)"
+                                android:textColor="#383838"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#8B8787"
+                                android:textSize="13dp" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
-
-                    <ImageView
-                        android:id="@+id/ivCenterLine"
-                        android:layout_width="1500dp"
-                        android:layout_height="wrap_content"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="30dp"
-                        app:srcCompat="@drawable/map_route_line" />
+                        android:background="#AAAAAA"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:text="계절별 막차시간"
+                        android:textColor="#383838"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -758,32 +598,13 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tvLastTime"
-                                android:layout_width="169dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
-                                android:text="계절별 막차시간"
-                                android:textColor="#383838"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="30dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/tvMonth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
                                 android:layout_weight="1"
                                 android:text="1,2,11,12월"
                                 android:textColor="#383838"
@@ -791,11 +612,8 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvTime"
-                                android:layout_width="wrap_content"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="120dp"
-                                android:layout_weight="1"
                                 android:text="16:00"
                                 android:textColor="#C57D7D"
                                 android:textSize="20dp"
@@ -805,15 +623,13 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tvMonth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
                                 android:layout_weight="1"
                                 android:text="3,10월"
                                 android:textColor="#383838"
@@ -821,11 +637,8 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvTime"
-                                android:layout_width="wrap_content"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="160dp"
-                                android:layout_weight="1"
                                 android:text="16:30"
                                 android:textColor="#C57D7D"
                                 android:textSize="20dp"
@@ -835,25 +648,22 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tvMonth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
+                                android:layout_weight="1"
                                 android:text="4,9월"
                                 android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvTime"
-                                android:layout_width="wrap_content"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="235dp"
                                 android:text="17:00"
                                 android:textColor="#C57D7D"
                                 android:textSize="20dp"
@@ -863,15 +673,13 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tvMonth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="22dp"
                                 android:layout_weight="1"
                                 android:text="5,6,7,8월"
                                 android:textColor="#383838"
@@ -879,17 +687,15 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvTime"
-                                android:layout_width="wrap_content"
+                                android:layout_width="150dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="140dp"
-                                android:layout_weight="1"
                                 android:text="17:30"
                                 android:textColor="#C57D7D"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>

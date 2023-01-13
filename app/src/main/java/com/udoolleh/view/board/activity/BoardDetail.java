@@ -45,6 +45,8 @@ import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
 import com.udoolleh.view.drawer.DTO.UserResponse;
+import com.udoolleh.view.map.activity.MapFragmentHarbor;
+import com.udoolleh.view.user.activity.UserEditProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,16 +62,28 @@ public class BoardDetail extends AppCompatActivity {
     RecyclerView boardCommentListView;
     BoardDetailAdapter boardDetailAdapter;
     Toolbar toolbar;
-    String id, userIdValue, email, title, boardContext, createAt;
+    String id, userIdValue, email, title, boardContext, createAt, userNickname, userImage;;
     ImageView navigation_profile_image;
     TextView nonBoardCommentText, navigation_nickname, commentCount, likesCount, titleDetail, titleDetail2, contextDetail, createAtDetail, board_nameDetail;
     EditText boardCommentWriteEditText;
-    Button boardCommentWriteButton, board_personal_edit, board_personal_delete, logout;
+    Button boardCommentWriteButton, board_personal_edit, board_personal_delete, logout, edit_profile;
     LinearLayout board_personal_layout;
-    DrawerLayout drawer;
     ArrayList<BoardDetailListItem> mArrayList = new ArrayList<>();
     private boolean isLoading = false;
     private boolean isLastLoading = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //NavigationView
+        navigation_profile_image = findViewById(R.id.navigation_profile_image);
+        navigation_nickname = findViewById(R.id.navigation_nickname);
+        UserResponse();
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,10 +93,6 @@ public class BoardDetail extends AppCompatActivity {
 
         //findViewById
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-        navigation_profile_image = findViewById(R.id.navigation_profile_image);
-        navigation_nickname = findViewById(R.id.navigation_nickname);
-        drawer = findViewById(R.id.drawer_layout);
-        toolbar = findViewById(R.id.toolbar);
         logout = findViewById(R.id.logout);
         boardCommentListView = findViewById(R.id.boardCommentListView);
         nonBoardCommentText = findViewById(R.id.noneBoardCommentText);
@@ -98,13 +108,20 @@ public class BoardDetail extends AppCompatActivity {
         board_nameDetail = findViewById(R.id.board_nameDetail);
         commentCount = findViewById(R.id.commentCount);
         likesCount = findViewById(R.id.likesCount);
+        edit_profile = findViewById(R.id.edit_profile);
 
         //키보드 숨기기
         hideKeyboard();
 
-        //NavigationView
-        UserResponse();
-        drawer.closeDrawer(GravityCompat.END);
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BoardDetail.this, UserEditProfile.class);
+                intent.putExtra("userNickname", userNickname);
+                intent.putExtra("userImage", userImage);
+                startActivity(intent);
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,8 +347,12 @@ public class BoardDetail extends AppCompatActivity {
                                 "profileImage: " + profileImage + "\n"
                         );
 
+                        userNickname = nickname;
+                        userImage = profileImage;
                         navigation_nickname.setText(nickname);
-                        if(profileImage != null) {
+                        if(profileImage == null || profileImage == "null" || profileImage == "") {
+                            navigation_profile_image.setImageResource(R.drawable.base_profile_image);
+                        } else {
                             Glide.with(BoardDetail.this).load(profileImage).into(navigation_profile_image);
                         }
 

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,18 +18,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
-import com.udoolleh.view.food.DTO.FoodResponse;
-import com.udoolleh.view.food.adapter.FoodListAdapter;
-import com.udoolleh.view.food.item.FoodListItem;
 import com.udoolleh.view.map.DTO.MapFragmentResponse;
-import com.udoolleh.view.map.activity.MapFragmentJongdal;
 import com.udoolleh.view.map.activity.MapFragmentRedbus;
-import com.udoolleh.view.map.activity.MapFragmentSeongsan;
 import com.udoolleh.view.map.activity.MapFragmentWhitebus;
 import com.udoolleh.view.map.adapter.MapListAdapter;
 import com.udoolleh.view.map.item.MapListItem;
@@ -49,7 +42,6 @@ public class MapFragment extends Fragment {
     ImageView ivRedbus, ivWhitebus;
     CardView cvRedbus, cvWhitebus;
     RecyclerView mapGridView;
-    TextView noneMapText;
     MapListAdapter mapListAdapter;
     FrameLayout harborFrame;
 
