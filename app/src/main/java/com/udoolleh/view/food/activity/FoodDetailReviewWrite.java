@@ -60,7 +60,7 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
     RatingBar foodWrite_Grade;
     ImageView food_write_image;
     ContentResolver contentResolver;
-    Uri URI;
+    Uri URI_picture;
     String cacheImageFileName = "udoolleh_cache_file_image";    //캐시 이미지 파일 이름 설정
 
     @Override
@@ -141,7 +141,7 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
                         Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
                         imgBitmap = rotateImage(uriResource, imgBitmap);
                         food_write_image.setImageBitmap(imgBitmap);
-                        URI = uriResource;
+                        URI_picture = uriResource;
                         contentResolver = resolver;
                         instream.close();
                     } catch (Exception e) {
@@ -261,9 +261,9 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
             //Uri to bitmap
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI));
+                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), URI_picture));
                 } else {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI);
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), URI_picture);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -273,10 +273,10 @@ public class FoodDetailReviewWrite extends AppCompatActivity {
             bitmap = resizeBitmapImage(bitmap, 1080);
 
             //Bitmap to Uri
-            URI = getImageUri(context, bitmap);
+            URI_picture = getImageUri(context, bitmap);
 
             //Uri to Multipart
-            filePart = uriToMultipart(URI, "file", contentResolver);
+            filePart = uriToMultipart(URI_picture, "file", contentResolver);
         } else {
             filePart = null;
         }

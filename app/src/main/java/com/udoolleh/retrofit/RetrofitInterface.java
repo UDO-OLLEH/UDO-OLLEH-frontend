@@ -100,7 +100,7 @@ public interface RetrofitInterface {
     @POST("/restaurant/review")
     Call<FoodDetailReviewWriteResponse> getFoodDetailReviewWriteResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto);
 
-    //맛집 리뷰 작성 통신
+    //맛집 리뷰 수정 통신
     @Multipart
     @POST("/restaurant/review/{id}")
     Call<FoodDetailReviewEditResponse> getFoodDetailReviewEditResponse(@Part MultipartBody.Part file, @Part("requestDto") RequestBody requestDto, @Path("id") String id);
