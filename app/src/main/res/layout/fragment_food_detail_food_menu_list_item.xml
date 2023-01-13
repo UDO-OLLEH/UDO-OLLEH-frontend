@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    android:layout_marginBottom="5dp"
     android:orientation="horizontal"
     android:background="@color/layout_rounded_1">
 
     <ImageView
         android:id="@+id/foodMenuPhoto"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/exampleimage"/>
 

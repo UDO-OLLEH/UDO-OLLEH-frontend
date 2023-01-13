@@ -31,6 +31,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -38,12 +39,16 @@
                         android:id="@+id/navigation_profile_image"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:background="@drawable/layout_rounded_box"
+                        android:clipToOutline="true"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/base_profile_image"/>
 
                     <TextView
                         android:id="@+id/navigation_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:text="닉네임"
                         android:textSize="15dp"
                         android:textStyle="bold"/>
