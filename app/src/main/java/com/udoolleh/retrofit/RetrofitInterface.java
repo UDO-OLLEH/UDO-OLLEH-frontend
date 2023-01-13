@@ -22,6 +22,7 @@ import com.udoolleh.view.food.DTO.FoodResponse;
 import com.udoolleh.view.login.DTO.LoginRequest;
 import com.udoolleh.view.login.DTO.LoginResponse;
 import com.udoolleh.view.main.DTO.MainFragmentAdResponse;
+import com.udoolleh.view.map.DTO.MapFragmentResponse;
 import com.udoolleh.view.signup.DTO.SignUpRequest;
 import com.udoolleh.view.signup.DTO.SignUpResponse;
 import com.udoolleh.view.tour.DTO.TourFragmentCourseResponse;
@@ -155,4 +156,8 @@ public interface RetrofitInterface {
     //추천 관광지 상세 조회
     @GET("/place/{id}")
     Call<TourFragmentPlaceDetailResponse> getTourFragmentPlaceDetailResponse(@Path("id") int id);
+
+    //항구 조회 통신
+    @GET("/harbor")
+    Call<MapFragmentResponse> getMapFragmentResponse();
 }
