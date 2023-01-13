@@ -23,6 +23,8 @@ import com.udoolleh.view.login.DTO.LoginRequest;
 import com.udoolleh.view.login.DTO.LoginResponse;
 import com.udoolleh.view.main.DTO.MainFragmentAdResponse;
 import com.udoolleh.view.map.DTO.MapFragmentResponse;
+import com.udoolleh.view.map.DTO.MapFragmentShipfareResponse;
+import com.udoolleh.view.map.DTO.MapFragmentTimetableResponse;
 import com.udoolleh.view.signup.DTO.SignUpRequest;
 import com.udoolleh.view.signup.DTO.SignUpResponse;
 import com.udoolleh.view.tour.DTO.TourFragmentCourseResponse;
@@ -160,4 +162,12 @@ public interface RetrofitInterface {
     //항구 조회 통신
     @GET("/harbor")
     Call<MapFragmentResponse> getMapFragmentResponse();
+
+    //항구 시간표 조회
+    @GET("/harbor/{id}/timetable")
+    Call<MapFragmentTimetableResponse> getMapFragmentTimetableResponse(@Path("id") int id);
+
+    //배 요금 조화
+    @GET("harbor/{id}/ship-fare")
+    Call<MapFragmentShipfareResponse> getMapFragmentShipfareResponse(@Path("id") int id);
 }

@@ -39,6 +39,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
+import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.view.drawer.DTO.UserResponse;
 import com.udoolleh.view.food.DTO.FoodDetailMenuResponse;
 import com.udoolleh.view.food.DTO.FoodDetailReviewDeleteResponse;
@@ -48,6 +49,8 @@ import com.udoolleh.view.food.adapter.FoodDetailMenuAdapter;
 import com.udoolleh.view.food.item.FoodDetailMenuListItem;
 import com.udoolleh.view.food.adapter.FoodDetailReviewAdapter;
 import com.udoolleh.view.food.item.FoodDetailReviewListItem;
+import com.udoolleh.view.map.activity.MapFragmentHarbor;
+import com.udoolleh.view.user.activity.UserEditProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,13 +69,26 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
     FoodDetailReviewAdapter foodDetailReviewAdapter;
     RecyclerView foodMenuListView, foodReviewListView;
     Toolbar food_toolbar;
-    String id, imagesUrl, name, address, _name, _address;
+    String id, imagesUrl, name, address, _name, _address, userNickname, userImage;
     private ViewPager2 food_detail_viewpager_slider;
     ImageView navigation_profile_image;
     TextView navigation_nickname;
     Button foodReviewButton;
     double totalGrade, latitude, longitude;
     ArrayList<FoodDetailReviewListItem> mArrayList = new ArrayList<>();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //NavigationView
+        navigation_profile_image = findViewById(R.id.navigation_profile_image);
+        navigation_nickname = findViewById(R.id.navigation_nickname);
+        UserResponse();
+
+        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        drawer.closeDrawer(GravityCompat.END);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,14 +100,16 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.foodMapView);
         mapFragment.getMapAsync(this);
 
-        //NavigationView
-        navigation_profile_image = findViewById(R.id.navigation_profile_image);
-        navigation_nickname = findViewById(R.id.navigation_nickname);
-        UserResponse();
-
-        //Drawer Layout
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
+        Button edit_profile = findViewById(R.id.edit_profile);
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FoodDetail.this, UserEditProfile.class);
+                intent.putExtra("userNickname", userNickname);
+                intent.putExtra("userImage", userImage);
+                startActivity(intent);
+            }
+        });
 
         Button logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +121,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
                         .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //LogoutResponse();
+                                new LogoutResponse();
                                 Toast.makeText(FoodDetail.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
                             }
                         })
@@ -259,8 +277,12 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
                                 "profileImage: " + profileImage + "\n"
                         );
 
+                        userNickname = nickname;
+                        userImage = profileImage;
                         navigation_nickname.setText(nickname);
-                        if(profileImage != null) {
+                        if(profileImage == null || profileImage == "null" || profileImage == "") {
+                            navigation_profile_image.setImageResource(R.drawable.base_profile_image);
+                        } else {
                             Glide.with(FoodDetail.this).load(profileImage).into(navigation_profile_image);
                         }
 

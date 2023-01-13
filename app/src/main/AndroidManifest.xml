@@ -39,8 +39,7 @@
         <activity android:name=".view.tour.activity.TourPlaceDetail" />
         <activity android:name=".view.food.activity.FoodDetailReviewWrite" />
         <activity android:name=".view.food.activity.FoodDetailReviewEdit" />
-        <activity android:name=".view.map.activity.MapFragmentSeongsan"/>
-        <activity android:name=".view.map.activity.MapFragmentJongdal"/>
+        <activity android:name=".view.map.activity.MapFragmentHarbor"/>
         <activity android:name=".view.map.activity.MapFragmentWhitebus"/>
         <activity android:name=".view.map.activity.MapFragmentRedbus"/>
         <activity android:name=".view.user.activity.UserEditProfile"/>

@@ -1,9 +1,16 @@
 package com.udoolleh.view.map.activity;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,14 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.amar.library.ui.StickyScrollView;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
@@ -33,7 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapFragmentJongdal extends AppCompatActivity {
+public class MapFragmentHarbor extends AppCompatActivity {
+
     StickyScrollView scrollView;
     Button btnRoute, btnTime, btnPrice;
     public static Context context;
@@ -41,7 +44,8 @@ public class MapFragmentJongdal extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     ImageView navigation_profile_image;
     String userNickname, userImage;
-    TextView navigation_nickname;
+    TextView navigation_nickname, route_name1, route_name2;
+    int id;
 
     @Override
     protected void onResume() {
@@ -59,7 +63,7 @@ public class MapFragmentJongdal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_map_harbor_jongdal);
+        setContentView(R.layout.fragment_map_harbor);
         context = getApplicationContext();
 
         scrollView = findViewById(R.id.scrollView);
@@ -67,28 +71,27 @@ public class MapFragmentJongdal extends AppCompatActivity {
         btnTime = findViewById(R.id.btnTime);
         btnPrice = findViewById(R.id.btnPrice);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        route_name1 = findViewById(R.id.route_name1);
+        route_name2 = findViewById(R.id.route_name2);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.map_toolbar_layout);
+        toolBarLayout.setTitle("");
+        toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
+        toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
-        btnRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scrollView.fullScroll(scrollView.FOCUS_UP);
-            }
-        });
-        btnPrice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scrollView.fullScroll(scrollView.FOCUS_DOWN);
-            }
-        });
+        Intent intent = getIntent();
+        id = intent.getExtras().getInt("id");
+        route_name1.setText(intent.getExtras().getString("name"));
+        route_name2.setText(intent.getExtras().getString("name"));
 
+        //Drawer Layout
         Button edit_profile = findViewById(R.id.edit_profile);
         edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapFragmentJongdal.this, UserEditProfile.class);
+                Intent intent = new Intent(MapFragmentHarbor.this, UserEditProfile.class);
                 intent.putExtra("userNickname", userNickname);
                 intent.putExtra("userImage", userImage);
                 startActivity(intent);
@@ -99,20 +102,38 @@ public class MapFragmentJongdal extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentJongdal.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentHarbor.this);
                 builder.setTitle("우도올레")
                         .setMessage("로그아웃 하시겠습니까?")
                         .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 new LogoutResponse();
-                                Toast.makeText(MapFragmentJongdal.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MapFragmentHarbor.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
 
                             }
                         })
                         .setNegativeButton("취소", null)
                         .create()
                         .show();
+            }
+        });
+
+        MapTimetableResponse();
+
+        MapShipfareResponse();
+
+        btnRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollView.fullScroll(scrollView.FOCUS_UP);
+            }
+        });
+
+        btnPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollView.fullScroll(scrollView.FOCUS_DOWN);
             }
         });
     }
@@ -164,16 +185,15 @@ public class MapFragmentJongdal extends AppCompatActivity {
 
                         userNickname = nickname;
                         userImage = profileImage;
-                        Log.d("udoLog", profileImage + "");
                         navigation_nickname.setText(nickname);
                         if(profileImage == null || profileImage == "null" || profileImage == "") {
                             navigation_profile_image.setImageResource(R.drawable.base_profile_image);
                         } else {
-                            Glide.with(MapFragmentJongdal.this).load(profileImage).into(navigation_profile_image);
+                            Glide.with(MapFragmentHarbor.this).load(profileImage).into(navigation_profile_image);
                         }
 
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentJongdal.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentHarbor.this);
                         builder.setTitle("알림")
                                 .setMessage("로그아웃을 할 수 없습니다.\n 다시 시도해주세요.")
                                 .setPositiveButton("확인", null)
@@ -186,7 +206,7 @@ public class MapFragmentJongdal extends AppCompatActivity {
             //통신 실패
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentJongdal.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentHarbor.this);
                 builder.setTitle("알림")
                         .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
                         .setPositiveButton("확인", null)
@@ -194,6 +214,25 @@ public class MapFragmentJongdal extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    public void MapTimetableResponse() {
+        /*
+        TODO: 항구 시간표 조회 통신 코드 작성 후 (
+            ... retrofitInterface.getMapFragmentTimetableResponse(id).enqueue(new Callback<FoodDetailMenuResponse>() ...
+         ),
+         통신 성공 시 destination textView에 넣기,
+         시간표 period, operatingTime 어댑터에 addItem, setAdapter
+         */
+    }
+
+    public void MapShipfareResponse() {
+        /*
+        TODO: 배 요금 조회 통신 코드 작성 후 (
+            ... retrofitInterface.getMapFragmentShipfareResponse(id).enqueue(new Callback<FoodDetailMenuResponse>() ...
+         ),
+         통신 성공 시 요금표 ageGroup, roundTrip, enterIsland, leaveIsland 어댑터에 addItem, setAdapter
+         */
     }
 
     //드로어 메뉴 메뉴 목록
@@ -207,7 +246,7 @@ public class MapFragmentJongdal extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        switch (item.getItemId()) {
+        switch (item.getItemId()){
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
