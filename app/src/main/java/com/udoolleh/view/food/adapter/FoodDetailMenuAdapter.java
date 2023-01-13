@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.udoolleh.R;
 import com.udoolleh.view.food.item.FoodDetailMenuListItem;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FoodDetailMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -78,7 +79,11 @@ public class FoodDetailMenuAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public void onBind(FoodDetailMenuListItem foodDetailListItem) {
             foodMenuName.setText(foodDetailListItem.getName());
             Glide.with(context).load(foodDetailListItem.getPhoto()).into(foodMenuPhoto);
-            foodMenuPrice.setText(foodDetailListItem.getPrice());
+
+            DecimalFormat myFormatter = new DecimalFormat("###,###");
+            String formattedStringPrice = myFormatter.format(Integer.parseInt(foodDetailListItem.getPrice()));
+            foodMenuPrice.setText(formattedStringPrice);
+
             foodMenuDescription.setText(foodDetailListItem.getDescription());
         }
     }

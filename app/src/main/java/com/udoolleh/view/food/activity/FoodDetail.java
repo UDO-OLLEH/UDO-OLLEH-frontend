@@ -86,7 +86,7 @@ public class FoodDetail extends AppCompatActivity implements OnMapReadyCallback 
         navigation_nickname = findViewById(R.id.navigation_nickname);
         UserResponse();
 
-        DrawerLayout drawer = findViewById(R.id.drawerLayout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
     }
 
