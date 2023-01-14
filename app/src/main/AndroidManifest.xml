@@ -17,8 +17,9 @@
         android:theme="@style/Theme.Udoolleh"
         android:usesCleartextTraffic="true">
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="${GOOGLE_API_KEY}"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${GOOGLE_API_KEY}" />
 
         <activity
             android:name=".view.splash.Splash"

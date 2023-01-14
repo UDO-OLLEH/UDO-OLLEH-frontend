@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "GOOGLE_API_KEY", properties['google_api_key']
-        manifestPlaceholders = [GOOGLE_API_KEY:"google_api_key"]
+        manifestPlaceholders = [GOOGLE_API_KEY: "google_api_key"]
     }
 
     buildTypes {
@@ -68,8 +68,8 @@ android {
         annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
         //Google Maps SDK
-        implementation 'com.google.android.gms:play-services-maps:18.0.2'
-        implementation 'com.google.android.gms:play-services-location:19.0.1'
+        implementation 'com.google.android.gms:play-services-maps:18.1.0'
+        implementation 'com.google.android.gms:play-services-location:21.0.1'
 
         implementation 'androidx.appcompat:appcompat:1.4.2'
         implementation 'com.google.android.material:material:1.6.1'
