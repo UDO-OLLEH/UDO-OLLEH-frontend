@@ -25,6 +25,7 @@
             <!-- exitUntilCollapsed : 스크롤시 모두 사라지지 않고 툴바를 출력할 정도의 한 줄만 남을 때까지 스크롤-->
             <!-- CollapsionToolbarLayout 또 다르 기능은 타이틀내용과 앱바 보여줄 위치까지 설정 가능-->
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/map_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="@color/udoGreen"
@@ -118,7 +119,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="우도 빨간버스 노선도"
-                            android:textColor="#383838"
                             android:textSize="20dp"
                             android:textStyle="bold" />
 
@@ -126,7 +126,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="평균배차간격:15분"
-                            android:textColor="#8B8787"
                             android:textSize="13dp" />
 
                     </LinearLayout>
@@ -155,7 +154,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="하우항(출발)"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -163,7 +161,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.3km 이동시간:4분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -200,7 +197,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="산호사해변"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -208,7 +204,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.9km 이동시간:7분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -245,7 +240,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="천진항"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -253,7 +247,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1km 이동시간:4분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -290,7 +283,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="돌칸이"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -298,7 +290,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.4km 이동시간:5분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -335,7 +326,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="우도봉입구"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -343,7 +333,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.4km 이동시간:5분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -380,7 +369,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="검몰레"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -388,7 +376,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.7km 이동시간:5분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -425,7 +412,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="우도땅콩마을"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -433,7 +419,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:2.6km 이동시간:9분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -470,7 +455,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="비양도입구"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -478,7 +462,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.4km 이동시간:5분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -515,7 +498,6 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="하고수동해수욕장"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -523,7 +505,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="이동거리:1.3km 이동시간:4분"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -560,14 +541,12 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
                                 android:text="하우항(도착)"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="#8B8787"
                                 android:textSize="13dp" />
 
                         </LinearLayout>
@@ -587,7 +566,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
                         android:text="계절별 막차시간"
-                        android:textColor="#383838"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -607,7 +585,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="1,2,11,12월"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -632,7 +609,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="3,10월"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -657,7 +633,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="4,9월"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 
@@ -682,7 +657,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="5,6,7,8월"
-                                android:textColor="#383838"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
 

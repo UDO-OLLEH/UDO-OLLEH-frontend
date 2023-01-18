@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity{
     private final int TourFragment = 4;
     private final int BoardFragment = 5;
     String userNickname, userImage;
+    MapFragment mapFragment = null;
+    FoodFragment foodFragment = null;
+    MainFragment mainFragment = null;
+    TourFragment tourFragment = null;
+    BoardFragment boardFragment = null;
 
     @Override
     protected void onResume() {
@@ -400,42 +405,76 @@ public class MainActivity extends AppCompatActivity{
 
     //Fragment View 클릭시 fragment 전환
     private void FragmentView(int fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         switch (fragment) {
             case 1:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.view.map.fragment.MapFragment mapFragment = new MapFragment();
-                transaction.replace(R.id.fragment_container, mapFragment);
-                transaction.commit();
+                if(mapFragment == null) {
+                    mapFragment = new MapFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mapFragment).commit();
+                }
+                if(mapFragment != null) getSupportFragmentManager().beginTransaction().show(mapFragment).commit();
+
+                if(foodFragment != null) getSupportFragmentManager().beginTransaction().hide(foodFragment).commit();
+                if(mainFragment != null) getSupportFragmentManager().beginTransaction().hide(mainFragment).commit();
+                if(tourFragment != null) getSupportFragmentManager().beginTransaction().hide(tourFragment).commit();
+                if(boardFragment != null) getSupportFragmentManager().beginTransaction().hide(boardFragment).commit();
                 break;
 
             case 2:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.view.food.fragment.FoodFragment foodFragment = new FoodFragment();
-                transaction.replace(R.id.fragment_container, foodFragment);
-                transaction.commit();
+                if(foodFragment == null) {
+                    foodFragment = new FoodFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, foodFragment).commit();
+                }
+                if(foodFragment != null) getSupportFragmentManager().beginTransaction().show(foodFragment).commit();
+
+                if(mapFragment != null) getSupportFragmentManager().beginTransaction().hide(mapFragment).commit();
+                if(mainFragment != null) getSupportFragmentManager().beginTransaction().hide(mainFragment).commit();
+                if(tourFragment != null) getSupportFragmentManager().beginTransaction().hide(tourFragment).commit();
+                if(boardFragment != null) getSupportFragmentManager().beginTransaction().hide(boardFragment).commit();
                 break;
 
             case 3:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.view.main.fragment.MainFragment mainFragment = new MainFragment();
-                transaction.replace(R.id.fragment_container, mainFragment);
-                transaction.commit();
+                if(mainFragment == null) {
+                    mainFragment = new MainFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mainFragment).commit();
+                }
+                if(mainFragment != null) getSupportFragmentManager().beginTransaction().show(mainFragment).commit();
+
+                if(mapFragment != null) getSupportFragmentManager().beginTransaction().hide(mapFragment).commit();
+                if(foodFragment != null) getSupportFragmentManager().beginTransaction().hide(foodFragment).commit();
+                if(tourFragment != null) getSupportFragmentManager().beginTransaction().hide(tourFragment).commit();
+                if(boardFragment != null) getSupportFragmentManager().beginTransaction().hide(boardFragment).commit();
                 break;
 
             case 4:
                 addBoardBtn.setVisibility(View.GONE);
-                com.udoolleh.view.tour.fragment.TourFragment tourFragment = new TourFragment();
-                transaction.replace(R.id.fragment_container, tourFragment);
-                transaction.commit();
+                if(tourFragment == null) {
+                    tourFragment = new TourFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, tourFragment).commit();
+                }
+                if(tourFragment != null) getSupportFragmentManager().beginTransaction().show(tourFragment).commit();
+
+                if(mapFragment != null) getSupportFragmentManager().beginTransaction().hide(mapFragment).commit();
+                if(foodFragment != null) getSupportFragmentManager().beginTransaction().hide(foodFragment).commit();
+                if(mainFragment != null) getSupportFragmentManager().beginTransaction().hide(mainFragment).commit();
+                if(boardFragment != null) getSupportFragmentManager().beginTransaction().hide(boardFragment).commit();
                 break;
 
             case 5:
                 addBoardBtn.setVisibility(View.VISIBLE);
-                com.udoolleh.view.board.fragment.BoardFragment boardFragment = new BoardFragment();
-                transaction.replace(R.id.fragment_container, boardFragment);
-                transaction.commit();
+                if(boardFragment == null) {
+                    boardFragment = new BoardFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, boardFragment).commit();
+                }
+                if(boardFragment != null) getSupportFragmentManager().beginTransaction().show(boardFragment).commit();
+
+                if(mapFragment != null) getSupportFragmentManager().beginTransaction().hide(mapFragment).commit();
+                if(foodFragment != null) getSupportFragmentManager().beginTransaction().hide(foodFragment).commit();
+                if(mainFragment != null) getSupportFragmentManager().beginTransaction().hide(mainFragment).commit();
+                if(tourFragment != null) getSupportFragmentManager().beginTransaction().hide(tourFragment).commit();
                 break;
         }
     }
