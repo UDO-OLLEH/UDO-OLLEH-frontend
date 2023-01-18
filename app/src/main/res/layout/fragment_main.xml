@@ -62,6 +62,16 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/weatherTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/white"
+            android:textSize="10dp"/>
+
     </FrameLayout>
 
     <!--추천 관광지 레이아웃-->

@@ -344,6 +344,6 @@ public class BoardFragment extends Fragment {
             public void run() {
                 BoardLoadMoreResponse(sort);
             }
-        },1000);
+        },500);
     }
 }

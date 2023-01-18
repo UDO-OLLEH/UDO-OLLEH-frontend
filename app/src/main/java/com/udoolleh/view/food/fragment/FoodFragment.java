@@ -332,6 +332,6 @@ public class FoodFragment extends Fragment {
             public void run() {
                 FoodLoadMoreResponse();
             }
-        }, 1000);
+        }, 500);
     }
 }

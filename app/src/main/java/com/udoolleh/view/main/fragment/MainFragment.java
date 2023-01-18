@@ -37,6 +37,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -53,7 +54,7 @@ public class MainFragment extends Fragment {
     Context context;
     RecyclerView tourPlaceRecyclerView;
     TourFragmentPlaceAdapter tourFragmentPlaceAdapter;
-    TextView weather, weatherSub, noneTourPlaceText;
+    TextView weather, weatherSub, weatherTime, noneTourPlaceText;
     Button recycle;
     ImageView weather_layout;
     private ViewPager2 ad_viewpager_slider;
@@ -72,6 +73,7 @@ public class MainFragment extends Fragment {
 
         weather = view.findViewById(R.id.weather);
         weatherSub = view.findViewById(R.id.weatherSub);
+        weatherTime = view.findViewById(R.id.weatherTime);
         weather_layout = view.findViewById(R.id.weather_layout);
 
         //PlaceRecyclerView
@@ -98,6 +100,7 @@ public class MainFragment extends Fragment {
 
         WeatherBackgroundTask(weatherLink);
         WeatherSubBackgroundTask(weatherLink);
+        WeatherTimeBackgroundTask(weatherLink);
 
         //한국표준시 기준 07~17시 Day , 05~07시 Sunset, 17~19시 Sunset, 19~05시 Night 기준
         TimeZone tz;
@@ -121,6 +124,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 WeatherBackgroundTask(weatherLink);
                 WeatherSubBackgroundTask(weatherLink);
+                WeatherTimeBackgroundTask(weatherLink);
 
                 TimeZone tz;
                 Date date = new Date();
@@ -306,7 +310,12 @@ public class MainFragment extends Fragment {
                 for (Element element : elements) {
                     weather_result = weather_result + element.text();
                 }
-                result = weather_result.substring(5, 9) + text;
+                //result = weather_result.substring(5, 9) + text;
+                StringTokenizer st1 = new StringTokenizer(weather_result, "도");
+                st1.nextToken();
+                String temp = st1.nextToken();
+                StringTokenizer st2 = new StringTokenizer(temp, "°");
+                result = st2.nextToken() + text;
                 return result;
 
             } catch (IOException e) {
@@ -330,7 +339,7 @@ public class MainFragment extends Fragment {
             String weatherSub_result = "";
 
             try {
-                Document document = Jsoup.connect(weatherLink).get();
+                Document document = Jsoup.connect(URLs).get();
                 Elements elements = document.select("span[class=weather]");
                 for (Element element : elements) {
                     weatherSub_result = weatherSub_result + element.text();
@@ -348,4 +357,31 @@ public class MainFragment extends Fragment {
         }, throwable -> System.out.println("Error"));
     }
 
+    //우도 시간 크롤링
+    Disposable weatherTimeBackgroundTask;
+    void WeatherTimeBackgroundTask(String URLs) {
+        //onPreExecute
+
+        weatherSubBackgroundTask = Observable.fromCallable(() -> {
+            //doInBackground
+            String weatherTime_result = "";
+
+            try {
+                Document document = Jsoup.connect(URLs).get();
+                Elements elements = document.select("span[class=offer_update]");
+                for (Element element : elements) {
+                    weatherTime_result = weatherTime_result + element.text();
+                }
+                return weatherTime_result;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((weatherTime_result) -> {
+            //onPostExecute
+            weatherTime.setText(weatherTime_result);
+            weatherTimeBackgroundTask.dispose();
+        }, throwable -> System.out.println("Error"));
+    }
 }
