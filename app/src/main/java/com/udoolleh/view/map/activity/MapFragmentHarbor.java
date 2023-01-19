@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amar.library.ui.StickyScrollView;
@@ -88,6 +90,8 @@ public class MapFragmentHarbor extends AppCompatActivity {
         timetable_recyclerview = findViewById(R.id.timetable_recyclerview);
         shipfare_recyclerview = findViewById(R.id.shipfare_recyclerview);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        timetable_recyclerview.setLayoutManager(linearLayoutManager);
         mapTimetableAdapter = new MapTimetableAdapter();
 
         setSupportActionBar(toolbar);
@@ -297,7 +301,8 @@ public class MapFragmentHarbor extends AppCompatActivity {
                                     "operatingTime" + timetableDtos.getOperatingTime()
                             );
 
-                            mapListItemArrayList.add(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
+                            //mapListItemArrayList.add(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
+                            mapTimetableAdapter.addItem(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
                         }
                         timetable_recyclerview.setAdapter(mapTimetableAdapter);
                     }
