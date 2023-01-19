@@ -92,7 +92,7 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/floating_add"
         android:layout_margin="16dp"
-        android:backgroundTint="#62EE4C"
+        android:backgroundTint="@color/udoGreen"
         android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

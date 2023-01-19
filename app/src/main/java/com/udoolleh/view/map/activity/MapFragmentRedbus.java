@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.amar.library.ui.StickyScrollView;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
@@ -70,6 +73,10 @@ public class MapFragmentRedbus extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.map_toolbar_layout);
+        toolBarLayout.setTitle("");
+        toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
+        toolBarLayout.setExpandedTitleColor(Color.alpha(0));
 
         btnRoute.setOnClickListener(new View.OnClickListener() {
             @Override

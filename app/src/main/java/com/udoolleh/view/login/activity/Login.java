@@ -62,6 +62,10 @@ public class Login extends AppCompatActivity {
             setPreference("UserIdValue", userID);
             setPreference("UserPwValue", userPassword);
             LoginResponse(userID, userPassword);
+            Toast.makeText(Login.this, userID + "님 환영합니다.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            Login.this.finish();
             //checkAutoLogin(getPreferenceString("autoLoginId"));
         }
 
@@ -92,6 +96,10 @@ public class Login extends AppCompatActivity {
                     setPreference("UserIdValue", userID);
                     setPreference("UserPwValue", userPassword);
                     LoginResponse(userID, userPassword);
+                    Toast.makeText(Login.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                    Login.this.finish();
                 }
             }
         });
@@ -160,10 +168,7 @@ public class Login extends AppCompatActivity {
                             setPreference("autoLoginPw", "");
                         }
 
-                        Toast.makeText(Login.this, id + "님 환영합니다.", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Login.this, MainActivity.class);
-                        startActivity(intent);
-                        Login.this.finish();
+
 
                     } else if (resultCode == errorId) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);

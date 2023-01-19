@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item xmlns:android="http://schemas.android.com/apk/res/android">
+    <layer-list>
+        <item>
+            <shape android:shape="oval">
+                <gradient
+                    android:angle="90"
+                    android:endColor="#82BBFF"
+                    android:startColor="#62EE4C"
+                    android:type="linear" />
+            </shape>
+        </item>
+        <item android:drawable="@drawable/floating_add" android:gravity="center" />
+    </layer-list>
+</item>
