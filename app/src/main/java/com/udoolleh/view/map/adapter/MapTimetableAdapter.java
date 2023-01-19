@@ -36,6 +36,7 @@ public class MapTimetableAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return items.size();
     }
 
+    //notify
     public void addItem(MapTimetableItem item){
         items.add(item);
         notifyItemInserted(items.size());
