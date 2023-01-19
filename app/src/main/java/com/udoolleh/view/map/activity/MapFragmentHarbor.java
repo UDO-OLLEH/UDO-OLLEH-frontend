@@ -312,7 +312,7 @@ public class MapFragmentHarbor extends AppCompatActivity {
                         .setPositiveButton("확인", null)
                         .create()
                         .show();
-                //항구 시간표 조회 로그..
+                //항구 시간표 조회 로그
                 //t.printStackTrace();
             }
         });
