@@ -53,7 +53,6 @@ public class MapFragmentTimetableResponse {
 
     public class timetableList {
 
-
         @SerializedName("destination")
         private String destination;
 
