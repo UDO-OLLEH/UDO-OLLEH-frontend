@@ -22,12 +22,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.amar.library.ui.StickyScrollView;
 import com.bumptech.glide.Glide;
-import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
-import com.udoolleh.view.user.activity.UserEditProfile;
+import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.view.drawer.DTO.UserResponse;
+import com.udoolleh.view.user.activity.UserEditProfile;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -167,7 +167,7 @@ public class MapFragmentRedbus extends AppCompatActivity {
                         userImage = profileImage;
                         Log.d("udoLog", profileImage + "");
                         navigation_nickname.setText(nickname);
-                        if(profileImage == null || profileImage == "null" || profileImage == "") {
+                        if (profileImage == null || profileImage == "null" || profileImage == "") {
                             navigation_profile_image.setImageResource(R.drawable.base_profile_image);
                         } else {
                             Glide.with(MapFragmentRedbus.this).load(profileImage).into(navigation_profile_image);
