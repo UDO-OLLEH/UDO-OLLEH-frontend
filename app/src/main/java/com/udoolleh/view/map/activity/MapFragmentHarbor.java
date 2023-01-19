@@ -1,11 +1,5 @@
 package com.udoolleh.view.map.activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,15 +15,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.amar.library.ui.StickyScrollView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.R;
 import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
-import com.udoolleh.view.user.activity.UserEditProfile;
+import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.view.drawer.DTO.UserResponse;
+import com.udoolleh.view.map.DTO.MapFragmentTimetableResponse;
+import com.udoolleh.view.map.adapter.MapTimetableAdapter;
+import com.udoolleh.view.map.item.MapTimetableItem;
+import com.udoolleh.view.user.activity.UserEditProfile;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +50,10 @@ public class MapFragmentHarbor extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     ImageView navigation_profile_image;
     String userNickname, userImage;
-    TextView navigation_nickname, route_name1, route_name2;
+    TextView navigation_nickname, route_name1, route_name2, route_destination, period, operatingTime;
+    MapTimetableAdapter mapTimetableAdapter;
+    RecyclerView timetable_recyclerview, shipfare_recyclerview;
+    ArrayList<MapTimetableItem> mapListItemArrayList = new ArrayList<>();
     int id;
 
     @Override
@@ -73,10 +82,17 @@ public class MapFragmentHarbor extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         route_name1 = findViewById(R.id.route_name1);
         route_name2 = findViewById(R.id.route_name2);
+        route_destination = findViewById(R.id.route_destination);
+        period = findViewById(R.id.period);
+        operatingTime = findViewById(R.id.operatingTime);
+        timetable_recyclerview = findViewById(R.id.timetable_recyclerview);
+        shipfare_recyclerview = findViewById(R.id.shipfare_recyclerview);
+
+        mapTimetableAdapter = new MapTimetableAdapter();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout)findViewById(R.id.map_toolbar_layout);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.map_toolbar_layout);
         toolBarLayout.setTitle("");
         toolBarLayout.setCollapsedTitleTextColor(Color.alpha(0));
         toolBarLayout.setExpandedTitleColor(Color.alpha(0));
@@ -186,7 +202,7 @@ public class MapFragmentHarbor extends AppCompatActivity {
                         userNickname = nickname;
                         userImage = profileImage;
                         navigation_nickname.setText(nickname);
-                        if(profileImage == null || profileImage == "null" || profileImage == "") {
+                        if (profileImage == null || profileImage == "null" || profileImage == "") {
                             navigation_profile_image.setImageResource(R.drawable.base_profile_image);
                         } else {
                             Glide.with(MapFragmentHarbor.this).load(profileImage).into(navigation_profile_image);
@@ -216,6 +232,7 @@ public class MapFragmentHarbor extends AppCompatActivity {
         });
     }
 
+
     public void MapTimetableResponse() {
         /*
         TODO: 항구 시간표 조회 통신 코드 작성 후 (
@@ -224,6 +241,82 @@ public class MapFragmentHarbor extends AppCompatActivity {
          통신 성공 시 destination textView에 넣기,
          시간표 period, operatingTime 어댑터에 addItem, setAdapter
          */
+
+        SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken", "");
+
+        //Retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        retrofitInterface.getMapFragmentTimetableResponse(id).enqueue(new Callback<MapFragmentTimetableResponse>() {
+            @Override
+            public void onResponse(Call<MapFragmentTimetableResponse> call, Response<MapFragmentTimetableResponse> response) {
+
+                Log.d("udoLog", "항구 시간표 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "항구 시간표 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "항구 시간표 조회 상태코드 = " + response.code());
+
+                if (response.isSuccessful() && response.body() != null) {
+
+                    MapFragmentTimetableResponse result = response.body();
+
+                    int resultCode = response.code();
+
+                    int success = 200;
+
+                    if (resultCode == success) {
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        //List<MapFragmentTimetableResponse.timetableList> timetableList = result.getList();
+                        //
+                        MapFragmentTimetableResponse.timetableList timetableList = result.getList();
+
+                        //항구 시간표 조회 로그
+                        Log.d("udoLog", "항구 시간표 조회 성공 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n" +
+                                "content" + timetableList + "\n"
+
+                        );
+
+                        Log.d("udoLog", "항구 시간표 조회 리스트 = \n" +
+                                "destination" + timetableList.getDestination() + "\n" +
+                                "timetableDtos: " + timetableList.getTimetableDtos() + "\n"
+                        );
+
+                        String destination = timetableList.getDestination();
+                        route_destination.setText(destination);
+
+                        for (MapFragmentTimetableResponse.timetableList.timetableDtos timetableDtos : timetableList.getTimetableDtos()) {
+                            Log.d("udoLog", "항구 시간표 조회 리스트 = \n" +
+                                    "id" + timetableDtos.getId() + "\n" +
+                                    "period: " + timetableDtos.getPeriod() + "\n" +
+                                    "operatingTime" + timetableDtos.getOperatingTime()
+                            );
+
+                            mapListItemArrayList.add(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
+                        }
+                        timetable_recyclerview.setAdapter(mapTimetableAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MapFragmentTimetableResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentHarbor.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+                //항구 시간표 조회 로그
+                //t.printStackTrace();
+            }
+        });
+
     }
 
     public void MapShipfareResponse() {
@@ -246,7 +339,7 @@ public class MapFragmentHarbor extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home: //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
