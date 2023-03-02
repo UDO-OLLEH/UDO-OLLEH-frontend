@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/ageGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/roundTrip"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/enterIsland"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/leaveIsland"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"

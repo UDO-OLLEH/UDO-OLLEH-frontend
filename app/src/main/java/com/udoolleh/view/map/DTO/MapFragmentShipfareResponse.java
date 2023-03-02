@@ -3,6 +3,7 @@ package com.udoolleh.view.map.DTO;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapFragmentShipfareResponse {
@@ -17,7 +18,7 @@ public class MapFragmentShipfareResponse {
     private String message;
 
     @SerializedName("list")
-    private List<shipfareList> list;
+    private shipfareList list;
 
     public String getId() {
         return id;
@@ -43,21 +44,20 @@ public class MapFragmentShipfareResponse {
         this.message = message;
     }
 
-    public List<shipfareList> getList() {
+    public shipfareList getList() {
         return list;
     }
 
-    public void setList(List<shipfareList> list) {
+    public void setList(shipfareList list) {
         this.list = list;
     }
 
     public class shipfareList {
         @SerializedName("harborName")
-        @Expose
         private String harborName;
+
         @SerializedName("shipFareDtos")
-        @Expose
-        private java.util.List<shipfareDto> shipFareDtos = null;
+        private java.util.List<shipfareDto> shipFareDtos = new ArrayList<>();
 
         public String getHarborName() {
             return harborName;
@@ -74,64 +74,63 @@ public class MapFragmentShipfareResponse {
         public void setShipFareDtos(java.util.List<shipfareDto> shipFareDtos) {
             this.shipFareDtos = shipFareDtos;
         }
-    }
 
-    public class shipfareDto {
+        public class shipfareDto {
 
-        @SerializedName("id")
-        @Expose
-        private Integer id;
-        @SerializedName("ageGroup")
-        @Expose
-        private String ageGroup;
-        @SerializedName("roundTrip")
-        @Expose
-        private Integer roundTrip;
-        @SerializedName("enterIsland")
-        @Expose
-        private Integer enterIsland;
-        @SerializedName("leaveIsland")
-        @Expose
-        private Integer leaveIsland;
+            @SerializedName("id")
+            private Integer id;
 
-        public Integer getId() {
-            return id;
-        }
+            @SerializedName("ageGroup")
+            private String ageGroup;
 
-        public void setId(Integer id) {
-            this.id = id;
-        }
+            @SerializedName("roundTrip")
+            private Integer roundTrip;
 
-        public String getAgeGroup() {
-            return ageGroup;
-        }
+            @SerializedName("enterIsland")
+            private Integer enterIsland;
 
-        public void setAgeGroup(String ageGroup) {
-            this.ageGroup = ageGroup;
-        }
+            @SerializedName("leaveIsland")
+            private Integer leaveIsland;
 
-        public Integer getRoundTrip() {
-            return roundTrip;
-        }
+            public Integer getId() {
+                return id;
+            }
 
-        public void setRoundTrip(Integer roundTrip) {
-            this.roundTrip = roundTrip;
-        }
+            public void setId(Integer id) {
+                this.id = id;
+            }
 
-        public Integer getEnterIsland() {
-            return enterIsland;
-        }
+            public String getAgeGroup() {
+                return ageGroup;
+            }
 
-        public void setEnterIsland(Integer enterIsland) {
-            this.enterIsland = enterIsland;
-        }
+            public void setAgeGroup(String ageGroup) {
+                this.ageGroup = ageGroup;
+            }
 
-        public Integer getLeaveIsland() {
-            return leaveIsland;
-        }
+            public Integer getRoundTrip() {
+                return roundTrip;
+            }
 
-        public void setLeaveIsland(Integer leaveIsland) {
-            this.leaveIsland = leaveIsland;
+            public void setRoundTrip(Integer roundTrip) {
+                this.roundTrip = roundTrip;
+            }
+
+            public Integer getEnterIsland() {
+                return enterIsland;
+            }
+
+            public void setEnterIsland(Integer enterIsland) {
+                this.enterIsland = enterIsland;
+            }
+
+            public Integer getLeaveIsland() {
+                return leaveIsland;
+            }
+
+            public void setLeaveIsland(Integer leaveIsland) {
+                this.leaveIsland = leaveIsland;
+            }
         }
     }
 }
