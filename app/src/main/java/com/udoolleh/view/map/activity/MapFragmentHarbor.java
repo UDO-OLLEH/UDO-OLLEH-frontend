@@ -32,8 +32,11 @@ import com.udoolleh.retrofit.RetrofitClient;
 import com.udoolleh.retrofit.RetrofitInterface;
 import com.udoolleh.view.drawer.DTO.LogoutResponse;
 import com.udoolleh.view.drawer.DTO.UserResponse;
+import com.udoolleh.view.map.DTO.MapFragmentShipfareResponse;
 import com.udoolleh.view.map.DTO.MapFragmentTimetableResponse;
+import com.udoolleh.view.map.adapter.MapShipfareAdapter;
 import com.udoolleh.view.map.adapter.MapTimetableAdapter;
+import com.udoolleh.view.map.item.MapShipfareItem;
 import com.udoolleh.view.map.item.MapTimetableItem;
 import com.udoolleh.view.user.activity.UserEditProfile;
 
@@ -52,10 +55,10 @@ public class MapFragmentHarbor extends AppCompatActivity {
     private RetrofitClient retrofitClient;
     ImageView navigation_profile_image;
     String userNickname, userImage;
-    TextView navigation_nickname, route_name1, route_name2, route_destination, period, operatingTime;
+    TextView navigation_nickname, route_name1, route_name2, route_destination, period, operatingTime, ageGroup, roundTrip, enterIsland, leaveIsland;
     MapTimetableAdapter mapTimetableAdapter;
+    MapShipfareAdapter mapShipfareAdapter;
     RecyclerView timetable_recyclerview, shipfare_recyclerview;
-    ArrayList<MapTimetableItem> mapListItemArrayList = new ArrayList<>();
     int id;
 
     @Override
@@ -87,12 +90,20 @@ public class MapFragmentHarbor extends AppCompatActivity {
         route_destination = findViewById(R.id.route_destination);
         period = findViewById(R.id.period);
         operatingTime = findViewById(R.id.operatingTime);
+        ageGroup = findViewById(R.id.ageGroup);
+        roundTrip = findViewById(R.id.roundTrip);
+        enterIsland = findViewById(R.id.enterIsland);
+        leaveIsland = findViewById(R.id.leaveIsland);
         timetable_recyclerview = findViewById(R.id.timetable_recyclerview);
         shipfare_recyclerview = findViewById(R.id.shipfare_recyclerview);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        timetable_recyclerview.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager timetablelinearLayoutManager = new LinearLayoutManager(context);
+        timetable_recyclerview.setLayoutManager(timetablelinearLayoutManager);
         mapTimetableAdapter = new MapTimetableAdapter();
+
+        LinearLayoutManager shipfarelinearLayoutManager = new LinearLayoutManager(context);
+        shipfare_recyclerview.setLayoutManager(shipfarelinearLayoutManager);
+        mapShipfareAdapter = new MapShipfareAdapter();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -238,13 +249,6 @@ public class MapFragmentHarbor extends AppCompatActivity {
 
 
     public void MapTimetableResponse() {
-        /*
-        TODO: 항구 시간표 조회 통신 코드 작성 후 (
-            ... retrofitInterface.getMapFragmentTimetableResponse(id).enqueue(new Callback<FoodDetailMenuResponse>() ...
-         ),
-         통신 성공 시 destination textView에 넣기,
-         시간표 period, operatingTime 어댑터에 addItem, setAdapter
-         */
 
         SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
         String accToken = sp.getString("accToken", "");
@@ -286,7 +290,7 @@ public class MapFragmentHarbor extends AppCompatActivity {
 
                         );
 
-                        Log.d("udoLog", "항구 시간표 조회 리스트 = \n" +
+                        Log.d("udoLog", "배 요금 시간표 조회 리스트 = \n" +
                                 "destination" + timetableList.getDestination() + "\n" +
                                 "timetableDtos: " + timetableList.getTimetableDtos() + "\n"
                         );
@@ -295,13 +299,12 @@ public class MapFragmentHarbor extends AppCompatActivity {
                         route_destination.setText(destination);
 
                         for (MapFragmentTimetableResponse.timetableList.timetableDtos timetableDtos : timetableList.getTimetableDtos()) {
-                            Log.d("udoLog", "항구 시간표 조회 리스트 = \n" +
+                            Log.d("udoLog", "배 요금 조회 리스트 = \n" +
                                     "id" + timetableDtos.getId() + "\n" +
                                     "period: " + timetableDtos.getPeriod() + "\n" +
                                     "operatingTime" + timetableDtos.getOperatingTime()
                             );
 
-                            //mapListItemArrayList.add(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
                             mapTimetableAdapter.addItem(new MapTimetableItem(timetableDtos.getPeriod(), timetableDtos.getOperatingTime()));
                         }
                         timetable_recyclerview.setAdapter(mapTimetableAdapter);
@@ -331,6 +334,72 @@ public class MapFragmentHarbor extends AppCompatActivity {
          ),
          통신 성공 시 요금표 ageGroup, roundTrip, enterIsland, leaveIsland 어댑터에 addItem, setAdapter
          */
+        SharedPreferences sp = context.getSharedPreferences("DATA_STORE", MODE_PRIVATE);
+        String accToken = sp.getString("accToken","");
+
+        //retrofit 생성
+        retrofitClient = RetrofitClient.getInstance(accToken);
+        retrofitInterface = RetrofitClient.getRetrofitInterface();
+
+        retrofitInterface.getMapFragmentShipfareResponse(id).enqueue(new Callback<MapFragmentShipfareResponse>() {
+            @Override
+            public void onResponse(Call<MapFragmentShipfareResponse> call, Response<MapFragmentShipfareResponse> response) {
+                Log.d("udoLog", "항구 시간표 조회 body 내용 = " + response.body());
+                Log.d("udoLog", "항구 시간표 조회 성공여부 = " + response.isSuccessful());
+                Log.d("udoLog", "항구 시간표 조회 상태코드 = " + response.code());
+
+                if(response.isSuccessful()&&response.body()!=null){
+                    MapFragmentShipfareResponse result = response.body();
+                    int resultCode = response.code();
+                    int success = 200;
+
+                    if (resultCode == success){
+                        String id = result.getId();
+                        String dateTime = result.getDateTime();
+                        String message = result.getMessage();
+                        MapFragmentShipfareResponse.shipfareList shipfareList = result.getList();
+
+                        //배요금 시간표 조회 로그
+                        Log.d("udoLog", "배 요금 조회 성공 = \n" +
+                                "Id: " + id + "\n" +
+                                "dateTime: " + dateTime + "\n" +
+                                "message: " + message + "\n" +
+                                "content: " + shipfareList + "\n"
+                        );
+                        Log.d("udoLog", "배 요금 조회 리스트 = \n" +
+                                "harborName: " + shipfareList.getHarborName() + "\n" +
+                                "shipfareDtos: " + shipfareList.getShipFareDtos() + "\n"
+                        );
+
+                        String harborName = shipfareList.getHarborName();
+
+                        for(MapFragmentShipfareResponse.shipfareList.shipfareDto shipfareDtos : shipfareList.getShipFareDtos()){
+                            Log.d("udoLog", "배 요금 조회 리스트 = \n" +
+                                    "id" + shipfareDtos.getId() + "\n" +
+                                    "ageGroup: " + shipfareDtos.getAgeGroup() + "\n" +
+                                    "roundTrip" + shipfareDtos.getRoundTrip() + "\n" +
+                                    "enterIsland" + shipfareDtos.getEnterIsland() + "\n" +
+                                    "leaveIsland" + shipfareDtos.getLeaveIsland()
+                            );
+
+                            mapShipfareAdapter.addItem(new MapShipfareItem(shipfareDtos.getAgeGroup(), shipfareDtos.getRoundTrip(), shipfareDtos.getEnterIsland(), shipfareDtos.getLeaveIsland()));
+                        }
+                        shipfare_recyclerview.setAdapter(mapShipfareAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MapFragmentShipfareResponse> call, Throwable t) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapFragmentHarbor.this);
+                builder.setTitle("알림")
+                        .setMessage("예기치 못한 오류가 발생하였습니다.\n 고객센터에 문의바랍니다.")
+                        .setPositiveButton("확인", null)
+                        .create()
+                        .show();
+
+            }
+        });
     }
 
     //드로어 메뉴 메뉴 목록
