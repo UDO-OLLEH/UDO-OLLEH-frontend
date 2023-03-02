@@ -72,4 +72,7 @@ public class LoginResponse {
     public TokenList getList() {
         return list;
     }
+    public void setList(TokenList list) {
+        this.list = list;
+    }
 }
